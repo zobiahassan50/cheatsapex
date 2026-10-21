@@ -19,7 +19,7 @@ const sourceTimestamp = (path?: string) => {
 ---
 
 <BaseLayout title={seo.title} description={seo.description} jsonLd={[
-  collectionPageSchema({ name: 'Fortnite Cheats Community Forum', description: seo.description, url: '/forum/' }),
+  collectionPageSchema({ name: 'Apex Cheats Community Forum', description: seo.description, url: '/forum/' }),
   breadcrumbSchema(breadcrumbs),
 ]}>
   <section class="forum-page py-8 md:py-12">
@@ -27,8 +27,8 @@ const sourceTimestamp = (path?: string) => {
       <Breadcrumbs items={breadcrumbs} />
       <header class="forum-hero">
         <div>
-          <p class="section-header__eyebrow">Fortnite community forum</p>
-          <h1>Fortnite Cheats Forum</h1>
+          <p class="section-header__eyebrow">Apex community forum</p>
+          <h1>Apex Cheats Forum — Aimbot, ESP & Setup Help</h1>
           <p class="forum-hero__copy">Practical answers on console setup, map awareness, patch updates, and player builds.</p>
         </div>
         <a class="forum-create" href="/blog/"><Icon name="messageCircle" size={17} /> Explore the guides</a>
@@ -42,11 +42,64 @@ const sourceTimestamp = (path?: string) => {
               <button type="button" data-forum-sort="latest" aria-pressed="false">Latest</button>
               <button type="button" data-forum-sort="top" aria-pressed="false">Most discussed</button>
             </div>
-            <label class="forum-search">
-              <Icon name="search" size={16} />
-              <input type="search" placeholder="Search discussions" aria-label="Search discussions" data-forum-search />
+            <div class="forum-search" data-forum-search-bar>
+              <div class="forum-search__scope" data-forum-scope>
+                <button
+                  type="button"
+                  class="forum-search__scope-btn"
+                  data-forum-scope-trigger
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-controls="forum-scope-menu"
+                  aria-label="Filter search by topic"
+                >
+                  <span data-forum-scope-label>All topics</span>
+                  <Icon name="chevronDown" size={14} class="forum-search__scope-chevron" />
+                </button>
+                <ul
+                  id="forum-scope-menu"
+                  class="forum-search__menu"
+                  role="listbox"
+                  aria-label="Topics"
+                  data-forum-scope-menu
+                  hidden
+                >
+                  <li role="option" aria-selected="true" tabindex="-1" data-forum-scope-option data-value="all">All topics</li>
+                  {forumCategories.map((category) => (
+                    <li
+                      role="option"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-forum-scope-option
+                      data-value={categoryKey(category.name)}
+                    >
+                      {category.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <span class="forum-search__divider" aria-hidden="true"></span>
+              <Icon name="search" size={16} class="forum-search__icon" />
+              <input
+                type="search"
+                placeholder="Search discussions"
+                aria-label="Search discussions"
+                aria-autocomplete="list"
+                aria-controls="forum-search-suggestions"
+                aria-expanded="false"
+                autocomplete="off"
+                data-forum-search
+              />
               <span class="sr-only" data-forum-count>{forumPosts.length} discussions</span>
-            </label>
+              <div
+                id="forum-search-suggestions"
+                class="forum-search__suggestions"
+                role="listbox"
+                aria-label="Matching discussions"
+                data-forum-suggestions
+                hidden
+              ></div>
+            </div>
           </div>
 
           <div class="forum-category-filters" role="group" aria-label="Filter discussions by topic">
@@ -69,7 +122,7 @@ const sourceTimestamp = (path?: string) => {
                   <div class="forum-post-meta">
                     <span class={`forum-community-avatar tone-${post.categoryTone}`}><Icon name="users" size={15} /></span>
                     <a href="#communities" class="forum-community-name">d/{post.category.toLowerCase().replaceAll(' ', '')}</a>
-                    <span>·</span><span><Icon name="userRound" size={13} /> Fortnite Cheats guide team</span><span>Guide-based Q&amp;A</span>
+                    <span>·</span><span><Icon name="userRound" size={13} /> Apex Cheats guide team</span><span>Guide-based Q&amp;A</span>
                   </div>
                   <a class="forum-post-title" href={`/forum/${post.slug}/`}>{post.title}</a>
                   <p class="forum-post-excerpt">{post.excerpt}</p>
@@ -96,8 +149,8 @@ const sourceTimestamp = (path?: string) => {
           <section class="forum-side-card forum-about" id="community-guidelines">
             <div class="forum-side-card__banner"></div>
             <div class="forum-about__content">
-              <div class="forum-about__title"><span class="forum-community-avatar forum-community-avatar--brand"><img src="/logo.svg" alt="" width="34" height="34" /></span><h2>Fortnite Cheats Community</h2></div>
-              <p>A home for Fortnite players to trade ideas, learn together, and celebrate the game.</p>
+              <div class="forum-about__title"><span class="forum-community-avatar forum-community-avatar--brand"><img src="/logo.svg" alt="" width="34" height="34" /></span><h2>Apex Cheats Community</h2></div>
+              <p>A home for Apex players to trade ideas, learn together, and celebrate the game.</p>
               <div class="forum-stats"><span><b>{forumPosts.length}</b> guide discussions</span><span><b>{forumCategories.length}</b> topics</span></div>
               <a class="forum-join" href="/blog/">Explore all guides</a>
             </div>
@@ -116,28 +169,140 @@ const sourceTimestamp = (path?: string) => {
             <ol><li>Keep it friendly and constructive</li><li>Stay on topic and add context</li><li>Mark spoilers and sensitive content</li></ol>
             <a href="#community-guidelines">Read the full guidelines <Icon name="arrowRight" size={14} /></a>
           </section>
-          <p class="forum-sidebar-foot">About · Guidelines · Privacy · Terms<br />© {new Date().getFullYear()} Fortnite Cheats Community</p>
+          <p class="forum-sidebar-foot">About · Guidelines · Privacy · Terms<br />© {new Date().getFullYear()} Apex Cheats Community</p>
         </aside>
       </div>
     </div>
   </section>
-  <script>
-    const cards = [...document.querySelectorAll<HTMLElement>('[data-forum-card]')];
-    const sortButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-forum-sort]')];
-    const filterButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-forum-filter]')];
-    const searchInput = document.querySelector<HTMLInputElement>('[data-forum-search]');
-    const list = document.querySelector<HTMLElement>('.forum-post-list');
-    const pagination = document.querySelector<HTMLElement>('[data-forum-pagination]');
-    const pageButtons = document.querySelector<HTMLElement>('[data-page-buttons]');
-    const pageStatus = document.querySelector<HTMLElement>('[data-page-status]');
-    const countStatus = document.querySelector<HTMLElement>('[data-forum-count]');
-    const visibleCount = document.querySelector<HTMLElement>('[data-forum-visible-count]');
-    const emptyState = document.querySelector<HTMLElement>('[data-forum-empty]');
-    const previousButton = document.querySelector<HTMLButtonElement>('[data-page-previous]');
-    const nextButton = document.querySelector<HTMLButtonElement>('[data-page-next]');
+  <script define:vars={{ forumSearchIndex: forumPosts.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    category: post.category,
+    categoryKey: categoryKey(post.category),
+    href: `/forum/${post.slug}/`,
+  })) }}>
+    const cards = [...document.querySelectorAll('[data-forum-card]')];
+    const sortButtons = [...document.querySelectorAll('[data-forum-sort]')];
+    const filterButtons = [...document.querySelectorAll('[data-forum-filter]')];
+    const searchBar = document.querySelector('[data-forum-search-bar]');
+    const searchInput = document.querySelector('[data-forum-search]');
+    const suggestionsEl = document.querySelector('[data-forum-suggestions]');
+    const scopeRoot = document.querySelector('[data-forum-scope]');
+    const scopeTrigger = document.querySelector('[data-forum-scope-trigger]');
+    const scopeMenu = document.querySelector('[data-forum-scope-menu]');
+    const scopeLabel = document.querySelector('[data-forum-scope-label]');
+    const scopeOptions = [...document.querySelectorAll('[data-forum-scope-option]')];
+    const list = document.querySelector('.forum-post-list');
+    const pagination = document.querySelector('[data-forum-pagination]');
+    const pageButtons = document.querySelector('[data-page-buttons]');
+    const pageStatus = document.querySelector('[data-page-status]');
+    const countStatus = document.querySelector('[data-forum-count]');
+    const visibleCount = document.querySelector('[data-forum-visible-count]');
+    const emptyState = document.querySelector('[data-forum-empty]');
+    const previousButton = document.querySelector('[data-page-previous]');
+    const nextButton = document.querySelector('[data-page-next]');
     const pageSize = 20;
     let currentPage = 1;
     let activeFilter = new URLSearchParams(window.location.search).get('category') ?? 'all';
+    let activeSuggestion = -1;
+
+    function setScopeOpen(open) {
+      if (!scopeTrigger || !scopeMenu || !scopeRoot) return;
+      scopeMenu.hidden = !open;
+      scopeTrigger.setAttribute('aria-expanded', String(open));
+      scopeRoot.classList.toggle('is-open', open);
+      if (open) setSuggestionsOpen(false);
+    }
+
+    function setSuggestionsOpen(open) {
+      if (!suggestionsEl || !searchInput) return;
+      suggestionsEl.hidden = !open;
+      searchInput.setAttribute('aria-expanded', String(open));
+      searchBar?.classList.toggle('has-suggestions', open);
+      if (!open) activeSuggestion = -1;
+    }
+
+    function syncFilterUi(nextFilter) {
+      activeFilter = nextFilter;
+      scopeOptions.forEach((option) => {
+        const selected = (option.dataset.value ?? 'all') === nextFilter;
+        option.setAttribute('aria-selected', String(selected));
+        option.classList.toggle('is-active', selected);
+        if (selected && scopeLabel) scopeLabel.textContent = option.textContent?.trim() || 'All topics';
+      });
+      filterButtons.forEach((item) => {
+        const active = (item.dataset.forumFilter ?? 'all') === nextFilter;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+    }
+
+    function escapeHtml(value) {
+      return value
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+    }
+
+    function highlightMatch(text, query) {
+      const safe = escapeHtml(text);
+      if (!query) return safe;
+      const idx = text.toLocaleLowerCase().indexOf(query);
+      if (idx < 0) return safe;
+      const before = escapeHtml(text.slice(0, idx));
+      const match = escapeHtml(text.slice(idx, idx + query.length));
+      const after = escapeHtml(text.slice(idx + query.length));
+      return `${before}<mark>${match}</mark>${after}`;
+    }
+
+    function matchingSuggestions(query) {
+      const q = query.trim().toLocaleLowerCase();
+      if (q.length < 1) return [];
+      return forumSearchIndex
+        .filter((item) => {
+          const inTopic = activeFilter === 'all' || item.categoryKey === activeFilter;
+          if (!inTopic) return false;
+          const haystack = `${item.title} ${item.excerpt} ${item.category}`.toLocaleLowerCase();
+          return haystack.includes(q);
+        })
+        .slice(0, 6);
+    }
+
+    function renderSuggestions() {
+      if (!suggestionsEl || !searchInput) return;
+      const query = searchInput.value.trim();
+      const matches = matchingSuggestions(query);
+      if (!matches.length) {
+        if (query.length > 0) {
+          suggestionsEl.innerHTML = `<p class="forum-search__suggestions-empty">No discussions match “${escapeHtml(query)}”</p>`;
+          setSuggestionsOpen(true);
+        } else {
+          suggestionsEl.innerHTML = '';
+          setSuggestionsOpen(false);
+        }
+        return;
+      }
+
+      suggestionsEl.innerHTML = matches
+        .map(
+          (item, index) => `
+        <a
+          class="forum-search__suggestion"
+          role="option"
+          href="${item.href}"
+          data-suggestion-index="${index}"
+          aria-selected="${index === activeSuggestion ? 'true' : 'false'}"
+        >
+          <span class="forum-search__suggestion-cat">${escapeHtml(item.category)}</span>
+          <span class="forum-search__suggestion-title">${highlightMatch(item.title, query.toLocaleLowerCase())}</span>
+          <span class="forum-search__suggestion-excerpt">${escapeHtml(item.excerpt)}</span>
+        </a>`,
+        )
+        .join('');
+      setSuggestionsOpen(true);
+    }
 
     function updateForum() {
       const sort = sortButtons.find((button) => button.getAttribute('aria-pressed') === 'true')?.dataset.forumSort ?? 'popular';
@@ -195,23 +360,79 @@ const sourceTimestamp = (path?: string) => {
       });
       currentPage = 1;
       updateForum();
+      renderSuggestions();
     }));
 
     filterButtons.forEach((button) => button.addEventListener('click', () => {
-      activeFilter = button.dataset.forumFilter ?? 'all';
-      filterButtons.forEach((item) => {
-        const active = item === button;
-        item.classList.toggle('is-active', active);
-        item.setAttribute('aria-pressed', String(active));
-      });
+      syncFilterUi(button.dataset.forumFilter ?? 'all');
       currentPage = 1;
       updateForum();
+      renderSuggestions();
     }));
+
+    scopeTrigger?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setScopeOpen(scopeMenu?.hidden !== false);
+    });
+
+    scopeOptions.forEach((option) => {
+      option.addEventListener('click', (event) => {
+        event.stopPropagation();
+        syncFilterUi(option.dataset.value ?? 'all');
+        setScopeOpen(false);
+        currentPage = 1;
+        updateForum();
+        renderSuggestions();
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (!scopeRoot?.contains(target)) setScopeOpen(false);
+      if (!searchBar?.contains(target)) setSuggestionsOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setScopeOpen(false);
+        setSuggestionsOpen(false);
+      }
+    });
 
     searchInput?.addEventListener('input', () => {
       currentPage = 1;
+      activeSuggestion = -1;
       updateForum();
+      renderSuggestions();
     });
+
+    searchInput?.addEventListener('focus', () => {
+      if ((searchInput.value.trim().length ?? 0) > 0) renderSuggestions();
+    });
+
+    searchInput?.addEventListener('keydown', (event) => {
+      if (!suggestionsEl || suggestionsEl.hidden) return;
+      const items = [...suggestionsEl.querySelectorAll('[data-suggestion-index]')];
+      if (!items.length) return;
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        activeSuggestion = (activeSuggestion + 1) % items.length;
+        items.forEach((el, i) => el.setAttribute('aria-selected', String(i === activeSuggestion)));
+        items[activeSuggestion]?.scrollIntoView({ block: 'nearest' });
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        activeSuggestion = (activeSuggestion - 1 + items.length) % items.length;
+        items.forEach((el, i) => el.setAttribute('aria-selected', String(i === activeSuggestion)));
+        items[activeSuggestion]?.scrollIntoView({ block: 'nearest' });
+      } else if (event.key === 'Enter' && activeSuggestion >= 0) {
+        event.preventDefault();
+        const link = items[activeSuggestion];
+        if (link instanceof HTMLAnchorElement) window.location.href = link.href;
+      }
+    });
+
     previousButton?.addEventListener('click', () => {
       currentPage = Math.max(1, currentPage - 1);
       updateForum();
@@ -221,16 +442,10 @@ const sourceTimestamp = (path?: string) => {
       updateForum();
     });
 
-    const initialFilter = filterButtons.find((button) => button.dataset.forumFilter === activeFilter);
-    if (initialFilter) {
-      filterButtons.forEach((item) => {
-        const active = item === initialFilter;
-        item.classList.toggle('is-active', active);
-        item.setAttribute('aria-pressed', String(active));
-      });
-    } else {
+    if (!filterButtons.some((button) => button.dataset.forumFilter === activeFilter)) {
       activeFilter = 'all';
     }
+    syncFilterUi(activeFilter);
     updateForum();
   </script>
   <script>

@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n';
+import { langStaticPaths } from '../../i18n/routing';
+import { isLocaleCode, type LocaleCode } from '../../i18n/locales';
+import { withLocalePrefix } from '../../i18n/utils';
+import LegalPage from '../../components/LegalPage.astro';
+import { breadcrumbSchema, webPageSchema } from '../../utils/schema';
+
+export function getStaticPaths() {
+  return langStaticPaths('privacy');
+}
+
+const langParam = Astro.params.lang;
+if (!langParam || !isLocaleCode(langParam) || langParam === 'en') {
+  return Astro.redirect('/privacy/');
+}
+
+const locale = langParam as LocaleCode;
+Astro.locals.locale = locale;
+const t = useTranslations(locale);
+const content = t.legalPages.privacy;
+const privacyPath = withLocalePrefix('/privacy/', locale);
+---
+
+<BaseLayout
+  title={content.title}
+  description={content.description}
+  jsonLd={[
+    webPageSchema({
+      name: content.title,
+      description: content.description,
+      url: privacyPath,
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: withLocalePrefix('/', locale) },
+      { name: t.footer.privacy, path: privacyPath },
+    ]),
+  ]}
+>
+  <LegalPage
+    title={content.title}
+    description={content.description}
+    breadcrumbLabel={t.footer.privacy}
+    sections={content.sections}
+  />
+</BaseLayout>

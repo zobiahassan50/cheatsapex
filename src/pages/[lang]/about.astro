@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n';
+import { langStaticPaths } from '../../i18n/routing';
+import { isLocaleCode, type LocaleCode } from '../../i18n/locales';
+import { withLocalePrefix } from '../../i18n/utils';
+import LegalPage from '../../components/LegalPage.astro';
+import { breadcrumbSchema, organizationSchema, webPageSchema } from '../../utils/schema';
+
+export function getStaticPaths() {
+  return langStaticPaths('about');
+}
+
+const langParam = Astro.params.lang;
+if (!langParam || !isLocaleCode(langParam) || langParam === 'en') {
+  return Astro.redirect('/about/');
+}
+
+const locale = langParam as LocaleCode;
+Astro.locals.locale = locale;
+const t = useTranslations(locale);
+const content = t.legalPages.about;
+const aboutPath = withLocalePrefix('/about/', locale);
+---
+
+<BaseLayout
+  title={content.title}
+  description={content.description}
+  jsonLd={[
+    organizationSchema(),
+    webPageSchema({
+      name: content.title,
+      description: content.description,
+      url: aboutPath,
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: withLocalePrefix('/', locale) },
+      { name: t.footer.about, path: aboutPath },
+    ]),
+  ]}
+>
+  <LegalPage
+    title={content.title}
+    description={content.description}
+    breadcrumbLabel={t.footer.about}
+    sections={content.sections}
+  />
+</BaseLayout>

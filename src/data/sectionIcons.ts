@@ -6,9 +6,9 @@ export const featureIcons: Record<string, IconName> = {
   'Radar & Loot': 'featureRadar',
   'Aimbot': 'featureAimbot',
   'Utility Suite': 'featureUtilitySuite',
-  'Loot Assist': 'compareAutoFarm',
+  'Loot Assist': 'compareLootAssist',
   'Stream Proof': 'streamProof',
-  'Radar Hack': 'compareZoomHack',
+  'Radar': 'compareRadar',
   'Cloud Config & Updates': 'compareCloudBackup',
 };
 
@@ -36,11 +36,50 @@ export const fieldNoteIcons: IconName[] = ['fieldCalendar', 'fieldShield', 'fiel
 
 export const blogTagIcons: Record<string, IconName> = {
   Guides: 'navBlog',
+  Guias: 'navBlog',
+  Guías: 'navBlog',
+  Гайды: 'navBlog',
+  Rehberler: 'navBlog',
+  Poradniki: 'navBlog',
   Setup: 'settings',
+  Configuración: 'settings',
+  Configuration: 'settings',
+  Настройка: 'settings',
+  Kurulum: 'settings',
+  Konfiguracja: 'settings',
   Features: 'layers',
+  Recursos: 'layers',
+  Функции: 'layers',
+  Özellikler: 'layers',
+  Funkcje: 'layers',
   Updates: 'refresh',
+  Atualizações: 'refresh',
+  Обновления: 'refresh',
+  Güncellemeler: 'refresh',
+  Aktualizacje: 'refresh',
+  Actualisations: 'refresh',
+  Actualizaciones: 'refresh',
   Troubleshooting: 'alert',
+  Products: 'navProducts',
+  Produtos: 'navProducts',
+  Produkte: 'navProducts',
+  Продукты: 'navProducts',
+  Ürünler: 'navProducts',
+  Produkty: 'navProducts',
+  Produits: 'navProducts',
+  Productos: 'navProducts',
 };
+
+/** Feature bento icons by item index (locale-safe; titles change per language). */
+export const featureIconsByIndex: IconName[] = [
+  'featureAimbot', // Advanced Aimbot
+  'featureEsp', // Player ESP
+  'compareLootAssist', // Weapon & Loot ESP
+  'streamProof', // Stream Proof
+  'compareCloudBackup', // EAC Bypass
+  'featureUtilitySuite', // Cloud-DMA & AWS
+  'whyHeadphones', // 24/7 Support
+];
 
 export const heroStatusPills: { icon: IconName; label: string }[] = [
   { icon: 'espActive', label: 'ESP Active' },
@@ -98,7 +137,7 @@ export const productAcquisitionStepIcons: IconName[] = [
 /** Product detail requirement tiles — prefer compat-style icons where mapped */
 export const productRequirementIcons: Partial<Record<IconName, IconName>> = {
   reqWindows: 'compatWindows',
-  reqEpic: 'compatEpic',
+  reqEa: 'compatEa',
   reqSettings: 'compatPackage',
   reqWifi: 'compatWifi',
   reqCpu: 'compatMonitor',
@@ -116,7 +155,7 @@ export function requirementDisplayIcon(icon: IconName): IconName {
 export const compatibilityIcons: IconName[] = [
   'compatWindows',
   'compatPackage',
-  'compatEpic',
+  'compatEa',
   'compatMonitor',
   'compatRefresh',
   'compatWifi',

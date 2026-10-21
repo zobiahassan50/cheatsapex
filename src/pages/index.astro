@@ -8,12 +8,13 @@ import ContentSections from '../components/ContentSections.astro';
 import { t } from '../i18n';
 import { resolvePageSeo } from '../config/seo';
 import { faqPageSchema, organizationSchema, websiteSchema } from '../utils/schema';
-import { getLandingFaqs } from '../data/faq';
-import { webpSrc } from '../utils/responsiveImage';
-
+import { getAllFaqs } from '../data/faq';
 const seo = resolvePageSeo('/');
-const homeFaqs = getLandingFaqs();
-const heroLcpImage = webpSrc('/images/gameplay/fortnite-esp-wallhack.png', 512);
+const homeFaqs = getAllFaqs();
+/** LCP is the hero poster (video deferred). Match preload URL exactly — no extra full-size webp. */
+const heroPoster = '/videos/apex-hero-poster.jpg';
+const heroBgSrcset =
+  '/images/hero-apex-640.webp 640w, /images/hero-apex-960.webp 960w, /images/hero-apex-1280.webp 1280w, /images/hero-apex-1920.webp 1920w';
 ---
 
 <BaseLayout
@@ -25,10 +26,17 @@ const heroLcpImage = webpSrc('/images/gameplay/fortnite-esp-wallhack.png', 512);
     slot="head"
     rel="preload"
     as="image"
-    href={heroLcpImage}
-    type="image/webp"
-    media="(min-width: 1024px)"
+    href={heroPoster}
+    type="image/jpeg"
     fetchpriority="high"
+  />
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    type="image/webp"
+    imagesrcset={heroBgSrcset}
+    imagesizes="100vw"
   />
   <HeroSection />
   <FeaturesSection />

@@ -1,15 +1,13 @@
 ---
-import { t } from '../i18n';
-import { featureIcons } from '../data/sectionIcons';
+import { DEFAULT_LOCALE, getLocaleFromPathname, useTranslations } from '../i18n';
+import { featureIcons, featureIconsByIndex } from '../data/sectionIcons';
 import SectionHeader from './SectionHeader.astro';
 import Icon from './icons/Icon.astro';
 import { Badge } from '@/components/starwind/badge';
 
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 const s = t.features;
-
-function isScriptsHero(title: string) {
-  return title === 'Scripts';
-}
 ---
 
 <section id="features" class="border-y border-border bg-muted/20 py-16 md:py-24" aria-labelledby="features-title">
@@ -17,11 +15,12 @@ function isScriptsHero(title: string) {
     <SectionHeader eyebrow={s.eyebrow} title={s.title} desc={s.subtitle} titleId="features-title" />
 
     <div
-      class="features-bento mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:grid-rows-[repeat(6,auto)] lg:items-stretch lg:gap-4"
+      class="features-bento mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:grid-rows-[repeat(4,auto)] lg:items-stretch lg:gap-4"
     >
       {
-        s.items.map((item) => {
-          const aimbotHero = isScriptsHero(item.title);
+        s.items.map((item, index) => {
+          const aimbotHero = index === 0;
+          const iconName = featureIconsByIndex[index] ?? featureIcons[item.title] ?? 'crosshair';
           return (
             <article
               class:list={[
@@ -36,13 +35,13 @@ function isScriptsHero(title: string) {
                     <header class="card-title-band px-5 py-4 sm:px-6 sm:py-5">
                       <div class="flex items-start gap-3">
                         <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#2d6ee2]/15 ring-1 ring-inset ring-[#2d6ee2]/30 text-primary">
-                          <Icon name={featureIcons[item.title] ?? 'crosshair'} size={20} class="text-primary" />
+                          <Icon name={iconName} size={20} class="text-primary" />
                         </span>
                         <div class="min-w-0 space-y-1.5">
-                          <h3 class="font-[family-name:var(--font-heading)] text-lg font-bold leading-tight text-foreground md:text-xl">
+                          <h3 class="font-[family-name:var(--font-heading)] text-lg font-bold leading-tight break-words text-foreground md:text-xl">
                             {item.title}
                           </h3>
-                          <p class="text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-300">
+                          <p class="text-sm font-medium leading-snug break-words text-neutral-900 dark:text-neutral-300">
                             {item.subtitle}
                           </p>
                         </div>
@@ -79,13 +78,13 @@ function isScriptsHero(title: string) {
                     <header class="card-title-band space-y-2 px-5 py-4 sm:px-6">
                       <div class="flex items-start gap-2.5">
                         <span class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#2d6ee2]/15 ring-1 ring-inset ring-[#2d6ee2]/30 text-primary">
-                          <Icon name={featureIcons[item.title] ?? 'crosshair'} size={18} class="text-primary" />
+                          <Icon name={iconName} size={18} class="text-primary" />
                         </span>
                         <div class="min-w-0 space-y-1">
-                          <h3 class="font-[family-name:var(--font-heading)] text-base font-bold leading-tight text-foreground md:text-lg">
+                          <h3 class="font-[family-name:var(--font-heading)] text-base font-bold leading-tight break-words text-foreground md:text-lg">
                             {item.title}
                           </h3>
-                          <p class="text-sm font-medium leading-snug text-neutral-900 dark:text-neutral-300">
+                          <p class="text-sm font-medium leading-snug break-words text-neutral-900 dark:text-neutral-300">
                             {item.subtitle}
                           </p>
                         </div>
@@ -93,15 +92,15 @@ function isScriptsHero(title: string) {
                     </header>
 
                     <div class="flex min-h-0 flex-1 flex-col gap-3 px-5 py-4 sm:px-6">
-                      <p class="text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+                      <p class="min-w-0 break-words text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
 
                       {
                         item.bullets && item.bullets.length > 0 && (
                           <ul class="space-y-2 text-sm text-muted-foreground">
                             {item.bullets.map((b) => (
-                              <li class="flex items-start gap-2.5">
+                              <li class="flex min-w-0 items-start gap-2.5">
                                 <Icon name="check" size={14} class="mt-0.5 shrink-0" />
-                                <span class="leading-snug">{b}</span>
+                                <span class="min-w-0 break-words leading-snug">{b}</span>
                               </li>
                             ))}
                           </ul>

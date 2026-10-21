@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n';
+import { langStaticPaths } from '../../i18n/routing';
+import { isLocaleCode, type LocaleCode } from '../../i18n/locales';
+import { withLocalePrefix } from '../../i18n/utils';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactSupportSection from '../../components/ContactSupportSection.astro';
+import { breadcrumbSchema, webPageSchema } from '../../utils/schema';
+
+export function getStaticPaths() {
+  return langStaticPaths('support');
+}
+
+const langParam = Astro.params.lang;
+if (!langParam || !isLocaleCode(langParam) || langParam === 'en') {
+  return Astro.redirect('/support/');
+}
+
+const locale = langParam as LocaleCode;
+Astro.locals.locale = locale;
+const t = useTranslations(locale);
+const supportPath = withLocalePrefix('/support/', locale);
+const breadcrumbs = [
+  { name: 'Home', path: withLocalePrefix('/', locale) },
+  { name: t.nav.find((n) => n.href.includes('/support'))?.label ?? 'Support', path: supportPath },
+];
+---
+
+<BaseLayout
+  title={t.support.title}
+  description={t.support.subtitle}
+  jsonLd={[
+    webPageSchema({
+      name: t.support.title,
+      description: t.support.subtitle,
+      url: supportPath,
+    }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <div class="mx-auto max-w-6xl px-5 pt-8 md:pt-10">
+    <Breadcrumbs items={breadcrumbs} />
+  </div>
+  <ContactSupportSection titleId="support-page-title" showTicketTips />
+</BaseLayout>

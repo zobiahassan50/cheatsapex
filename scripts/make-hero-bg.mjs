@@ -1,36 +1,65 @@
+/**
+ * Build full-bleed hero background from `_hero-source.jpg` (or legacy WhatsApp path).
+ * Quality-first JPEG + responsive WebP (640–1920).
+ */
+import fs from 'node:fs';
+import path from 'node:path';
 import sharp from 'sharp';
-import fs from 'fs';
-import path from 'path';
 
-const src = process.argv[2];
-const outDir = process.argv[3] ?? path.resolve('public/images');
+const root = process.cwd();
+const srcCandidates = [
+  path.join(root, '_hero-source.jpg'),
+  path.join(root, 'hero-apex.jpg'),
+  path.join(root, 'WhatsApp Image 2026-10-19 at 6.01.52 PM (2).jpeg'),
+];
+const src = srcCandidates.find((p) => fs.existsSync(p));
+if (!src) throw new Error('Hero source image not found (_hero-source.jpg)');
 
-if (!src) {
-  console.error('Usage: node scripts/make-hero-bg.mjs <source.jpg> [outDir]');
-  process.exit(1);
-}
+const outDir = path.join(root, 'public/images');
+const widths = [640, 960, 1280, 1920];
 
 fs.mkdirSync(outDir, { recursive: true });
 
 const meta = await sharp(src).metadata();
-console.log('source', meta.width, meta.height, meta.format);
+console.log('source', path.basename(src), `${meta.width}x${meta.height}`);
 
-// Extra dark + dull: crush brightness, mute colour, soft contrast.
-const pipeline = sharp(src)
-  .resize(1920, null, { withoutEnlargement: true })
-  .modulate({
-    brightness: 0.28,
-    saturation: 0.22,
-  })
-  .linear(0.75, -12)
-  .blur(0.55);
+/** Master pipeline: max 1920w, lanczos, no upscale. */
+const master = () =>
+  sharp(src)
+    .rotate()
+    .resize({
+      width: 1920,
+      withoutEnlargement: true,
+      kernel: sharp.kernel.lanczos3,
+    });
 
-const jpgPath = path.join(outDir, 'hero-fortnite-dark.jpg');
-const webpPath = path.join(outDir, 'hero-fortnite-dark.webp');
+await master()
+  .jpeg({ quality: 92, mozjpeg: true, progressive: true })
+  .toFile(path.join(outDir, 'hero-apex.jpg'));
 
-await pipeline.clone().jpeg({ quality: 78, mozjpeg: true }).toFile(jpgPath);
-await pipeline.clone().webp({ quality: 72 }).toFile(webpPath);
+await master()
+  .webp({ quality: 92, effort: 6, smartSubsample: true })
+  .toFile(path.join(outDir, 'hero-apex.webp'));
 
-console.log('wrote', jpgPath);
-console.log('wrote', webpPath);
-console.log(await sharp(webpPath).metadata());
+for (const width of widths) {
+  await sharp(src)
+    .rotate()
+    .resize({ width, withoutEnlargement: true, kernel: sharp.kernel.lanczos3 })
+    .webp({ quality: 90, effort: 6, smartSubsample: true })
+    .toFile(path.join(outDir, `hero-apex-${width}.webp`));
+  console.log('webp', width);
+}
+
+// Clean temp / duplicate root sources (keep public/images only)
+for (const name of ['_hero-source.jpg', 'hero-apex.jpg']) {
+  const p = path.join(root, name);
+  if (fs.existsSync(p) && path.resolve(p) !== path.resolve(outDir, 'hero-apex.jpg')) {
+    fs.unlinkSync(p);
+    console.log('removed', name);
+  }
+}
+
+for (const f of fs.readdirSync(outDir).filter((n) => n.startsWith('hero-apex'))) {
+  const kb = (fs.statSync(path.join(outDir, f)).size / 1024).toFixed(0);
+  console.log(`${f}: ${kb}KB`);
+}

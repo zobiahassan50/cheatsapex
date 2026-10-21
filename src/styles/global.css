@@ -117,16 +117,22 @@ html::-webkit-scrollbar,
   padding-bottom: 4.5rem;
 }
 
-#hero .hero-bg-dim {
+/* Brand blue cast over hero photo (#2d6ee2) — CSS-only so master image stays sharp */
+#hero .hero-bg-blue-tint {
   background:
-    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(45, 110, 226, 0.18), transparent 65%),
-    linear-gradient(180deg, rgba(14, 18, 24, 0.4) 0%, transparent 55%);
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(45, 110, 226, 0.42) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(20, 45, 95, 0.4) 0%, rgba(14, 22, 40, 0.22) 42%, transparent 72%),
+    linear-gradient(90deg, rgba(45, 110, 226, 0.28) 0%, transparent 52%);
+  mix-blend-mode: soft-light;
 }
 
-html:not(.dark) #hero .hero-bg-dim {
+html:not(.dark) #hero .hero-bg-blue-tint {
   background:
-    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(45, 110, 226, 0.1), transparent 65%),
-    linear-gradient(180deg, rgba(245, 247, 250, 0.4) 0%, transparent 55%);
+    radial-gradient(ellipse 85% 65% at 50% 0%, rgba(45, 110, 226, 0.28) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(45, 110, 226, 0.2) 0%, rgba(230, 238, 250, 0.22) 48%, transparent 78%),
+    linear-gradient(90deg, rgba(45, 110, 226, 0.16) 0%, transparent 58%);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
 }
 
 html:not(.dark) body {
@@ -317,7 +323,11 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
 }
 
 .hero-status-marquee-track {
+  /* transform-only + GPU layer → composited animation (Lighthouse) */
   animation: hero-status-marquee 55s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .hero-status-marquee:hover .hero-status-marquee-track {
@@ -450,11 +460,11 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
 
 /* Slide-reveal CTA (icon on right, expands from right on hover) */
 .slide-reveal-btn {
-  --slide-reveal-icon: 2.25rem;
+  --slide-reveal-icon: 1.875rem;
 
   position: relative;
   height: var(--slide-reveal-icon);
-  min-width: 9.375rem;
+  min-width: 6.75rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -479,12 +489,12 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
 .slide-reveal-btn__text {
   z-index: 1;
   width: 100%;
-  padding-inline: 0.75rem calc(var(--slide-reveal-icon) + 0.35rem);
-  font-size: 0.875rem;
+  padding-inline: 0.55rem calc(var(--slide-reveal-icon) + 0.25rem);
+  font-size: 0.75rem;
   line-height: 1;
   text-align: center;
   color: var(--primary-foreground);
-  transform: translateX(-0.35rem);
+  transform: translateX(-0.25rem);
   transition:
     color 0.3s ease,
     transform 0.3s ease;

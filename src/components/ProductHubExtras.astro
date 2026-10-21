@@ -1,0 +1,195 @@
+---
+import {
+  apexHubBuyUrl,
+  apexHubFaq,
+  apexHubModules,
+  apexHubPlans,
+  apexHubSeoBlocks,
+  apexHubSteps,
+} from '../data/productHub';
+import { productPages } from '../data/products';
+import { cheatTierIcons, productCategoryIcons } from '../data/sectionIcons';
+import CatalogCard from './CatalogCard.astro';
+import Icon from './icons/Icon.astro';
+import { Button } from '@/components/starwind/button';
+import { Badge } from '@/components/starwind/badge';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/starwind/accordion';
+import { DEFAULT_LOCALE, getLocaleFromPathname, localizeHref, useTranslations } from '../i18n';
+import { productPath } from '../utils/path';
+
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<div class="mt-14 space-y-16" data-product-hub-extras>
+  <section aria-labelledby="apex-plans-title">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">Pricing</p>
+      <h2 id="apex-plans-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
+        Apex Legends cheat plans
+      </h2>
+      <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+        Same modules on every plan—player ESP, advanced aimbot, loot ESP, EAC bypass, stream proof, and optional Cloud-DMA / AWS.
+      </p>
+    </div>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      {
+        apexHubPlans.map((plan) => (
+          <article
+            class:list={[
+              'flex flex-col rounded-2xl border bg-card p-6 shadow-sm',
+              'popular' in plan && plan.popular
+                ? 'border-primary/50 ring-1 ring-primary/20'
+                : 'border-border',
+            ]}
+          >
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="text-lg font-semibold">{plan.label}</h3>
+              {'popular' in plan && plan.popular && (
+                <Badge tone="primary" appearance="solid" size="sm">
+                  Popular
+                </Badge>
+              )}
+            </div>
+            <p class="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold text-primary">
+              {plan.price}
+            </p>
+            <p class="mt-1 text-xs uppercase tracking-wider text-muted-foreground">{plan.note}</p>
+            <p class="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">{plan.blurb}</p>
+            <Button as="a" href={apexHubBuyUrl} variant="primary" size="sm" class="mt-6 w-full rounded-xl">
+              {t.ui.buyNow}
+              <Icon name="arrowRight" size={16} />
+            </Button>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="apex-modules-title">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">Modules</p>
+      <h2 id="apex-modules-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
+        What's included in Apex cheats
+      </h2>
+      <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+        Full Apex Legends cheat catalog—14 modules aligned with the live listing.
+      </p>
+    </div>
+
+    <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        apexHubModules.map((mod) => (
+          <li class="flex gap-3 rounded-2xl border border-border bg-card/80 p-4">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted text-primary">
+              <Icon name={mod.icon} size={18} />
+            </span>
+            <span class="min-w-0">
+              <span class="block text-sm font-semibold">{mod.title}</span>
+              <span class="mt-1 block text-xs leading-relaxed text-muted-foreground">{mod.desc}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section aria-labelledby="apex-catalog-title">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">Catalog</p>
+      <h2 id="apex-catalog-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
+        Apex products & utilities
+      </h2>
+      <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+        Elite Apex Legends cheats plus HWID Spoofer, UGC ban appeal, and Skin Changer.
+      </p>
+    </div>
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        productPages.map((product) => (
+          <CatalogCard
+            label={product.tier ?? product.category ?? product.name}
+            title={product.title}
+            href={localizeHref(productPath(product.slug), locale)}
+            buyUrl={product.buyUrl}
+            features={product.features}
+            more={product.more}
+            icon={
+              cheatTierIcons[product.name] ||
+              (product.category && productCategoryIcons[product.category]) ||
+              'package'
+            }
+            badge={product.badge}
+            variant={product.variant}
+            buyLabel={t.ui.buyNow}
+            viewLabel={t.ui.viewDetails}
+            maxFeatures={6}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="apex-steps-title">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">How it works</p>
+      <h2 id="apex-steps-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
+        From checkout to first queue
+      </h2>
+    </div>
+
+    <ol class="mt-8 grid gap-4 sm:grid-cols-2">
+      {
+        apexHubSteps.map((step) => (
+          <li class="rounded-2xl border border-border bg-card/80 p-5">
+            <span class="text-xs font-semibold uppercase tracking-wider text-primary">{step.num}</span>
+            <h3 class="mt-2 text-base font-semibold">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section aria-labelledby="apex-hub-faq-title" class="max-w-3xl">
+    <p class="text-sm font-medium uppercase tracking-wider text-primary">FAQ</p>
+    <h2 id="apex-hub-faq-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
+      Apex cheats questions
+    </h2>
+    <Accordion type="single" class="mt-6">
+      {
+        apexHubFaq.map((item, i) => (
+          <AccordionItem value={`hub-faq-${i}`}>
+            <AccordionTrigger>{item.q}</AccordionTrigger>
+            <AccordionContent>{item.a}</AccordionContent>
+          </AccordionItem>
+        ))
+      }
+    </Accordion>
+  </section>
+
+  <section aria-labelledby="apex-seo-title" class="space-y-10 border-t border-border pt-12">
+    <h2 id="apex-seo-title" class="sr-only">
+      More about Apex Legends cheats
+    </h2>
+    {
+      apexHubSeoBlocks.map((block) => (
+        <article class="max-w-3xl">
+          <h3 class="text-xl font-semibold tracking-tight">{block.title}</h3>
+          <div class="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+            {block.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        </article>
+      ))
+    }
+  </section>
+</div>

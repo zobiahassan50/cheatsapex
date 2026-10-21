@@ -1,14 +1,20 @@
 ---
-import { t } from '../i18n';
+import { DEFAULT_LOCALE, getLocaleFromPathname, useTranslations, withLocalePrefix } from '../i18n';
 import { ROUTES } from '../utils/path';
-import { heroSlides } from '../data/products';
 import { compatibilityIcons, heroStatIcons, heroStatusPills } from '../data/sectionIcons';
-import ImageSlider from './ImageSlider.astro';
 import Icon from './icons/Icon.astro';
 import { Button } from '@/components/starwind/button';
 import { Badge } from '@/components/starwind/badge';
 
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 const h = t.hero;
+const productsHref = withLocalePrefix(ROUTES.products ?? '/products/apex-cheats/', locale);
+const heroVideoPoster = '/videos/apex-hero-poster.jpg';
+/** Default to a mid-size WebP so LCP never falls back to the large JPG. */
+const heroBgDefault = '/images/hero-apex-1280.webp';
+const heroBgSrcset =
+  '/images/hero-apex-640.webp 640w, /images/hero-apex-960.webp 960w, /images/hero-apex-1280.webp 1280w, /images/hero-apex-1920.webp 1920w';
 
 const heroMarqueePills = [
   ...heroStatusPills,
@@ -22,13 +28,32 @@ const heroMarqueePills = [
 
 <section
   id="hero"
-  class="relative overflow-hidden border-b border-border bg-background"
+  class="relative overflow-hidden border-b border-border bg-background dark:bg-neutral-950"
   aria-labelledby="hero-title"
 >
-  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    <div class="hero-bg-dim absolute inset-0" />
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--primary)_0%,transparent_55%)] opacity-[0.12]" />
+  <div class="pointer-events-none absolute inset-0 overflow-hidden [&>picture]:contents" aria-hidden="true">
+    <picture>
+      <source type="image/webp" srcset={heroBgSrcset} sizes="100vw" />
+      <img
+        src={heroBgDefault}
+        srcset={heroBgSrcset}
+        sizes="100vw"
+        alt=""
+        width="1280"
+        height="715"
+        loading="eager"
+        decoding="async"
+        fetchpriority="low"
+        class="absolute inset-0 h-full w-full object-cover brightness-[0.85] dark:brightness-[0.4]"
+      />
+    </picture>
   </div>
+  <div class="pointer-events-none absolute inset-0 bg-white/80 dark:bg-black/55" aria-hidden="true" />
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,#2d6ee2_0%,transparent_55%)] opacity-15 dark:opacity-25"
+    aria-hidden="true"
+  />
+  <div class="pointer-events-none absolute inset-0 hero-bg-blue-tint" aria-hidden="true" />
 
   <div class="relative mx-auto flex max-w-6xl flex-col justify-center px-5">
     <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
@@ -47,7 +72,7 @@ const heroMarqueePills = [
         <div class="flex flex-wrap justify-start gap-3 sm:gap-4">
           <Button
             as="a"
-            href={ROUTES.products}
+            href={productsHref}
             data-scroll-target="products"
             variant="primary"
             size="lg"
@@ -70,7 +95,23 @@ const heroMarqueePills = [
       </div>
 
       <div class="mx-auto flex w-full max-w-xl flex-col items-center gap-5 lg:mx-0 lg:max-w-none lg:items-end">
-        <ImageSlider images={heroSlides} id="hero-slider" variant="hero" />
+        <div
+          class="relative w-full overflow-hidden rounded-xl border border-border bg-card p-2 shadow-sm"
+          data-hero-video-wrap
+        >
+          <video
+            class="aspect-video h-auto w-full rounded-lg object-cover"
+            poster={heroVideoPoster}
+            muted
+            loop
+            playsinline
+            preload="none"
+            data-hero-video
+            aria-label="Apex Legends cheat gameplay preview"
+          >
+            {/* Sources injected after first paint so LCP stays on the poster (~70KB), not 2–4MB video */}
+          </video>
+        </div>
         <div class="grid w-full grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4 lg:grid-cols-2">
           {h.metrics.map((m, i) => (
             <div class="flex min-w-0 items-center gap-3 rounded-xl border border-primary/20 bg-card px-3 py-3 shadow-sm shadow-black/10 backdrop-blur-sm transition-colors hover:border-primary/50">
@@ -104,3 +145,53 @@ const heroMarqueePills = [
     </div>
   </div>
 </section>
+
+<script>
+  function hydrateHeroVideos() {
+    document.querySelectorAll<HTMLVideoElement>('video[data-hero-video]').forEach((video) => {
+      if (video.dataset.hydrated === '1') return;
+      video.dataset.hydrated = '1';
+
+      const start = () => {
+        if (video.querySelector('source')) {
+          void video.play().catch(() => {});
+          return;
+        }
+        const webm = document.createElement('source');
+        webm.src = '/videos/apex-hero.webm';
+        webm.type = 'video/webm';
+        const mp4 = document.createElement('source');
+        mp4.src = '/videos/apex-hero.mp4';
+        mp4.type = 'video/mp4';
+        video.append(webm, mp4);
+        video.load();
+        void video.play().catch(() => {});
+      };
+
+      const whenIdle = (cb: () => void) => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(cb, { timeout: 2500 });
+        } else {
+          window.setTimeout(cb, 1200);
+        }
+      };
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            if (!entries.some((e) => e.isIntersecting)) return;
+            io.disconnect();
+            whenIdle(start);
+          },
+          { rootMargin: '120px' },
+        );
+        io.observe(video);
+      } else {
+        whenIdle(start);
+      }
+    });
+  }
+
+  hydrateHeroVideos();
+  document.addEventListener('astro:after-swap', hydrateHeroVideos);
+</script>

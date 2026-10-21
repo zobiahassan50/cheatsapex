@@ -11,7 +11,7 @@
   display: grid;
   gap: 1.25rem;
   list-style: none;
-  margin: 3rem 0 0;
+  margin: 5rem 0 0;
   padding: 0;
 }
 
@@ -82,8 +82,14 @@ html.dark .support-section__icon {
   color: var(--muted-foreground);
 }
 
+@media (min-width: 768px) {
+  .support-section__cards {
+    margin-top: 6rem;
+  }
+}
+
 @media (max-width: 639px) {
   .support-section__cards {
-    margin-top: 2.25rem;
+    margin-top: 3.5rem;
   }
 }

@@ -58,60 +58,61 @@ export interface ProductPage {
 
 /** Guides paired with each product detail page */
 export const productRelatedBlogSlugs: Record<string, string[]> = {
-  lite: ['fortnite-esp-wallhack-setup', 'fortnite-lite-vs-pro', 'fortnite-radar-hack-guide', 'eac-patch-day-checklist'],
-  pro: [
-    'fortnite-aimbot-ranked-guide',
-    'fortnite-aimbot-combat-guide',
-    'fortnite-lite-vs-pro',
-    'fortnite-stream-proof-setup',
+  lite: [
+    'esp-wallhack',
+    'best-cheats',
+    'cheat-features',
   ],
-  elite: [
-    'fortnite-elite-tier-guide',
-    'fortnite-cheats-features-guide',
-    'fortnite-esp-wallhack-setup',
-    'eac-patch-day-checklist',
-    'how-to-buy-fortnite-cheats-2026',
+  pro: [
+    'apex-aimbot',
+    'best-cheats',
+    'elite-guide',
+  ],
+  'apex-elite': [
+    'best-cheats',
+    'elite-guide',
+    'cheat-features',
+    'buy-cheats',
   ],
   'hwid-spoofer': [
-    'fortnite-hwid-spoofer-after-ban',
-    'eac-bypass-fortnite-guide',
-    'eac-patch-day-checklist',
-    'fortnite-external-cheat-guide',
+    'hwid-guide',
+    'ea-javelin',
+    'cheat-safety',
   ],
-  ugc: [
-    'eac-bypass-fortnite-guide',
-    'fortnite-hwid-spoofer-after-ban',
-    'how-to-buy-fortnite-cheats-2026',
+  'ban-appeal': [
+    'cheat-safety',
+    'ea-javelin',
+    'buy-cheats',
   ],
   'unlock-all': [
-    'fortnite-skin-changer-guide',
-    'fortnite-cheats-features-guide',
-    'fortnite-stream-proof-setup',
+    'skin-guide',
+    'best-cheats',
+    'external-cheat',
   ],
 };
 
-const productBase = '/products/fortnite-cheats/';
+const productBase = '/products/apex-cheats/';
 
 const defaultAcquisitionSteps: AcquisitionStep[] = [
   {
     num: '01',
     title: 'Review current status',
-    desc: 'Check the live banner on fortnite-cheats.com and Discord #status before purchase—especially after a Fortnite or EAC update.',
+    desc: 'Check the live banner on cheatsapex.com and Discord #status before purchase—especially after an Apex or EA Javelin update.',
   },
   {
     num: '02',
     title: 'Choose your access tier',
-    desc: 'Select Elite fortnite cheats or the utility that matches your goal. Review the feature list before checkout via our secure checkout.',
+    desc: 'Select Elite apex cheats or the utility that matches your goal. Review the feature list before checkout via our secure checkout.',
   },
   {
     num: '03',
     title: 'Contact the team',
-    desc: 'Open Discord and confirm availability, Epic Games platform, and payment details with your order email ready.',
+    desc: 'Open Discord and confirm availability, EA platform, and payment details with your order email ready.',
   },
   {
     num: '04',
     title: 'Follow guided setup',
-    desc: 'Use only the operator portal, patch loader, and setup guide. Test in a lobby, load presets, then queue ranked or Zero Build.',
+    desc: 'Use only the operator portal, patch loader, and setup guide. Test in a lobby, load presets, then queue ranked or Ranked.',
   },
 ];
 
@@ -123,119 +124,48 @@ function acquisitionFor(productName: string): ProductAcquisition {
 }
 
 const sharedGoodToKnow =
-  'Fortnite and EAC receive frequent updates. Confirm module availability on the live status panel at fortnite-cheats.com before you purchase or launch. Overlay behavior may differ in lobbies, replays and spectator mode after patches.';
+  'Apex and EA Javelin receive frequent updates. Confirm module availability on the live status panel at cheatsapex.com before you purchase or launch. Overlay behavior may differ in lobbies, replays and spectator mode after patches.';
 
 const sharedLimitations =
-  'Third-party software in Fortnite can violate Epic Terms of Service and lead to EAC bans or account action. You use this software at your own risk. Compatibility and availability can change after game, EAC, or Windows updates without notice.';
+  'Third-party software in Apex can violate EA Terms of Service and lead to EAC bans or account action. You use this software at your own risk. Compatibility and availability can change after game, EAC, or Windows updates without notice.';
 
-const fortniteSystemRequirements: SystemRequirement[] = [
+const apexSystemRequirements: SystemRequirement[] = [
   { icon: 'reqWindows', text: 'Supported 64-bit edition of Windows 10 or Windows 11.' },
-  { icon: 'reqEpic', text: 'Current Fortnite client via Epic Games with latest patches applied.' },
+  { icon: 'reqEa', text: 'Current Apex client via EA with latest patches applied.' },
   { icon: 'reqSettings', text: 'Administrator access for loader installation and patch updates.' },
   { icon: 'reqWifi', text: 'Stable internet connection for portal access and patch delivery.' },
-  { icon: 'reqCpu', text: 'A system that meets Fortnite published hardware requirements.' },
+  { icon: 'reqCpu', text: 'A system that meets Apex published hardware requirements.' },
 ];
 
 type GalleryKey = keyof typeof galleryRaw;
 
 const gameplay = '/images/gameplay';
 
+/** Original product images — keep in sync with public/images/gameplay. */
 const galleryRaw = {
-  gpMapHack: {
-    src: `${gameplay}/fortnite-esp-wallhack.png`,
-    alt: 'Fortnite PC ESP wallhack overlay with player boxes, distance tags, and aimbot FOV circle',
+  gpEspWallhack: {
+    src: `${gameplay}/apex-esp-wallhack.png`,
+    alt: 'Apex Legends skeleton ESP wallhack showing players through walls with boxes and distances',
     caption: 'ESP wallhack',
-    captionDesc: 'Player boxes, distance tags and FOV overlay in Fortnite.',
+    captionDesc: 'Skeleton ESP and boxes through walls in Apex.',
   },
-  gpScripts: {
-    src: `${gameplay}/fortnite-aimbot-combat.png`,
-    alt: 'Fortnite PC aimbot in combat with FOV circle and green skeleton ESP on an enemy',
+  gpAimbotCombat: {
+    src: `${gameplay}/apex-aimbot-combat.png`,
+    alt: 'Apex Legends aimbot combat view with scoped ESP box lock on an enemy player',
     caption: 'Aimbot',
-    captionDesc: 'Aimbot FOV and skeleton ESP on an enemy player.',
+    captionDesc: 'Scoped aimbot lock with ESP box on an enemy.',
   },
-  gpZoomHack: {
-    src: `${gameplay}/fortnite-radar-hack.png`,
-    alt: 'Fortnite radar hack and ESP overlay showing enemy names, health bars, and range markers',
-    caption: 'Radar / ESP',
-    captionDesc: 'Enemy name tags, health and range on radar ESP.',
-  },
-  gpSkinChanger: {
-    src: `${gameplay}/fortnite-skin-changer.png`,
-    alt: 'Fortnite chams and skeleton ESP with aim lock during a pier fight on PC',
-    caption: 'Chams / ESP',
-    captionDesc: 'Skeleton ESP and aim lock on a pier fight.',
-  },
-  gpAutoKill: {
-    src: `${gameplay}/fortnite-auto-aim.png`,
-    alt: 'Fortnite sniper aimbot with green ESP box, weapon label, and scoped FOV circle',
-    caption: 'Sniper aimbot',
-    captionDesc: 'Scoped aimbot with ESP box and weapon label.',
-  },
-  gpFarmBot: {
-    src: `${gameplay}/fortnite-loot-radar.png`,
-    alt: 'Fortnite loot and chest ESP with enemy boxes and distance trackers on the map',
+  gpLootEsp: {
+    src: `${gameplay}/apex-loot-radar.png`,
+    alt: 'Apex Legends loot and item ESP with Hands markers, enemy boxes, and range labels',
     caption: 'Loot ESP',
-    captionDesc: 'Loot and enemy ESP with distance trackers.',
+    captionDesc: 'Loot markers, enemy boxes and range labels.',
   },
-  gpHeroEsp: {
-    src: `${gameplay}/fortnite-player-esp.png`,
-    alt: 'Fortnite player ESP wallhack showing skeletons, boxes, and distance meters',
+  gpPlayerEsp: {
+    src: `${gameplay}/apex-player-esp.png`,
+    alt: 'Apex Legends player ESP with green boxes, health bars, and distance tags while ADS',
     caption: 'Player ESP',
-    captionDesc: 'Skeletons, boxes and distance meters on players.',
-  },
-  gpThermal: {
-    src: `${gameplay}/fortnite-thermal-esp.png`,
-    alt: 'Fortnite thermal ESP wallhack with skeleton outlines, HP, and distance readouts',
-    caption: 'Thermal ESP',
-    captionDesc: 'Thermal view with skeleton wallhack, HP and distance.',
-  },
-  gpBuildFight: {
-    src: `${gameplay}/fortnite-build-fight-esp.png`,
-    alt: 'Fortnite build-fight ESP wallhack through builds with names, HP bars, and FOV',
-    caption: 'Build fight ESP',
-    captionDesc: 'ESP through builds with names, HP and FOV.',
-  },
-  gpArena: {
-    src: `${gameplay}/fortnite-arena-wallhack.png`,
-    alt: 'Fortnite arena wallhack ESP with wireframe players and weapon tags',
-    caption: 'Arena wallhack',
-    captionDesc: 'Wireframe ESP and weapon tags in an arena.',
-  },
-  gpSpawn: {
-    src: `${gameplay}/fortnite-spawn-island-esp.png`,
-    alt: 'Fortnite spawn island ESP with skeleton boxes and aimbot reticle overlay',
-    caption: 'Spawn island ESP',
-    captionDesc: 'Skeleton boxes and aimbot reticle on spawn island.',
-  },
-  gpLongRange: {
-    src: `${gameplay}/fortnite-long-range-esp.png`,
-    alt: 'Fortnite long-range ESP wallhack with enemy names, health, and weapons through cover',
-    caption: 'Long range ESP',
-    captionDesc: 'Long-range enemy names, health and weapons through cover.',
-  },
-  gpAimLock: {
-    src: `${gameplay}/fortnite-aimbot-lock.png`,
-    alt: 'Fortnite aimbot lock with green skeleton ESP, FOV circle, and head-bone priority',
-    caption: 'Aimbot lock',
-    captionDesc: 'Aimbot lock with skeleton ESP and head priority.',
-  },
-  gpChams: {
-    src: `${gameplay}/fortnite-chams-esp.png`,
-    alt: 'Fortnite chams and skeleton ESP cheat overlay on a wooden pier',
-    caption: 'Chams ESP',
-    captionDesc: 'Chams and skeleton ESP on a wooden pier.',
-  },
-  gpSquad: {
-    src: `${gameplay}/fortnite-squad-esp.png`,
-    alt: 'Fortnite multi-player squad ESP wallhack with boxes, skeletons, and distances',
-    caption: 'Squad ESP',
-    captionDesc: 'Multi-player ESP boxes, skeletons and distances.',
-  },
-  gpCombat: {
-    src: `${gameplay}/fortnite-combat-esp.png`,
-    alt: 'Fortnite combat ESP and aimbot overlay during an open-field fight on PC',
-    caption: 'Combat ESP',
-    captionDesc: 'ESP and aimbot overlay in an open-field fight.',
+    captionDesc: 'Player boxes, health bars and distance while ADS.',
   },
 };
 
@@ -253,14 +183,14 @@ function slide(...keys: GalleryKey[]): ProductSlide[] {
 
 function slugFromHref(href: string): string {
   const segment = href.replace(productBase, '').replace(/^\//, '').replace(/\/$/, '');
-  return segment || 'fortnite-cheats';
+  return segment || 'apex-cheats';
 }
 
 const tierAbout: Record<string, ProductPage['about']> = {
   lite: [
     {
       type: 'p',
-      text: 'Fortnite Lite is built for players who want map awareness first. In ranked, knowing enemy positions, chest locations and loot timings wins more fights than raw mechanics—Lite gives you that edge without aimbot automation.',
+      text: 'Apex Lite is built for players who want map awareness first. In ranked, knowing enemy positions, chest locations and loot timings wins more fights than raw mechanics—Lite gives you that edge without aimbot automation.',
     },
     { type: 'h2', text: 'Ranked-safe by design' },
     {
@@ -271,7 +201,7 @@ const tierAbout: Record<string, ProductPage['about']> = {
   pro: [
     {
       type: 'p',
-      text: 'Fortnite Pro is the sweet spot for ranked grinders. Aimbot, Smooth Aim and Sticky Aim help you win squad fights without obvious bot patterns—when you tune Smoothness sliders using our portal presets.',
+      text: 'Apex Pro is the sweet spot for ranked grinders. Aimbot, Smooth Aim and Sticky Aim help you win squad fights without obvious bot patterns—when you tune Smoothness sliders using our portal presets.',
     },
     { type: 'h2', text: 'Aimbot + awareness combined' },
     {
@@ -279,15 +209,15 @@ const tierAbout: Record<string, ProductPage['about']> = {
       text: 'Pro inherits every Lite module and adds Aimbot, Bone Priority, Hotkey macros and FOV and smoothness drawing. You see the fight before it starts and win it with aimbot that stay human at default settings.',
     },
   ],
-  elite: [
+  'apex-elite': [
     {
       type: 'p',
-      text: 'Fortnite Elite is the private build for players who want everything—Loot Assist, Auto Finish, Auto Shield Break, Skin Changer, full ESP wallhack and direct developer support. Limited slots keep the build maintainable and patch cycles fast.',
+      text: 'Apex Legends cheats for PC with player ESP, advanced aimbot, weapon ESP, loot ESP, no recoil, stream-proof mode, EAC bypass, and optional Cloud-DMA / AWS delivery. Matches the live Levo Apex catalog.',
     },
-    { type: 'h2', text: 'Use Elite responsibly' },
+    { type: 'h2', text: 'Use Apex responsibly' },
     {
       type: 'p',
-      text: 'Elite power demands disciplined profiles. Test in lobbies, start with portal conservative presets, and scale up over days—not minutes. Staff in Discord help Elite users tune before their first ranked queue.',
+      text: 'Start with portal conservative presets, test in a lobby, and scale settings over days—not minutes. Staff in Discord help tune profiles before your first ranked queue.',
     },
   ],
 };
@@ -297,7 +227,7 @@ const tierBodies: Record<string, ProductPage['body']> = {
     { type: 'h2', text: 'Included modules' },
     {
       type: 'p',
-      text: 'Player ESP with distance and name tags, chest and reboot-van locator, loot spawn timers, radar hack, and stream-safe overlay hiding. Config presets for Battle Royale and Zero Build ship in the portal—load before your first queue.',
+      text: 'Player ESP with distance and name tags, chest and respawn-beacon locator, loot spawn timers, radar hack, and stream-safe overlay hiding. Config presets for Battle Royale and Ranked ship in the portal—load before your first queue.',
     },
     { type: 'h2', text: 'Upgrade path' },
     {
@@ -314,19 +244,19 @@ const tierBodies: Record<string, ProductPage['body']> = {
     { type: 'h2', text: 'Recommended pairing' },
     {
       type: 'p',
-      text: 'Pro is the most popular tier at fortnite-cheats.com—enough firepower for high-rank lobbies without Elite slot limits. Pair with our aimbot guide in the blog before your first ranked session.',
+      text: 'Pro is the most popular tier at cheatsapex.com—enough firepower for high-rank lobbies without Elite slot limits. Pair with our aimbot guide in the blog before your first ranked session.',
     },
   ],
-  elite: [
-    { type: 'h2', text: 'Full bot and finish suite' },
+  'apex-elite': [
+    { type: 'h2', text: 'Full ESP, aimbot and loot suite' },
     {
       type: 'p',
-      text: 'Loot Assist, Rotation Assist AI, Auto Finish, Auto Shield Break, Skin Changer and full ESP wallhack with smoke alerts. Use lobby testing before ranked—Elite power requires disciplined profiles, not rage settings.',
+      text: 'Apex Legends cheats include player ESP, box ESP, skeleton ESP, health bar, distance ESP, loot and weapon ESP, advanced aimbot, and no recoil. Plans: 1 Week $15, 1 Month $35, Lifetime $150. Cloud-DMA and AWS options are available when listed.',
     },
     { type: 'h2', text: 'Availability' },
     {
       type: 'p',
-      text: 'Elite shows as limited slots on the status banner. Open a Discord ticket if checkout is gated—staff confirm slot availability before purchase.',
+      text: 'Listed status is Active when the build is cleared for the current Apex / EA Javelin (EAC) patch. Re-check the status banner before you buy or launch after an update—especially if you see an Apex anti cheat error or failed anti cheat backend check.',
     },
   ],
 };
@@ -336,7 +266,7 @@ const utilityBodies: Record<string, ProductPage['body']> = {
     { type: 'h2', text: 'When you need it' },
     {
       type: 'p',
-      text: 'Use when fresh Epic accounts fail instantly on one PC but work elsewhere—classic HWID enforcement. Do not use for account-only EAC cases; see [UGC](/products/fortnite-cheats/ugc/) instead.',
+      text: 'Use when fresh EA accounts fail instantly on one PC but work elsewhere—classic HWID enforcement. Do not use for account-only EAC cases; see [UGC](/products/apex-cheats/ban-appeal/) instead.',
     },
     { type: 'h2', text: 'Full workflow' },
     {
@@ -344,16 +274,16 @@ const utilityBodies: Record<string, ProductPage['body']> = {
       text: 'Restore point, driver cleanup, spoof application, cold reboot, identifier verification, then conservative cheat profile before ranked. Full checklist ships in the portal and in our HWID blog guide.',
     },
   ],
-  'ugc': [
+  'ban-appeal': [
     { type: 'h2', text: 'What UGC covers' },
     {
       type: 'p',
-      text: 'UGC (Unban & Governance Control) is an appeal workspace for Epic account restrictions, EAC bans, trade holds and security flags. Build custom workflows, automate dispute steps and track case status from one dashboard—not a guaranteed unban service.',
+      text: 'UGC (Unban & Governance Control) is an appeal workspace for EA account restrictions, EAC bans, trade holds and security flags. Build custom workflows, automate dispute steps and track case status from one dashboard—not a guaranteed unban service.',
     },
     { type: 'h2', text: 'Realistic expectations' },
     {
       type: 'p',
-      text: 'Some EAC bans cannot be reversed. UGC organizes evidence and follow-ups for Epic review. Pair with [HWID Spoofer](/products/fortnite-cheats/hwid-spoofer/) when hardware is flagged, or a new account when reputation is burned.',
+      text: 'Some EAC bans cannot be reversed. UGC organizes evidence and follow-ups for EA review. Pair with [HWID Spoofer](/products/apex-cheats/hwid-spoofer/) when hardware is flagged, or a new account when reputation is burned.',
     },
   ],
   'unlock-all': [
@@ -375,10 +305,10 @@ const productContent: Record<
   Pick<ProductPage, 'overview' | 'images' | 'fullFeatures' | 'goodToKnow' | 'limitations' | 'systemRequirements'>
 > = {
   lite: {
-    images: slide('gpHeroEsp', 'gpLongRange', 'gpSquad'),
+    images: slide('gpPlayerEsp', 'gpEspWallhack', 'gpLootEsp'),
     goodToKnow: sharedGoodToKnow,
     limitations: sharedLimitations,
-    systemRequirements: fortniteSystemRequirements,
+    systemRequirements: apexSystemRequirements,
     fullFeatures: [
       'Player ESP & player boxes',
       'Chest & loot locator',
@@ -390,24 +320,24 @@ const productContent: Record<
       'Team color filter',
       'Loot spawn timers',
       'Radar hack',
-      'Zero Build preset config',
+      'Ranked preset config',
       'Ranked preset config',
       'Cloud config backup',
       'Patch auto-updater',
     ],
     overview: {
-      title: 'Fortnite Lite: ESP and radar',
+      title: 'Apex Lite ESP wallhack and radar',
       paragraphs: [
         'Lite is for player ESP, chest markers, loot timers and radar. No aimbot. Set distance, colors and stream-proof in the portal before you queue.',
-        'Best if you want awareness in Battle Royale and Zero Build without combat automation. Overlays are updated after Fortnite patches.',
+        'Best if you want Apex Legends ESP wallhack awareness in Battle Royale and Ranked without combat automation. Overlays update after Apex and EA Javelin patches.',
       ],
     },
   },
   pro: {
-    images: slide('gpScripts', 'gpAimLock', 'gpCombat'),
+    images: slide('gpAimbotCombat', 'gpPlayerEsp', 'gpEspWallhack'),
     goodToKnow: sharedGoodToKnow,
     limitations: sharedLimitations,
-    systemRequirements: fortniteSystemRequirements,
+    systemRequirements: apexSystemRequirements,
     fullFeatures: [
       'All Lite ESP & ESP wallhack modules',
       'Aimbot',
@@ -426,55 +356,52 @@ const productContent: Record<
       'Discord operator support',
     ],
     overview: {
-      title: 'Fortnite Pro: aimbot plus ESP',
+      title: 'Apex Pro undetected aimbot plus ESP',
       paragraphs: [
-        'Pro includes everything in Lite, plus Aimbot, Smooth Aim, Sticky Aim and hotkey macros. Aim settings live in one tab. Start with a portal preset, not max sliders.',
-        'Most people pick Pro for Battle Royale and Zero Build. Bone priority and macros help in fights while defaults stay smooth.',
+        'Pro includes everything in Lite, plus undetected Apex aimbot, Smooth Aim, Sticky Aim and hotkey macros. Aim settings live in one tab. Start with a portal preset, not max sliders.',
+        'Most buyers pick Pro for Battle Royale and Ranked. Bone priority and macros help in fights while defaults stay smooth under EA Javelin.',
       ],
     },
   },
-  elite: {
-    images: slide('gpAutoKill', 'gpThermal', 'gpBuildFight'),
+  'apex-elite': {
+    images: slide('gpAimbotCombat', 'gpPlayerEsp', 'gpLootEsp', 'gpEspWallhack'),
     goodToKnow: sharedGoodToKnow,
     limitations: sharedLimitations,
-    systemRequirements: fortniteSystemRequirements,
+    systemRequirements: apexSystemRequirements,
     fullFeatures: [
-      'All Lite + Pro modules',
-      'Loot Assist',
-      'Rotation Assist AI',
-      'Chest respawn timer',
-      'Auto loadout manager',
-      'Auto Finish',
-      'Auto Shield Break',
-      'Full ESP wallhack suite',
-      'Third-party alert system',
-      'Visibility detector',
-      'Skin Changer (Unlock All)',
-      'Priority patch queue',
-      'Direct dev Discord support',
-      'Elite conservative presets',
-      'Cloud config backup',
-      'Patch auto-updater',
-      'Private slot access',
+      'Player ESP',
+      'Advanced Aimbot',
+      'Weapon ESP',
+      'Health Bar',
+      'Distance ESP',
+      'Box ESP',
+      'Skeleton ESP',
+      'Loot ESP',
+      'No Recoil',
+      'EAC Bypass',
+      'Stream Proof',
+      '24/7 Support',
+      'CLOUD-DMA OPTION',
+      'AWS option',
     ],
     overview: {
-      title: 'Fortnite Elite: full cheat + extras',
+      title: 'Apex Legends cheats — player ESP, aimbot & loot',
       paragraphs: [
-        'Elite includes Lite and Pro modules, plus loot assist, Auto Finish, Auto Shield Break, Skin Changer, full ESP wallhack and faster patch priority.',
-        'Slots are limited. Discord support helps you set safer profiles before Ranked. Check the status banner on fortnite-cheats.com before you buy.',
+        'Buy Apex Legends cheats for PC with player ESP, advanced aimbot, weapon ESP, loot ESP, no recoil, stream-proof mode, and EAC bypass. Optional Cloud-DMA and AWS delivery match the live Levo Apex listing.',
+        'Plans: 1 Week $15, 1 Month $35, Lifetime $150. Confirm Active status on cheatsapex.com before you buy or launch after a patch.',
       ],
     },
   },
   'hwid-spoofer': {
-    images: slide('gpSpawn', 'gpArena', 'gpChams'),
+    images: slide('gpEspWallhack', 'gpPlayerEsp', 'gpAimbotCombat'),
     goodToKnow:
-      'Run the compatibility scan in the portal before spoofing. Create a Windows restore point first. Verify identifiers changed after a cold reboot before launching Fortnite.',
+      'Run the compatibility scan in the portal before spoofing. Create a Windows restore point first. Verify identifiers changed after a cold reboot before launching Apex.',
     limitations:
       'Spoofing does not help account-only EAC cases. Never stack two spoof tools. Shared or work PCs may not be suitable. You accept all risk from driver-level changes.',
     systemRequirements: [
       { icon: 'reqWindows', text: 'Windows 10 or 11 64-bit with administrator access.' },
       { icon: 'reqRestorePoint', text: 'Ability to create a system restore point before running.' },
-      { icon: 'reqShieldGuide', text: 'Follow the portal setup guide before launching Fortnite after spoofing.' },
+      { icon: 'reqShieldGuide', text: 'Follow the portal setup guide before launching Apex after spoofing.' },
       { icon: 'reqWifi', text: 'Stable connection for portal verification tools.' },
     ],
     fullFeatures: [
@@ -490,21 +417,21 @@ const productContent: Record<
       'Discord recovery support',
     ],
     overview: {
-      title: 'HWID Spoofer for Fortnite PC bans',
+      title: 'Apex Legends HWID spoofer for PC bans',
       paragraphs: [
-        'Use the HWID Spoofer when Easy Anti-Cheat flags your PC hardware but the Epic account is still fine. Includes disk and MAC tools, a restore-point checklist, a compatibility scan and post-spoof checks.',
-        'Use it when new accounts die on one PC but work on another. It does not fix account-only EAC bans. After spoofing, use a safer cheat profile before Ranked.',
+        'Use the Apex Legends HWID spoofer when EA Javelin flags your PC hardware but the EA account is still fine. Includes disk and MAC tools, a restore-point checklist, a compatibility scan and post-spoof checks.',
+        'Use it when new accounts die on one PC but work on another. It does not fix account-only bans. After spoofing, use a safer cheat profile before Ranked.',
       ],
     },
   },
-  ugc: {
-    images: slide('gpZoomHack', 'gpFarmBot', 'gpLongRange'),
+  'ban-appeal': {
+    images: slide('gpLootEsp', 'gpPlayerEsp', 'gpEspWallhack'),
     goodToKnow:
       'Gather order email, platform account details and restriction screenshots before opening a ticket. UGC structures appeals—it does not bypass platform review.',
     limitations:
       'UGC does not guarantee account restoration. Results vary by case type. Permanent EAC bans may require a new account path instead of appeal.',
     systemRequirements: [
-      { icon: 'reqMailOrder', text: 'Order email used at checkout on fortnite-cheats.com or at checkout on fortnite-cheats.com.' },
+      { icon: 'reqMailOrder', text: 'Order email used at checkout on cheatsapex.com.' },
       { icon: 'reqShieldAccount', text: 'Account details and ban or restriction notification if available.' },
       { icon: 'reqWifiPortal', text: 'Internet access for Discord support and case dashboard.' },
     ],
@@ -522,22 +449,22 @@ const productContent: Record<
     overview: {
       title: 'UGC account appeal tools',
       paragraphs: [
-        'UGC (Unban & Governance Control) helps you organize appeals for Epic restrictions and EAC bans. It does not guarantee an unban.',
+        'UGC (Unban & Governance Control) helps you organize appeals for EA restrictions and EAC bans. It does not guarantee an unban.',
         'Track cases, keep evidence in one place and follow up from the dashboard. Discord support can walk you through steps when needed.',
       ],
     },
   },
   'unlock-all': {
-    images: slide('gpSkinChanger', 'gpChams', 'gpCombat'),
+    images: slide('gpPlayerEsp', 'gpAimbotCombat', 'gpLootEsp'),
     goodToKnow:
       'Unlock All previews cosmetics locally on your client. Other players in your lobby see your real inventory—not preview skins. Included with Elite tier.',
     limitations:
-      'Local preview only—does not modify Epic locker or store state. Other players cannot see previewed skins or sets.',
-    systemRequirements: fortniteSystemRequirements,
+      'Local preview only—does not modify EA inventory or store state. Other players cannot see previewed skins or sets.',
+    systemRequirements: apexSystemRequirements,
     fullFeatures: [
-      'Outfit skin swap',
-      'Skin & wrap preview',
-      'Pickaxe & wrap customizer',
+      'Legend skin swap',
+      'Legend & weapon skin preview',
+      'Heirloom customizer',
       'Loading screen editor',
       'Cursor & HUD theme',
       'Chest & loot replacer',
@@ -547,7 +474,7 @@ const productContent: Record<
     overview: {
       title: 'Skin Changer / Unlock All',
       paragraphs: [
-        'Unlock All lets you preview outfits, wraps and pickaxes on your Fortnite client. It does not change your Epic locker or store purchases.',
+        'Unlock All lets you preview legend skins, weapon skins and heirlooms on your Apex client. It does not change your EA inventory or store purchases.',
         'Only you see the preview skins. Other players see your real inventory. Included with Elite, or buy it alone without combat modules.',
       ],
     },
@@ -558,7 +485,7 @@ function buildTierPages(): ProductPage[] {
   return t.cheats.items.map((cheat) => {
     const slug = slugFromHref(cheat.href);
     const content = productContent[slug];
-    const displayName = cheat.name === 'Lite' ? 'Fortnite Lite' : cheat.name === 'Pro' ? 'Fortnite Pro' : 'Fortnite Elite';
+    const displayName = cheat.name === 'Lite' ? 'Apex Lite' : cheat.name === 'Pro' ? 'Apex Pro' : 'Apex Elite';
     return {
       slug,
       kind: 'tier',
@@ -637,31 +564,18 @@ export function getAllCheatSlugs() {
   return cheatPages.map((p) => p.slug);
 }
 
-const cheatsHubSlides = slide('gpAimLock', 'gpThermal', 'gpArena');
-
 export const heroSlides = slide(
-  'gpMapHack',
-  'gpScripts',
-  'gpHeroEsp',
-  'gpZoomHack',
-  'gpAutoKill',
-  'gpFarmBot',
-  'gpBuildFight',
-  'gpSpawn',
-  'gpSquad',
-  'gpCombat',
-  'gpAimLock',
-  'gpThermal',
-  'gpArena',
-  'gpLongRange',
-  'gpChams',
-  'gpSkinChanger',
+  'gpEspWallhack',
+  'gpAimbotCombat',
+  'gpPlayerEsp',
+  'gpLootEsp',
 );
 
 export const productHub = {
   path: productBase,
   title: t.products.title,
   subtitle: t.products.subtitle,
-  description: 'Fortnite Elite cheats with aimbot and ESP, plus HWID spoofer, UGC recovery and Skin Changer for PC.',
-  buyUrl: checkoutPath('fortnite'),
+  description:
+    'Apex Legends cheats with player ESP, advanced aimbot, loot ESP, EAC bypass, Cloud-DMA and AWS options — plans from $15 / week.',
+  buyUrl: checkoutPath('apex'),
 };

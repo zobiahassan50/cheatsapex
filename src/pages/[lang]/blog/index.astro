@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../i18n';
+import { langStaticPaths } from '../../../i18n/routing';
+import { isLocaleCode, type LocaleCode } from '../../../i18n/locales';
+import { withLocalePrefix } from '../../../i18n/utils';
+import { blogPosts, localizeBlogPosts } from '../../../data/blog';
+import { LOCALE_BY_CODE, TOP_BLOG_SLUGS_FOR_MEDIUM } from '../../../i18n/locales';
+import BlogCard from '../../../components/BlogCard.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { breadcrumbSchema, collectionPageSchema } from '../../../utils/schema';
+
+export function getStaticPaths() {
+  return langStaticPaths('blog-index');
+}
+
+const langParam = Astro.params.lang;
+if (!langParam || !isLocaleCode(langParam) || langParam === 'en') {
+  return Astro.redirect('/blog/');
+}
+
+const locale = langParam as LocaleCode;
+Astro.locals.locale = locale;
+const t = useTranslations(locale);
+const tier = LOCALE_BY_CODE[locale].tier;
+const posts = localizeBlogPosts(
+  tier === 'medium'
+    ? blogPosts.filter((post) =>
+        (TOP_BLOG_SLUGS_FOR_MEDIUM as readonly string[]).includes(post.slug),
+      )
+    : blogPosts,
+  locale,
+);
+const breadcrumbs = [
+  { name: 'Home', path: withLocalePrefix('/', locale) },
+  { name: t.nav.find((n) => n.href.includes('/blog'))?.label ?? 'Blog', path: withLocalePrefix('/blog/', locale) },
+];
+---
+
+<BaseLayout
+  title={t.blog.title}
+  description={t.blog.subtitle}
+  jsonLd={[
+    collectionPageSchema({
+      name: t.blog.title,
+      description: t.blog.subtitle,
+      url: withLocalePrefix('/blog/', locale),
+    }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <section class="pb-12 pt-4 md:pb-16 md:pt-5">
+    <div class="mx-auto max-w-6xl px-5">
+      <Breadcrumbs items={breadcrumbs} />
+      <header class="mt-4 max-w-3xl space-y-3 md:mt-5">
+        <h1 class="text-3xl font-bold md:text-4xl">{t.blog.latestTitle}</h1>
+        <p class="text-lg text-muted-foreground">{t.blog.latestSubtitle}</p>
+      </header>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <BlogCard post={post} />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

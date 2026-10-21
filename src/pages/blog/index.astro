@@ -8,7 +8,7 @@ import {
 } from '../../data/blog';
 import { t } from '../../i18n';
 import { resolvePageSeo } from '../../config/seo';
-import { breadcrumbSchema, collectionPageSchema } from '../../utils/schema';
+import { breadcrumbSchema, collectionPageSchema, itemListSchema } from '../../utils/schema';
 import { CARD_IMAGE_WIDTHS, webpSrc } from '../../utils/responsiveImage';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import BlogCard from '../../components/BlogCard.astro';
@@ -42,25 +42,26 @@ const tagIcon = (tag: string): IconName => blogTagIcons[tag] ?? 'tag';
       description: t.blog.subtitle,
       url: '/blog/',
     }),
+    itemListSchema(
+      blogPosts.slice(0, 12).map((post) => ({
+        name: post.title,
+        url: `/blog/${post.slug}/`,
+      })),
+    ),
     breadcrumbSchema(breadcrumbs),
   ]}
 >
   <link slot="head" rel="preload" as="image" href={lcpImage} type="image/webp" fetchpriority="high" />
 
-  <section class="py-8 md:py-12">
-    <div class="mx-auto max-w-6xl px-5">
-      <Breadcrumbs items={breadcrumbs} />
-    </div>
-  </section>
-
   <section
-    class="border-y border-border bg-muted/20 py-12 md:py-16"
+    class="border-y border-border bg-muted/20 pb-12 pt-4 md:pb-16 md:pt-5"
     aria-labelledby="blog-latest-title"
     data-blog-index
     data-empty-message={t.blog.emptyFilter}
   >
     <div class="mx-auto max-w-6xl px-5">
-      <header class="section-header max-w-2xl">
+      <Breadcrumbs items={breadcrumbs} />
+      <header class="section-header mt-4 max-w-2xl md:mt-5">
         <p class="section-header__eyebrow">{t.blog.eyebrow}</p>
         <h1 id="blog-latest-title" class="section-header__title">{t.blog.latestTitle}</h1>
         <p class="section-header__subtitle">{t.blog.latestSubtitle}</p>

@@ -3,8 +3,13 @@ import '../styles/blog-sidebar.css';
 import Icon from './icons/Icon.astro';
 import { blogPostPath, productPath, ROUTES } from '../utils/path';
 import { checkoutPath } from '../config/checkout';
-import { t } from '../i18n';
-import type { BlogPostFull } from '../data/blog';
+import {
+  DEFAULT_LOCALE,
+  getLocaleFromPathname,
+  localizeHref,
+  useTranslations,
+} from '../i18n';
+import { slugifyHeading, type BlogPostFull } from '../data/blog';
 import type { IconName } from './icons/types';
 import { Badge } from '@/components/starwind/badge';
 import { Button } from '@/components/starwind/button';
@@ -15,31 +20,26 @@ interface Props {
   class?: string;
 }
 
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 const { post, related, class: className } = Astro.props;
 
 const tocCount = post.body.filter((b) => b.type === 'h2').length;
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-}
 
 const toc = post.body
   .filter((block) => block.type === 'h2' || block.type === 'h3')
   .map((block) => ({
     level: block.type as 'h2' | 'h3',
     text: 'text' in block ? block.text : '',
-    id: slugify('text' in block ? block.text : ''),
+    id: slugifyHeading('text' in block ? block.text : ''),
   }));
 
 const productLinks: { label: string; href: string; icon: IconName }[] = [
-  { label: 'Fortnite products', href: ROUTES.products, icon: 'sidebarHub' },
-  { label: 'Elite cheats', href: ROUTES.productsElite, icon: 'sidebarElite' },
-  { label: 'Skin Changer', href: productPath('unlock-all'), icon: 'sidebarSkin' },
-  { label: 'HWID Spoofer', href: productPath('hwid-spoofer'), icon: 'sidebarHwid' },
-  { label: 'UGC', href: productPath('ugc'), icon: 'sidebarUgc' },
+  { label: t.nav[0]?.label ?? 'Products', href: localizeHref(ROUTES.products, locale), icon: 'sidebarHub' },
+  { label: t.cheats.items[0]?.name ?? 'Elite', href: localizeHref(ROUTES.productsElite, locale), icon: 'sidebarElite' },
+  { label: 'Skin Changer', href: localizeHref(productPath('unlock-all'), locale), icon: 'sidebarSkin' },
+  { label: 'HWID Spoofer', href: localizeHref(productPath('hwid-spoofer'), locale), icon: 'sidebarHwid' },
+  { label: 'UGC', href: localizeHref(productPath('ban-appeal'), locale), icon: 'sidebarUgc' },
 ];
 ---
 
@@ -55,7 +55,7 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
       <section class="blog-sidebar__block" aria-labelledby="blog-sidebar-toc-title">
         <h2 id="blog-sidebar-toc-title" class="blog-sidebar__heading">
           <Icon name="layers" size={14} class="text-primary" aria-hidden="true" />
-          <span class="blog-sidebar__heading-text">In this article</span>
+          <span class="blog-sidebar__heading-text break-words">{t.blog.inThisArticle}</span>
           {tocCount > 0 && (
             <Badge variant="secondary" size="sm" class="h-5 shrink-0 rounded-full px-1.5 tabular-nums text-[10px]">
               {tocCount}
@@ -68,7 +68,7 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
               <li class:list={[item.level === 'h3' && 'blog-sidebar__toc-item--nested']}>
                 <button
                   type="button"
-                  class="blog-sidebar__toc-link blog-toc-link truncate"
+                  class="blog-sidebar__toc-link blog-toc-link min-w-0 text-left break-words whitespace-normal"
                   data-toc-target={item.id}
                   title={item.text}
                 >
@@ -87,14 +87,18 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
       <section class="blog-sidebar__block" aria-labelledby="blog-sidebar-related-title">
         <h2 id="blog-sidebar-related-title" class="blog-sidebar__heading">
           <Icon name="navBlog" size={14} class="text-primary" aria-hidden="true" />
-          Related guides
+          <span class="break-words">{t.blog.relatedGuides}</span>
         </h2>
         <ul class="blog-sidebar__list">
           {related.map((item) => (
             <li>
-              <a href={blogPostPath(item.slug)} class="blog-sidebar__link" title={item.title}>
+              <a
+                href={localizeHref(blogPostPath(item.slug), locale)}
+                class="blog-sidebar__link"
+                title={item.title}
+              >
                 <Icon name="arrowUpRight" size={13} class="shrink-0 opacity-70" aria-hidden="true" />
-                <span class="blog-sidebar__truncate">{item.title}</span>
+                <span class="blog-sidebar__truncate break-words whitespace-normal">{item.title}</span>
               </a>
             </li>
           ))}
@@ -106,7 +110,7 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
   <section class="blog-sidebar__block blog-sidebar__block--shop" aria-labelledby="blog-sidebar-products-title">
     <h2 id="blog-sidebar-products-title" class="blog-sidebar__heading">
       <Icon name="navProducts" size={14} class="text-primary" aria-hidden="true" />
-      Our products
+      <span class="break-words">{t.blog.ourProducts}</span>
     </h2>
     <ul class="blog-sidebar__list">
       {productLinks.map((link) => (
@@ -120,13 +124,13 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
     </ul>
     <Button
       as="a"
-      href={checkoutPath('fortnite')}
+      href={checkoutPath('apex')}
       variant="primary"
       size="sm"
       class="blog-sidebar__cta mt-2.5 w-full min-w-0 justify-start"
       aria-label={t.ui.checkoutAria}
     >
-      <span class="truncate">Buy Fortnite Cheats</span>
+      <span class="truncate">{t.blog.buyApexCheats}</span>
       <Icon name="arrowRight" size={16} class="shrink-0" />
     </Button>
   </section>

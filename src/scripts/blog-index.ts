@@ -37,14 +37,13 @@ function initBlogIndexFilters(root: HTMLElement) {
     const readA = Number(a.getAttribute('data-read-minutes') ?? 0);
     const readB = Number(b.getAttribute('data-read-minutes') ?? 0);
     if (sort === 'oldest') return tsA - tsB;
-    if (sort === 'short') return readA - readB;
-    if (sort === 'long') return readB - readA;
+    if (sort === 'short') return readA - readB || tsB - tsA;
+    if (sort === 'long') return readB - readA || tsB - tsA;
     return tsB - tsA;
   };
 
   const setVisible = (el: HTMLElement, match: boolean) => {
     el.classList.toggle('hidden', !match);
-    // HTML hidden beats utility `flex` on the card.
     el.toggleAttribute('hidden', !match);
   };
 
@@ -66,7 +65,7 @@ function initBlogIndexFilters(root: HTMLElement) {
       if (featuredMatch) visibleCount += 1;
     }
 
-    items.forEach((el) => {
+    sorted.forEach((el) => {
       const match = tag === 'all' || el.getAttribute('data-tag') === tag;
       setVisible(el, match);
       if (match) visibleCount += 1;
@@ -87,8 +86,10 @@ function initBlogIndexFilters(root: HTMLElement) {
     });
   });
 
-  // Starwind emits starwind:value-change BEFORE it writes the new value to the DOM.
-  // Read the next value from event.detail, not from the still-stale input/attribute.
+  const readSortValue = () =>
+    sortInput?.value || sortSelect?.getAttribute('data-value') || currentSort;
+
+  // Starwind emits starwind:value-change on the select root (detail.value).
   const onSortChange = (event: Event) => {
     if (!(event instanceof CustomEvent)) return;
     const target = event.target;
@@ -99,17 +100,31 @@ function initBlogIndexFilters(root: HTMLElement) {
     const next =
       typeof detail?.value === 'string' && detail.value
         ? detail.value
-        : sortInput?.value || currentSort;
+        : readSortValue();
 
     apply(next);
   };
 
   document.addEventListener('starwind:value-change', onSortChange);
 
-  // Fallback if the select only updates the hidden input.
   sortInput?.addEventListener('change', () => {
     apply(sortInput.value || 'newest');
   });
+  sortInput?.addEventListener('input', () => {
+    apply(sortInput.value || 'newest');
+  });
+
+  // Reliable fallback: Starwind writes data-value on the root after selection.
+  if (sortSelect) {
+    const observer = new MutationObserver(() => {
+      const next = readSortValue();
+      if (next && next !== currentSort) apply(next);
+    });
+    observer.observe(sortSelect, {
+      attributes: true,
+      attributeFilter: ['data-value'],
+    });
+  }
 
   requestAnimationFrame(() => apply());
   window.setTimeout(() => apply(), 0);

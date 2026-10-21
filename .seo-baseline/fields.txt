@@ -1,56 +1,56 @@
 === index.html ===
-Dota 2 Cheats &amp; Hacks | Scripts, Map Hack &amp; ESP
-Dota 2 cheats for PC ranked: scripts, map hack, zoom hack, and skin changer tiers updated every patch at dotacheats.com.
-https://dotacheats.com/
+Buy Undetected Apex Cheats | Aimbot, ESP & Wallhack
+Buy undetected Apex cheats for PC: aimbot, ESP, wallhack, radar, loot ESP and skin changer. Updated after Easy Anti-Cheat patches.
+https://cheatsapex.com/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== cheats/index.html ===
-Dota 2 Cheat Tiers | Lite, Pro &amp; Elite
-Compare Lite, Pro, and Elite dota cheats—ESP, scripts, map hack, and automation modules for Steam ranked on Windows.
-https://dotacheats.com/cheats/
+=== products/apex-cheats/index.html ===
+Apex Cheat Tiers | Lite, Pro &amp; Elite
+Compare Lite, Pro, and Elite Apex cheats—ESP wallhack, aimbot, radar, and loot modules for Ranked on Windows PC.
+https://cheatsapex.com/products/apex-cheats/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== cheats/lite/index.html ===
-Lite Dota 2 Cheats | DotaCheats
-Entry tier for dota cheats with player ESP, ward locator, jungle awareness and minimap overlay.
-https://dotacheats.com/cheats/lite/
+=== products/apex-cheats/elite/index.html ===
+Apex Elite Cheats | Apex Cheats
+Elite Apex cheats with loot assist, Auto Finish, full ESP wallhack, Skin Changer and priority patch queue.
+https://cheatsapex.com/products/apex-cheats/elite/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
 === blog/index.html ===
-Dota 2 Cheats Guides &amp; Patch Notes
-Setup guides, Lite vs Pro comparisons, VAC patch checklists, and ranked config tips for dota cheats.
-https://dotacheats.com/blog/
+Apex Legends Cheat Guides
+Setup guides, Lite vs Pro comparisons, EA Javelin checklists, and Ranked config tips for Apex cheats.
+https://cheatsapex.com/blog/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== blog/dota-2-cheat-codes-guide/index.html ===
-Dota 2 cheat codes guide: console commands for | DotaCheats
-Full list of Dota 2 cheat codes for custom lobbies—gold, levels, vision, hero spawn and item commands.
-https://dotacheats.com/blog/dota-2-cheat-codes-guide/
+=== blog/undetected-apex-legends-aimbot/index.html ===
+Undetected Apex Legends Aimbot Guide | Apex Cheats
+Ranked-ready Apex aimbot settings—bone priority, smoothness, prediction—and how to stay cautious under EA Javelin.
+https://cheatsapex.com/blog/undetected-apex-legends-aimbot/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
 === faq/index.html ===
-FAQ | Dota 2 Cheats, Products &amp; Setup
-Answers on cheat tiers, map hack, scripts, HWID tools, checkout, and blog guides at dotacheats.com.
-https://dotacheats.com/faq/
+FAQ | Apex Cheats, Products &amp; Setup
+Answers on cheat tiers, ESP wallhack, aimbot, HWID tools, checkout, and blog guides at cheatsapex.com.
+https://cheatsapex.com/faq/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
-=== contact/index.html ===
-Contact &amp; Support | DotaCheats
-Get help with loader setup, HWID, and checkout for Dota 2 cheat tiers and utilities.
-https://dotacheats.com/contact/
+=== support/index.html ===
+Contact &amp; Support | Apex Cheats
+Get help with loader setup, HWID, and checkout for Apex Legends cheat tiers and utilities.
+https://cheatsapex.com/support/
 index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 1
 1
 === 404.html ===
-Page not found | DotaCheats
-The page you requested could not be found on dotacheats.com.
-https://dotacheats.com/404/
+Page not found | Apex Cheats
+The page you requested could not be found on cheatsapex.com.
+https://cheatsapex.com/404/
 noindex, nofollow
 0
 1

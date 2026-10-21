@@ -50,6 +50,8 @@ export interface ProductCard {
 export interface BlogPost {
   tag: string;
   title: string;
+  /** Shorter title tag (~50–60 chars). Falls back to title. */
+  seoTitle?: string;
   slug: string;
   image: string;
   desc: string;
@@ -173,6 +175,11 @@ export interface Translations {
     emptyFilter: string;
     viewAll: string;
     read: string;
+    allArticles: string;
+    inThisArticle: string;
+    relatedGuides: string;
+    ourProducts: string;
+    buyApexCheats: string;
     items: BlogPost[];
   };
   toolkit: {
@@ -254,6 +261,8 @@ export interface Translations {
     skipLink: string;
     browseCheats: string;
     browseCheatsMobile: string;
+    buyNow: string;
+    viewDetails: string;
     homeAria: string;
     checkoutAria: string;
     discordAria: string;

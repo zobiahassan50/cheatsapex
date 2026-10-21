@@ -1,0 +1,129 @@
+---
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  LOCALE_BY_CODE,
+  getLocaleFromPathname,
+  switchLocalePath,
+  type LocaleCode,
+} from '../i18n';
+
+interface Props {
+  class?: string;
+  /** Unique suffix so desktop + mobile instances don't share the same id */
+  idSuffix?: string;
+}
+
+const { class: className, idSuffix = 'nav' } = Astro.props;
+const currentLocale = (Astro.locals.locale ??
+  getLocaleFromPathname(Astro.url.pathname) ??
+  DEFAULT_LOCALE) as LocaleCode;
+const currentPath = Astro.url.pathname;
+const current = LOCALE_BY_CODE[currentLocale] ?? LOCALE_BY_CODE[DEFAULT_LOCALE];
+const detailsId = `language-switcher-${idSuffix}`;
+
+const options = LOCALES.map((locale) => ({
+  code: locale.code,
+  label: locale.nativeName,
+  href: switchLocalePath(currentPath, locale.code),
+  hreflang: locale.hreflang,
+  selected: locale.code === currentLocale,
+}));
+---
+
+{/* Native links — no JS required to change language. Fixed width keeps header layout stable. */}
+<details
+  id={detailsId}
+  class:list={['language-switcher relative w-[5.75rem] shrink-0', className]}
+  data-language-switcher
+>
+  <summary
+    class="flex h-8 w-full cursor-pointer list-none items-center justify-between gap-0.5 rounded-md border border-border/80 bg-background/50 py-1 pl-2 pr-1.5 text-[11px] font-medium leading-none text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary/40 [&::-webkit-details-marker]:hidden"
+    aria-label="Language"
+  >
+    <span class="truncate">{current.nativeName}</span>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-muted-foreground" aria-hidden="true">
+      <path d="m6 9 6 6 6-6"></path>
+    </svg>
+  </summary>
+  <ul
+    class="absolute end-0 top-full z-[200] mt-1 w-44 overflow-hidden rounded-lg border border-border bg-background py-1 shadow-lg"
+    role="listbox"
+    aria-label="Language"
+  >
+    {
+      options.map((opt) => (
+        <li role="option" aria-selected={opt.selected}>
+          <a
+            href={opt.href}
+            hreflang={opt.hreflang}
+            lang={opt.hreflang}
+            data-locale={opt.code}
+            data-language-option
+            class:list={[
+              'block px-3 py-2 text-xs font-medium transition-colors hover:bg-muted hover:text-primary',
+              opt.selected ? 'bg-muted text-primary' : 'text-foreground',
+            ]}
+            aria-current={opt.selected ? 'page' : undefined}
+          >
+            {opt.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</details>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = 'apex-preferred-locale';
+
+    function closeOther(except) {
+      document.querySelectorAll('[data-language-switcher]').forEach(function (el) {
+        if (el !== except && el.open) el.open = false;
+      });
+    }
+
+    function bind() {
+      document.querySelectorAll('[data-language-switcher]').forEach(function (details) {
+        if (details.getAttribute('data-bound') === '1') return;
+        details.setAttribute('data-bound', '1');
+        details.addEventListener('toggle', function () {
+          if (details.open) closeOther(details);
+        });
+      });
+
+      document.querySelectorAll('[data-language-option]').forEach(function (link) {
+        if (link.getAttribute('data-bound') === '1') return;
+        link.setAttribute('data-bound', '1');
+        link.addEventListener('click', function () {
+          var locale = link.getAttribute('data-locale');
+          if (!locale) return;
+          try {
+            localStorage.setItem(STORAGE_KEY, locale);
+          } catch (e) {}
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bind);
+    } else {
+      bind();
+    }
+    document.addEventListener('astro:after-swap', bind);
+    document.addEventListener('astro:page-load', bind);
+  })();
+</script>
+
+<style>
+  .language-switcher:not([open]) > ul {
+    display: none;
+  }
+  .language-switcher[open] > summary {
+    background-color: color-mix(in oklab, var(--muted) 80%, transparent);
+  }
+  .language-switcher[open] > ul {
+    display: block;
+  }
+</style>

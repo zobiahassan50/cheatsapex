@@ -1,39 +1,34 @@
 {
-  "name": "Fortnite Cheats",
-  "short_name": "Fortnite Cheats",
-  "description": "Fortnite cheats for PC: aimbot, ESP, wallhack, radar and skin changer.",
-  "start_url": "/",
+  "name": "Apex Cheats",
+  "short_name": "ApexCheats",
+  "description": "Undetected Apex Legends cheats for PC: aimbot, ESP wallhack, loot ESP and HWID tools for EA Javelin.",
+  "start_url": "/?source=pwa",
   "scope": "/",
+  "id": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#111215",
   "theme_color": "#2d6ee2",
   "lang": "en-US",
+  "categories": ["games", "utilities"],
   "icons": [
-    {
-      "src": "/favicon.ico",
-      "sizes": "48x48 32x32",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "/favicon-48.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
     {
       "src": "/favicon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

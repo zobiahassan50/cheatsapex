@@ -7,7 +7,6 @@ import {
   responsiveSrcSet,
   THUMB_IMAGE_WIDTHS,
 } from '../utils/responsiveImage';
-import { Badge } from '@/components/starwind/badge';
 
 interface Props {
   images: ProductSlide[];
@@ -27,8 +26,8 @@ const mainSizes = '(min-width: 1024px) 640px, 100vw';
   data-gallery-autoplay={hasThumbs ? 'true' : undefined}
   data-gallery-delay="4500"
 >
-  <div class="relative min-w-0 overflow-hidden rounded-xl border border-border bg-muted/20">
-    <div class="product-gallery__main cursor-zoom-in overflow-hidden">
+  <div class="product-gallery__stage relative min-w-0 overflow-hidden rounded-xl border border-border bg-muted/30">
+    <div class="product-gallery__main cursor-zoom-in overflow-hidden bg-muted/40">
       {
         first && (
           <ResponsiveImage
@@ -39,31 +38,23 @@ const mainSizes = '(min-width: 1024px) 640px, 100vw';
             loading="eager"
             fetchPriority="high"
             sizes={mainSizes}
-            class="product-gallery__image aspect-video w-full object-cover"
+            class="product-gallery__image h-full w-full object-cover"
           />
         )
       }
     </div>
-    <Badge
-      tone="neutral"
-      appearance="frosted"
-      size="sm"
-      class="pointer-events-none absolute bottom-3 left-3 shadow-sm"
-    >
-      Screenshot from the build
-    </Badge>
   </div>
 
   {
     hasThumbs && (
-      <div class="product-gallery__thumbs" role="tablist" aria-label="Product screenshots">
+      <div class="product-gallery__thumbs" role="tablist" aria-label="Product images">
         {images.map((img, i) => (
           <button
             type="button"
             class:list={['product-gallery__thumb', i === 0 && 'is-active']}
             role="tab"
             aria-selected={i === 0 ? 'true' : 'false'}
-            aria-label={`Screenshot ${i + 1}`}
+            aria-label={`Image ${i + 1}`}
             data-product-gallery-thumb
             data-index={i}
             data-src={defaultWebpSrc(img.src, DEFAULT_IMAGE_WIDTHS)}

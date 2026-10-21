@@ -4,6 +4,13 @@ import Icon from './icons/Icon.astro';
 import { Button } from '@/components/starwind/button';
 import { Prose } from '@/components/starwind/prose';
 import { ROUTES } from '../utils/path';
+import {
+  DEFAULT_LOCALE,
+  getLocaleFromPathname,
+  localizeHref,
+  useTranslations,
+  withLocalePrefix,
+} from '../i18n';
 
 interface Props {
   title: string;
@@ -13,6 +20,10 @@ interface Props {
 }
 
 const { title, description, breadcrumbLabel, sections } = Astro.props;
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+const homePath = withLocalePrefix(ROUTES.home, locale);
+const supportPath = localizeHref(ROUTES.support, locale);
 ---
 
 <article class="py-8 md:py-12">
@@ -20,7 +31,7 @@ const { title, description, breadcrumbLabel, sections } = Astro.props;
     <div class="text-left">
     <Breadcrumbs
       items={[
-        { name: 'Home', path: '/' },
+        { name: 'Home', path: homePath },
         { name: breadcrumbLabel, path: Astro.url.pathname },
       ]}
     />
@@ -42,11 +53,11 @@ const { title, description, breadcrumbLabel, sections } = Astro.props;
     </Prose>
 
     <div class="mt-12 flex flex-wrap justify-center gap-3 border-t border-border pt-8">
-      <Button as="a" href={ROUTES.support} variant="primary" size="sm">
-        Contact support
+      <Button as="a" href={supportPath} variant="primary" size="sm">
+        {t.footer.support}
         <Icon name="mail" size={16} />
       </Button>
-      <Button as="a" href={ROUTES.home} variant="outline" size="sm">Back to home</Button>
+      <Button as="a" href={homePath} variant="outline" size="sm">Home</Button>
     </div>
   </div>
 </article>

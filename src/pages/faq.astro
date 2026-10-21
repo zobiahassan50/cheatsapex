@@ -21,9 +21,9 @@ const faqs = getAllFaqs();
   description={seo.description}
   jsonLd={[
     webPageSchema({
-      name: 'FAQ — Fortnite Cheats & Products',
+      name: 'FAQ — Apex Cheats',
       description:
-        'Answers about Fortnite cheat tiers, ESP wallhack, aimbot, HWID tools, blog guides and checkout at fortnite-cheats.com.',
+        'Answers about Apex Elite cheats, ESP wallhack, aimbot, HWID Spoofer, UGC, Skin Changer and EA Javelin status at cheatsapex.com.',
       url: '/faq/',
     }),
     faqPageSchema(faqs.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), q: f.q, a: f.a.replace(/<[^>]+>/g, '') }))),
@@ -36,9 +36,10 @@ const faqs = getAllFaqs();
       <div class="mt-6">
         <SectionHeader
           eyebrow="Help center"
-          title="Fortnite cheats FAQ"
-          desc="Everything about Lite, Pro, Elite tiers, utilities, safety and blog topics—in one place."
+          title="Apex Cheats FAQ"
+          desc="Same answers as the homepage—Elite ESP & aimbot, HWID Spoofer, UGC, Skin Changer, EA Javelin status and checkout."
           titleId="faq-page-title"
+          level={1}
         />
       </div>
     </div>

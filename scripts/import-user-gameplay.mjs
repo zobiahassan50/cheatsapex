@@ -7,7 +7,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 
 const assetsDir =
-  'C:\\Users\\3Tee System\\.cursor\\projects\\c-Users-3Tee-System-Downloads-fortnite-cheats-com-main\\assets';
+  'C:\\Users\\3Tee System\\.cursor\\projects\\c-Users-3Tee-System-Downloads-cheatsapex-com-main\\assets';
 const importDir = path.resolve('_import');
 const gameplayDir = path.resolve('public/images/gameplay');
 const blogDir = path.resolve('public/images/blog');
@@ -16,43 +16,39 @@ const blogDir = path.resolve('public/images/blog');
 const SKIP_SUBSTRINGS = ['065800-cb09d0b5'];
 
 const GAMEPLAY = [
-  { file: 'fortnite-esp-wallhack.png', alt: 'Fortnite ESP wallhack cheat gameplay with player boxes distance tags and aimbot FOV' },
-  { file: 'fortnite-aimbot-combat.png', alt: 'Fortnite aimbot cheat gameplay with FOV circle and green skeleton ESP on enemy' },
-  { file: 'fortnite-player-esp.png', alt: 'Fortnite player ESP wallhack showing skeletons boxes and distance meters' },
-  { file: 'fortnite-radar-hack.png', alt: 'Fortnite radar and ESP overlay with enemy name tags health and range markers' },
-  { file: 'fortnite-auto-aim.png', alt: 'Fortnite sniper aimbot cheat with green ESP box weapon label and FOV circle' },
-  { file: 'fortnite-loot-radar.png', alt: 'Fortnite loot and chest ESP gameplay with enemy boxes and distance trackers' },
-  { file: 'fortnite-skin-changer.png', alt: 'Fortnite cheat gameplay with chams skeleton ESP and aim lock on pier' },
-  { file: 'fortnite-thermal-esp.png', alt: 'Fortnite thermal vision ESP showing skeleton wallhack HP and distance' },
-  { file: 'fortnite-build-fight-esp.png', alt: 'Fortnite build fight ESP wallhack with names HP bars and FOV circle' },
-  { file: 'fortnite-arena-wallhack.png', alt: 'Fortnite arena wallhack ESP with wireframe players and weapon tags' },
-  { file: 'fortnite-spawn-island-esp.png', alt: 'Fortnite spawn island ESP with skeleton boxes and aimbot reticle' },
-  { file: 'fortnite-long-range-esp.png', alt: 'Fortnite long range ESP wallhack with enemy names health and weapons' },
-  { file: 'fortnite-aimbot-lock.png', alt: 'Fortnite aimbot lock with green skeleton ESP FOV circle and head priority' },
-  { file: 'fortnite-chams-esp.png', alt: 'Fortnite chams and skeleton ESP cheat on wooden pier' },
-  { file: 'fortnite-squad-esp.png', alt: 'Fortnite multi-player ESP wallhack with boxes skeletons and distances' },
-  { file: 'fortnite-combat-esp.png', alt: 'Fortnite combat ESP and aimbot overlay in open field fight' },
+  { file: 'apex-esp-wallhack.png', alt: 'Apex ESP wallhack cheat gameplay with player boxes distance tags and aimbot FOV' },
+  { file: 'apex-aimbot-combat.png', alt: 'Apex aimbot cheat gameplay with FOV circle and green skeleton ESP on enemy' },
+  { file: 'apex-player-esp.png', alt: 'Apex player ESP wallhack showing skeletons boxes and distance meters' },
+  { file: 'apex-radar-hack.png', alt: 'Apex radar and ESP overlay with enemy name tags health and range markers' },
+  { file: 'apex-auto-aim.png', alt: 'Apex sniper aimbot cheat with green ESP box weapon label and FOV circle' },
+  { file: 'apex-loot-radar.png', alt: 'Apex loot and chest ESP gameplay with enemy boxes and distance trackers' },
+  { file: 'apex-skin-changer.png', alt: 'Apex cheat gameplay with chams skeleton ESP and aim lock on pier' },
+  { file: 'apex-thermal-esp.png', alt: 'Apex thermal vision ESP showing skeleton wallhack HP and distance' },
+  { file: 'apex-fight-esp.png', alt: 'Apex gunfight ESP wallhack with names HP bars and FOV circle' },
+  { file: 'apex-arena-wallhack.png', alt: 'Apex arena wallhack ESP with wireframe players and weapon tags' },
+  { file: 'apex-dropship-esp.png', alt: 'Apex dropship ESP with skeleton boxes and aimbot reticle' },
+  { file: 'apex-long-range-esp.png', alt: 'Apex long range ESP wallhack with enemy names health and weapons' },
+  { file: 'apex-aimbot-lock.png', alt: 'Apex aimbot lock with green skeleton ESP FOV circle and head priority' },
+  { file: 'apex-chams-esp.png', alt: 'Apex chams and skeleton ESP cheat on wooden pier' },
+  { file: 'apex-squad-esp.png', alt: 'Apex multi-player ESP wallhack with boxes skeletons and distances' },
+  { file: 'apex-combat-esp.png', alt: 'Apex combat ESP and aimbot overlay in open field fight' },
 ];
 
 const BLOG = [
-  'fortnite-cheat-codes-guide.png',
-  'fortnite-console-cheats-tips.png',
-  'how-to-use-fortnite-cheat-codes.png',
-  'fortnite-cheats-features-guide.png',
-  'fortnite-console-commands-cheats.png',
-  'fortnite-lite-vs-pro.png',
-  'fortnite-elite-tier-guide.png',
-  'fortnite-aimbot-ranked-guide.png',
-  'fortnite-esp-wallhack-setup.png',
-  'fortnite-radar-hack-guide.png',
-  'fortnite-skin-changer-guide.png',
+  'apex-cheats-features-guide.png',
+  'apex-lite-vs-pro.png',
+  'apex-elite-tier-guide.png',
+  'apex-aimbot-ranked-guide.png',
+  'apex-esp-wallhack-setup.png',
+  'apex-radar-hack-guide.png',
+  'apex-skin-changer-guide.png',
   'eac-patch-day-checklist.png',
-  'fortnite-hwid-spoofer-after-ban.png',
-  'how-to-buy-fortnite-cheats-2026.png',
-  'fortnite-aimbot-combat-guide.png',
-  'eac-bypass-fortnite-guide.png',
-  'fortnite-external-cheat-guide.png',
-  'fortnite-stream-proof-setup.png',
+  'apex-hwid-spoofer-after-ban.png',
+  'how-to-buy-apex-cheats-2026.png',
+  'apex-aimbot-combat-guide.png',
+  'eac-bypass-apex-guide.png',
+  'apex-external-cheat-guide.png',
+  'apex-stream-proof-setup.png',
 ];
 
 function longPath(p) {

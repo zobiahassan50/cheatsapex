@@ -1,18 +1,40 @@
 ---
-import { t } from '../i18n';
+import {
+  DEFAULT_LOCALE,
+  getLocaleFromPathname,
+  localizeHref,
+  useTranslations,
+  withLocalePrefix,
+} from '../i18n';
 import { Separator } from '@/components/starwind/separator';
 
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+const homeHref = withLocalePrefix('/', locale);
+
 const resourceLinks = [
-  { href: '/blog/', label: 'Blog archive', ariaLabel: 'Blog' },
-  { href: '/products/fortnite-cheats/elite/', label: 'Elite cheats', ariaLabel: 'Elite cheats' },
-  { href: '/products/fortnite-cheats/', label: 'Products & utilities', ariaLabel: 'Products' },
-  { href: '/support/', label: t.footer.support },
+  {
+    href: localizeHref('/blog/', locale),
+    label: t.nav.find((l) => l.href.includes('/blog'))?.label ?? 'Blog',
+    ariaLabel: 'Blog',
+  },
+  {
+    href: localizeHref('/products/apex-cheats/apex-elite/', locale),
+    label: 'Elite',
+    ariaLabel: 'Elite',
+  },
+  {
+    href: localizeHref('/products/apex-cheats/', locale),
+    label: t.nav.find((l) => l.href.includes('/products'))?.label ?? 'Products',
+    ariaLabel: 'Products',
+  },
+  { href: localizeHref('/support/', locale), label: t.footer.support },
 ];
 
 const legalLinks = [
-  { href: '/about/', label: t.footer.about },
-  { href: '/privacy/', label: t.footer.privacy },
-  { href: '/terms/', label: t.footer.terms },
+  { href: localizeHref('/about/', locale), label: t.footer.about },
+  { href: localizeHref('/privacy/', locale), label: t.footer.privacy },
+  { href: localizeHref('/terms/', locale), label: t.footer.terms },
 ];
 ---
 
@@ -20,9 +42,9 @@ const legalLinks = [
   <div class="mx-auto max-w-6xl px-5">
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
       <div class="space-y-4">
-        <a href="/" class="inline-flex items-center gap-2.5 font-[family-name:var(--font-heading)] text-lg font-bold" aria-label={t.ui.homeAria}>
+        <a href={homeHref} class="inline-flex items-center gap-2.5 font-[family-name:var(--font-heading)] text-lg font-bold" aria-label={t.ui.homeAria}>
           <img src="/logo.svg" alt="" width="32" height="32" class="rounded-md" />
-          <span aria-hidden="true">Fortnite<span class="text-primary">Cheats</span></span>
+          <span aria-hidden="true">Apex<span class="text-primary">Cheats</span></span>
         </a>
         <p class="text-sm text-muted-foreground">{t.footer.tagline}</p>
       </div>
@@ -63,7 +85,9 @@ const legalLinks = [
         <ul class="mt-3 space-y-2">
           {legalLinks.map((link) => (
             <li>
-              <a href={link.href} class="text-sm text-muted-foreground hover:text-primary">{link.label}</a>
+              <a href={link.href} class="text-sm text-muted-foreground hover:text-primary">
+                {link.label}
+              </a>
             </li>
           ))}
         </ul>
@@ -71,8 +95,8 @@ const legalLinks = [
     </div>
 
     <Separator class="my-8" />
-    <p class="text-left text-sm text-muted-foreground">
-      &copy; {new Date().getFullYear()} {t.site.name} · {t.site.domain}
+    <p class="text-center text-xs text-muted-foreground">
+      © {new Date().getFullYear()} {t.site.name} · {t.site.domain}
     </p>
   </div>
 </footer>

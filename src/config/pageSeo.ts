@@ -1,5 +1,6 @@
 /**
  * Central titles/descriptions for high-traffic routes.
+ * One primary keyword per path — see src/config/keywords.ts for H1 + secondary terms.
  * After Search Console shows impressions, edit the matching path here and redeploy.
  */
 
@@ -10,74 +11,129 @@ export interface PageSeoEntry {
 
 export const PAGE_SEO: Record<string, PageSeoEntry> = {
   '/': {
-    title: 'Buy Undetected Fortnite Cheats | Aimbot, ESP & Wallhack',
+    title: 'Buy Apex Cheats | Apex Legends Aimbot & ESP',
     description:
-      'Buy undetected Fortnite cheats for PC — aimbot, ESP, wallhack, radar, loot ESP and skin changer. Updated after every Easy Anti-Cheat patch.',
+      'Buy Apex Legends cheats for PC — aimbot, player ESP, loot ESP, no recoil and stream proof. Plans from $15 / week. Updated for EA Javelin every patch.',
   },
-  '/products/fortnite-cheats/': {
-    title: 'Buy Fortnite Cheats | Elite, HWID Spoofer & Skin Changer',
+  '/products/apex-cheats/': {
+    title: 'Buy Apex Legends Cheats | Aimbot, ESP & DMA',
     description:
-      'Shop Fortnite cheats for PC: Elite aimbot & ESP wallhack, HWID spoofer, UGC recovery and Skin Changer. Instant delivery after checkout.',
+      'Shop Apex Legends cheats for PC: player ESP, advanced aimbot, loot ESP, EAC bypass, Cloud-DMA and AWS options. 1 Week $15 · 1 Month $35 · Lifetime $150.',
   },
-  '/products/fortnite-cheats/elite/': {
-    title: 'Buy Fortnite Elite Cheats | Aimbot, ESP & Loot Assist',
+  '/products/apex-cheats/apex-elite/': {
+    title: 'Buy Apex Legends Cheats | Elite ESP & Aimbot',
     description:
-      'Buy Fortnite Elite cheats with aimbot, ESP wallhack, loot assist, Auto Finish, Skin Changer and priority EAC patch updates.',
+      'Buy Apex Legends cheats with player ESP, advanced aimbot, weapon ESP, loot ESP, no recoil, stream proof, EAC bypass and 24/7 support.',
   },
-  '/products/fortnite-cheats/hwid-spoofer/': {
-    title: 'Buy Fortnite HWID Spoofer | Hardware Ban Bypass',
+  '/products/apex-cheats/hwid-spoofer/': {
+    title: 'Buy Apex Legends HWID Spoofer | Hardware Ban Fix',
     description:
-      'Buy a Fortnite HWID spoofer for PC hardware bans — disk/MAC tools, compatibility scan and post-spoof checks before you launch cheats again.',
+      'Buy an Apex Legends HWID spoofer for EA Javelin hardware bans — disk/MAC tools, compatibility scan and post-spoof checks.',
   },
-  '/products/fortnite-cheats/ugc/': {
-    title: 'Buy Fortnite UGC | EAC & Epic Ban Appeal Tools',
+  '/products/apex-cheats/ban-appeal/': {
+    title: 'Buy Apex Ban Appeal Tools | UGC for EA Javelin',
     description:
-      'Buy Fortnite UGC (Unban & Governance Control) to organize Epic and EAC ban appeals, dispute workflows and case tracking.',
+      'Buy Apex UGC ban appeal tools to organize EA and Javelin restriction cases, dispute workflows and status tracking.',
   },
-  '/products/fortnite-cheats/unlock-all/': {
-    title: 'Buy Fortnite Skin Changer | Unlock All Cosmetics',
+  '/products/apex-cheats/unlock-all/': {
+    title: 'Buy Apex Skin Changer | Unlock All Cosmetics',
     description:
-      'Buy Fortnite Skin Changer / Unlock All — local outfit, wrap and pickaxe previews with your Fortnite cheats loadout.',
+      'Buy Apex Skin Changer / Unlock All — local legend, weapon skin and heirloom previews with your Apex cheats loadout.',
   },
-  '/products/fortnite-cheats/utilities/': {
-    title: 'Buy Fortnite Cheat Utilities | HWID, UGC & Skin Changer',
+  '/products/apex-cheats/cheat-tools/': {
+    title: 'Apex Cheat Utilities Compared | HWID, UGC & Skins',
     description:
-      'Buy Fortnite cheat utilities: HWID spoofer after hardware bans, UGC for Epic/EAC appeals, and local Skin Changer / Unlock All.',
+      'Compare Apex cheat utilities: HWID spoofer after hardware bans, UGC ban appeals, and local Skin Changer / Unlock All.',
   },
   '/blog/': {
-    title: 'Fortnite Cheat Guides | Aimbot, ESP Wallhack & EAC',
+    title: 'Apex Legends Cheat Guides | Aimbot, ESP & Javelin',
     description:
-      'Read Fortnite cheat guides on aimbot setup, ESP wallhack, Lite vs Pro, Creative practice and Easy Anti-Cheat patch-day checks.',
+      'Read Apex Legends cheat guides: aimbot, ESP wallhack, loot ESP, apex anti cheat error help, EA Javelin status and Ranked setups.',
+  },
+  '/blog/best-cheats/': {
+    title: 'Best Apex Legends Cheats 2026 | Aimbot & ESP',
+    description:
+      'Compare the best Apex Legends cheats for PC in 2026 — aimbot, ESP wallhack, loot ESP and status updates for EA Javelin.',
+  },
+  '/blog/apex-aimbot/': {
+    title: 'Apex Legends Aimbot Guide | Ranked PC 2026',
+    description:
+      'Set up an Apex Legends aimbot for Ranked — smoothness, FOV, bone priority and per-weapon profiles after EA Javelin.',
+  },
+  '/blog/esp-wallhack/': {
+    title: 'Apex ESP Wallhack Guide 2026 | Player & Loot ESP',
+    description:
+      'Apex Legends ESP wallhack setup — player boxes, skeleton, health, distance and loot ESP for Ranked and Battle Royale.',
+  },
+  '/blog/ea-javelin/': {
+    title: 'EA Javelin Anticheat & Apex Anti Cheat Errors 2026',
+    description:
+      'What anti cheat Apex uses, apex anti cheat error fixes, failed backend check, and how EA Javelin affects apex legends cheats on PC.',
+  },
+  '/blog/hwid-guide/': {
+    title: 'Apex HWID Spoofer Guide | EA Javelin Hardware Bans',
+    description:
+      'When to use an Apex Legends HWID spoofer after EA Javelin hardware bans — workflow, checks and safer next steps.',
+  },
+  '/blog/buy-cheats/': {
+    title: 'How to Buy Apex Legends Cheats 2026',
+    description:
+      'How to buy Apex Legends cheats safely — pick a plan (week, month, lifetime), verify Javelin status, and complete secure checkout.',
+  },
+  '/blog/cheat-safety/': {
+    title: 'Are Apex Legends Cheats Safe in 2026?',
+    description:
+      'Are Apex Legends cheats safe in 2026? How EA Javelin detection, ban waves and apex legends cheating risk actually work.',
+  },
+  '/blog/cheat-features/': {
+    title: 'Apex Cheats Features Guide | Aimbot, ESP & More',
+    description:
+      'Apex cheats features explained — advanced aimbot, player ESP, loot ESP, no recoil, stream proof, EAC bypass and Cloud-DMA.',
+  },
+  '/blog/elite-guide/': {
+    title: 'Apex Elite Cheats Guide | Full ESP & Aimbot Suite',
+    description:
+      'Apex Elite cheats guide — player ESP, advanced aimbot, loot ESP, stream proof, EAC bypass and 24/7 Discord support.',
+  },
+  '/blog/skin-guide/': {
+    title: 'Apex Skin Changer Guide | Unlock All Preview',
+    description:
+      'Apex Skin Changer / Unlock All guide — local legend and weapon skin previews without changing your EA inventory.',
+  },
+  '/blog/external-cheat/': {
+    title: 'Apex Legends External Cheat Guide | Loader & DMA',
+    description:
+      'How apex legends external cheat and apex DMA cheats work — loader setup, stream-proof overlays and EA Javelin-aware updates.',
   },
   '/forum/': {
-    title: 'Fortnite Cheats Forum | Aimbot, ESP & Setup Help',
+    title: 'Apex Cheats Forum | Aimbot, ESP & Setup Help',
     description:
-      'Fortnite cheats forum for aimbot configs, ESP wallhack setup, EAC status and product questions before you buy.',
+      'Apex cheats forum for aimbot configs, ESP wallhack setup, EA Javelin status and product questions before you buy.',
   },
   '/faq/': {
-    title: 'Fortnite Cheats FAQ | Aimbot, ESP, Bans & Setup',
+    title: 'Apex Legends Cheats FAQ | Anti Cheat & Errors',
     description:
-      'Fortnite cheats FAQ — tiers, aimbot, ESP wallhack, radar, HWID spoofer, Skin Changer, bans and loader setup before checkout.',
+      'Apex Legends cheats FAQ — what anti cheat Apex uses, anti cheat errors, authentication timeout, aimbot, ESP and loader setup.',
   },
   '/terms/': {
-    title: 'Terms for Fortnite Cheats | License & Refunds',
+    title: 'Terms of Service | Apex Cheats',
     description:
-      'Terms for buying Fortnite cheats on fortnite-cheats.com — license use, delivery, refunds and account risk.',
+      'Terms for buying Apex Legends cheats on cheatsapex.com — license use, delivery, refunds and account risk.',
   },
   '/privacy/': {
-    title: 'Privacy Policy | Fortnite Cheats Shop',
+    title: 'Privacy Policy | Apex Cheats',
     description:
-      'How the Fortnite cheats shop at fortnite-cheats.com uses analytics, cookies and contact data.',
+      'How the Apex Legends cheats shop at cheatsapex.com uses analytics, cookies and contact data.',
   },
   '/about/': {
-    title: 'About Fortnite Cheats | Buy PC Aimbot & ESP',
+    title: 'About Apex Cheats | PC Aimbot & ESP Shop',
     description:
-      'About Fortnite Cheats — we sell PC Fortnite cheats (aimbot, ESP, wallhack), guides and utilities at fortnite-cheats.com.',
+      'About Apex Cheats — we sell PC Apex Legends cheats (aimbot, ESP wallhack), guides and utilities at cheatsapex.com.',
   },
   '/support/': {
-    title: 'Fortnite Cheats Support | Loader, HWID & Checkout',
+    title: 'Apex Cheats Support | Loader, HWID & Checkout',
     description:
-      'Fortnite cheats support for loader setup, aimbot/ESP configs, HWID spoofing and checkout help — 24/7 Discord.',
+      'Apex cheats support for loader setup, aimbot/ESP configs, anti cheat errors and checkout help — 24/7 Discord.',
   },
 };
 

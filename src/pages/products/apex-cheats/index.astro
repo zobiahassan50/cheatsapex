@@ -1,0 +1,60 @@
+---
+import '../../../styles/product-cheat-page.css';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { productHub, productPages } from '../../../data/products';
+import { getApexProductShowcase } from '../../../data/productShowcase';
+import { resolvePageSeo } from '../../../config/seo';
+import { breadcrumbSchema, collectionPageSchema, itemListSchema } from '../../../utils/schema';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ProductShowcase from '../../../components/ProductShowcase.astro';
+import ProductHubExtras from '../../../components/ProductHubExtras.astro';
+import { productPath } from '../../../utils/path';
+
+const seo = resolvePageSeo('/products/apex-cheats/');
+const showcase = getApexProductShowcase('en');
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Products', path: productHub.path },
+];
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  jsonLd={[
+    collectionPageSchema({
+      name: productHub.title,
+      description: productHub.description,
+      url: productHub.path,
+    }),
+    breadcrumbSchema(breadcrumbs),
+    itemListSchema(
+      productPages.map((product) => ({
+        name: product.title,
+        url: productPath(product.slug),
+      })),
+    ),
+  ]}
+>
+  <section class="py-8 md:py-12">
+    <div class="mx-auto max-w-6xl px-5">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <div class="mt-8">
+        <ProductShowcase
+          eyebrow={showcase.eyebrow}
+          title={showcase.title}
+          description={showcase.description}
+          statusLabel={showcase.statusLabel}
+          statusMeta={showcase.statusMeta}
+          buyUrl={showcase.buyUrl}
+          detailsUrl={showcase.detailsUrl}
+          includedLabel={showcase.includedLabel}
+          features={showcase.features}
+          seoParagraphs={showcase.seoParagraphs}
+        />
+        <ProductHubExtras />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

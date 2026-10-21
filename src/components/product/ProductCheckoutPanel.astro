@@ -21,13 +21,13 @@ const isSinglePlan = plans.length === 1;
 ---
 
 <aside
-  class="product-checkout text-left lg:sticky lg:top-24"
+  class="product-checkout h-full text-left lg:sticky lg:top-24"
   aria-labelledby={`checkout-${product.slug}`}
   data-product-checkout
   data-buy-url={product.buyUrl}
   data-plans={JSON.stringify(plans)}
 >
-  <div class="overflow-hidden rounded-2xl border border-primary/35 bg-card shadow-md ring-1 ring-primary/15">
+  <div class="flex h-full flex-col overflow-hidden rounded-2xl border border-primary/35 bg-card shadow-md ring-1 ring-primary/15">
     <div class="card-title-band flex items-center justify-start gap-3 px-5 py-4 text-left">
       <ProductIconWell name="acqPackage" iconSize={20} class="bg-primary/15" />
       <div class="min-w-0 text-left">
@@ -116,8 +116,7 @@ const isSinglePlan = plans.length === 1;
 
         totalEl.textContent = `$${plan.priceUsd}`;
         noteEl.textContent = plan.priceNote;
-        const separator = buyUrl.includes('?') ? '&' : '?';
-        buyBtn.href = `${buyUrl}${separator}plan=${plan.id}`;
+        buyBtn.href = buyUrl;
       };
 
       group.addEventListener('click', () => window.setTimeout(sync, 0));

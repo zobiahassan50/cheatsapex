@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getAllProductSlugs, getProductPage, productHub } from '../../../../data/products';
+import { pageTitle } from '../../../../config/seo';
+import { getPageSeoEntry } from '../../../../config/pageSeo';
+import { breadcrumbSchema, productSchema } from '../../../../utils/schema';
+import ProductDetail from '../../../../components/ProductDetail.astro';
+import { LOCALE_BY_CODE, NON_DEFAULT_LOCALES, isLocaleCode, type LocaleCode } from '../../../../i18n/locales';
+import { withLocalePrefix } from '../../../../i18n/utils';
+
+export function getStaticPaths() {
+  const allSlugs = getAllProductSlugs();
+  return NON_DEFAULT_LOCALES.flatMap((locale) => {
+    const slugs = locale.tier === 'light' ? ['apex-elite'] : allSlugs;
+    return slugs.map((slug) => ({ params: { lang: locale.code, slug } }));
+  });
+}
+
+const langParam = Astro.params.lang;
+const { slug } = Astro.params;
+if (!langParam || !isLocaleCode(langParam) || langParam === 'en' || !slug) {
+  return Astro.redirect(productHub.path);
+}
+
+const locale = langParam as LocaleCode;
+Astro.locals.locale = locale;
+const product = getProductPage(slug);
+if (!product) {
+  return Astro.redirect(withLocalePrefix(productHub.path, locale));
+}
+
+if (LOCALE_BY_CODE[locale].tier === 'light' && product.slug !== 'apex-elite') {
+  return Astro.redirect(withLocalePrefix(`${productHub.path}apex-elite/`, locale));
+}
+
+const pagePath = withLocalePrefix(`${productHub.path}${product.slug}/`, locale);
+const seoEntry = getPageSeoEntry(`/products/apex-cheats/${product.slug}/`);
+const metaTitle = seoEntry?.title ?? pageTitle(`Buy ${product.title}`);
+const metaDescription = seoEntry?.description ?? `Buy ${product.title} Apex cheats — ${product.desc}`;
+const breadcrumbs = [
+  { name: 'Home', path: withLocalePrefix('/', locale) },
+  { name: 'Products', path: withLocalePrefix(productHub.path, locale) },
+  { name: product.title, path: pagePath },
+];
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  jsonLd={[
+    productSchema({
+      name: product.title,
+      description: metaDescription,
+      url: pagePath,
+      offerUrl: product.buyUrl,
+      image: product.images[0]?.src,
+      sku: product.slug,
+    }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <ProductDetail product={product} breadcrumbs={breadcrumbs} />
+</BaseLayout>

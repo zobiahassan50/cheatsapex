@@ -1,6 +1,11 @@
 ---
 import '../styles/support-section.css';
-import { t } from '../i18n';
+import {
+  DEFAULT_LOCALE,
+  getLocaleFromPathname,
+  localizeHref,
+  useTranslations,
+} from '../i18n';
 import Icon from './icons/Icon.astro';
 import type { IconName } from './icons/types';
 import { Button } from '@/components/starwind/button';
@@ -19,7 +24,18 @@ interface Props {
 }
 
 const { titleId = 'support-title', showTicketTips = false, class: className } = Astro.props;
-const c = t.support;
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+const c = {
+  ...t.support,
+  channels: t.support.channels.map((channel) => ({
+    ...channel,
+    href:
+      channel.href.startsWith('/') && !channel.href.startsWith('/go/')
+        ? localizeHref(channel.href, locale)
+        : channel.href,
+  })),
+};
 ---
 
 <section

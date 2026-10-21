@@ -14,6 +14,7 @@ import ProductFeaturesSection from './product/ProductFeaturesSection.astro';
 import ProductDescriptionSection from './product/ProductDescriptionSection.astro';
 import ProductExperienceSection from './product/ProductExperienceSection.astro';
 import ProductRelatedGuidesSection from './product/ProductRelatedGuidesSection.astro';
+import { DEFAULT_LOCALE, getLocaleFromPathname } from '../i18n';
 
 interface Props {
   product: ProductPage;
@@ -21,8 +22,9 @@ interface Props {
 }
 
 const { product, breadcrumbs } = Astro.props;
+const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
 const productFaqs = getProductFaqs(product.slug, product.kind);
-const relatedPosts = getRelatedBlogPostsForProduct(product.relatedBlogSlugs, 6);
+const relatedPosts = getRelatedBlogPostsForProduct(product.relatedBlogSlugs, 6, locale);
 
 const descriptionBlocks = [
   ...product.overview.paragraphs.map((text) => ({ type: 'p' as const, text })),
@@ -42,7 +44,7 @@ const showDescToggle = descriptionBlocks.length > 2;
       <ProductDetailHeader product={product} />
     </div>
 
-    <div class="product-detail-hero__grid mt-10 grid items-start gap-8">
+    <div class="product-detail-hero__grid mt-10 grid items-stretch gap-6 lg:gap-8">
       <ProductScreenshotGallery images={product.images} id={`gallery-${product.slug}`} />
       <ProductCheckoutPanel product={product} />
     </div>

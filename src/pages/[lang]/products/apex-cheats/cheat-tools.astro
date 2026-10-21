@@ -1,0 +1,106 @@
+---
+import '../../../../styles/product-cheat-page.css';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { productHub, productPages } from '../../../../data/products';
+import { useTranslations } from '../../../../i18n';
+import { langStaticPaths } from '../../../../i18n/routing';
+import { isLocaleCode, type LocaleCode } from '../../../../i18n/locales';
+import { withLocalePrefix } from '../../../../i18n/utils';
+import { breadcrumbSchema, itemListSchema, webPageSchema } from '../../../../utils/schema';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import { productPath } from '../../../../utils/path';
+import { Button } from '@/components/starwind/button';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/starwind/table';
+
+export function getStaticPaths() {
+  return langStaticPaths('product-utilities');
+}
+
+const langParam = Astro.params.lang;
+if (!langParam || !isLocaleCode(langParam) || langParam === 'en') {
+  return Astro.redirect('/products/apex-cheats/cheat-tools/');
+}
+
+const locale = langParam as LocaleCode;
+Astro.locals.locale = locale;
+const t = useTranslations(locale);
+const utilities = productPages.filter((p) => p.kind === 'utility');
+const breadcrumbs = [
+  { name: 'Home', path: withLocalePrefix('/', locale) },
+  { name: t.nav[0]?.label ?? 'Products', path: withLocalePrefix(productHub.path, locale) },
+  { name: 'Utilities', path: withLocalePrefix('/products/apex-cheats/cheat-tools/', locale) },
+];
+
+const utilityUseCases: Record<string, string> = {
+  'hwid-spoofer': t.products.items.find((i) => i.href.includes('hwid'))?.desc ?? '',
+  ugc: t.products.items.find((i) => i.href.includes('ugc'))?.desc ?? '',
+  'unlock-all': t.products.items.find((i) => i.href.includes('unlock'))?.desc ?? '',
+};
+---
+
+<BaseLayout
+  title={`${t.products.title} — Utilities`}
+  description={t.products.subtitle}
+  jsonLd={[
+    webPageSchema({
+      name: 'Compare utilities',
+      description: t.products.subtitle,
+      url: withLocalePrefix('/products/apex-cheats/cheat-tools/', locale),
+    }),
+    breadcrumbSchema(breadcrumbs),
+    itemListSchema(
+      utilities.map((product) => ({
+        name: product.title,
+        url: withLocalePrefix(productPath(product.slug), locale),
+      })),
+    ),
+  ]}
+>
+  <section class="py-8 md:py-12">
+    <div class="mx-auto max-w-6xl px-5">
+      <Breadcrumbs items={breadcrumbs} />
+      <header class="mt-6 max-w-3xl space-y-3">
+        <h1 class="text-3xl font-bold uppercase md:text-4xl">Compare utilities</h1>
+        <p class="text-lg text-muted-foreground">{t.products.subtitle}</p>
+      </header>
+
+      <div class="mt-10 rounded-lg border border-border" tabindex="0" aria-label="Utility comparison">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Utility</TableHead>
+              <TableHead>Best for</TableHead>
+              <TableHead>Product page</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {utilities.map((product) => (
+              <TableRow>
+                <TableCell class="font-medium">{product.title}</TableCell>
+                <TableCell class="text-muted-foreground">{utilityUseCases[product.slug] ?? product.desc}</TableCell>
+                <TableCell>
+                  <a href={withLocalePrefix(productPath(product.slug), locale)} class="text-primary hover:underline">
+                    View {product.category ?? 'details'}
+                  </a>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div class="mt-8">
+        <Button as="a" href={withLocalePrefix(productHub.path, locale)} variant="outline">
+          Back to products
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

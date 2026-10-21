@@ -228,10 +228,17 @@
 
 .product-detail .description-content {
   text-align: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .product-detail .description-content :is(h2, h3, p, ul, ol) {
   text-align: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
 }
 
 .product-detail .product-compat-list__row {
@@ -251,6 +258,7 @@
 
 .product-detail-hero__grid {
   grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
 }
 
 .product-detail-hero__grid .product-checkout {
@@ -261,7 +269,14 @@
 
 @media (min-width: 1024px) {
   .product-detail-hero__grid {
-    grid-template-columns: minmax(0, 1fr) 20rem;
+    /* Equal-height columns: gallery grows to match checkout (or vice versa) */
+    grid-template-columns: minmax(0, 1fr) minmax(17.5rem, 20rem);
+    align-items: stretch;
+  }
+
+  .product-detail-hero__grid .product-gallery {
+    min-height: 0;
+    height: auto;
   }
 
   .product-detail-hero__grid .product-checkout {
@@ -329,34 +344,59 @@ html:not(.dark) .product-feature-check .icon-app:hover {
 /* Product gallery + collapsible description */
 .product-gallery {
   display: grid;
-  grid-template-columns: 1fr 9.25rem;
+  grid-template-columns: minmax(0, 1fr) 5.5rem;
   gap: 0.75rem;
+  align-items: stretch;
+  /* Match typical checkout card height so the row reads as one unit */
+  min-height: 22rem;
 }
 
 .product-gallery--single {
   grid-template-columns: 1fr;
 }
 
+.product-gallery__stage {
+  display: flex;
+  min-height: 0;
+  height: 100%;
+}
+
+.product-gallery__main {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 16rem;
+  height: 100%;
+}
+
+.product-gallery__main picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .product-gallery__image {
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.35s ease;
 }
 
 .product-gallery__main:hover .product-gallery__image {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .product-gallery__thumbs {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  max-height: 22.5rem;
+  height: 100%;
+  min-height: 0;
   overflow-y: auto;
   padding-right: 0.125rem;
   scroll-snap-type: y proximity;
-}
-
-.product-gallery__thumbs {
   scrollbar-width: none;
 }
 
@@ -367,19 +407,26 @@ html:not(.dark) .product-feature-check .icon-app:hover {
 
 .product-gallery__thumb {
   position: relative;
-  flex: 0 0 5.25rem;
-  height: 5.25rem;
+  flex: 1 1 0;
+  min-height: 3.5rem;
   overflow: hidden;
   cursor: pointer;
   opacity: 0.55;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: var(--muted);
+  background: color-mix(in oklab, var(--muted) 70%, transparent);
   transition:
     opacity 0.2s ease,
     border-color 0.2s ease,
     box-shadow 0.2s ease;
   scroll-snap-align: start;
+}
+
+.product-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .product-gallery__thumb:hover {
@@ -392,8 +439,23 @@ html:not(.dark) .product-feature-check .icon-app:hover {
   box-shadow: 0 0 0 1px var(--primary);
 }
 
+@media (min-width: 1024px) {
+  .product-gallery {
+    /* Grid stretch gives a definite height — fill it so images match checkout */
+    height: 100%;
+  }
+
+  .product-gallery__stage,
+  .product-gallery__main {
+    min-height: 0;
+  }
+}
+
 .desc-wrap {
   position: relative;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .desc-wrap.collapsible:not(.open) .description-content {
@@ -408,17 +470,30 @@ html:not(.dark) .product-feature-check .icon-app:hover {
   left: 0;
   height: 6rem;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent, var(--card));
+  /* Match section bg so the fade doesn't read as a card/input panel */
+  background: linear-gradient(to bottom, transparent, var(--background));
   content: '';
 }
 
 @media (max-width: 1000px) {
   .product-gallery {
     grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .product-gallery__stage,
+  .product-gallery__main {
+    height: auto;
+    min-height: 0;
+  }
+
+  .product-gallery__main {
+    aspect-ratio: 16 / 9;
   }
 
   .product-gallery__thumbs {
     flex-direction: row;
+    height: auto;
     max-height: none;
     overflow-x: auto;
     overflow-y: hidden;
@@ -428,5 +503,6 @@ html:not(.dark) .product-feature-check .icon-app:hover {
   .product-gallery__thumb {
     flex: 0 0 8rem;
     height: 4.75rem;
+    min-height: 4.75rem;
   }
 }
