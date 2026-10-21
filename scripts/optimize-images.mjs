@@ -4,6 +4,8 @@ import sharp from 'sharp';
 
 const root = process.cwd();
 const widths = [320, 400, 512, 640, 960];
+/** High visual quality for gameplay/blog (efficiency via size match, not heavy crush). */
+const WEBP_QUALITY = 86;
 const dirs = [
   'public/images/gameplay',
   'public/images/blog',
@@ -29,7 +31,7 @@ async function optimizeDir(relativeDir) {
       const output = path.join(dir, `${base}-${width}.webp`);
       const buffer = await sharp(input)
         .resize({ width, withoutEnlargement: true, kernel: sharp.kernel.lanczos3 })
-        .webp({ quality: 78, effort: 6, smartSubsample: true })
+        .webp({ quality: WEBP_QUALITY, effort: 6, smartSubsample: true })
         .toBuffer();
       if (await writeIfSmaller(output, buffer)) {
         console.log(`Wrote ${path.relative(root, output)}`);
@@ -51,7 +53,7 @@ async function optimizeHero() {
     try {
       const buffer = await sharp(source)
         .resize({ width, withoutEnlargement: true, kernel: sharp.kernel.lanczos3 })
-        .webp({ quality: 68, effort: 6, smartSubsample: true })
+        .webp({ quality: 84, effort: 6, smartSubsample: true })
         .toBuffer();
       fs.writeFileSync(output, buffer);
       console.log(`Hero ${width}w → ${(buffer.length / 1024).toFixed(0)}KB`);
@@ -63,7 +65,7 @@ async function optimizeHero() {
   try {
     const fullWebp = await sharp(source)
       .resize({ width: 1920, withoutEnlargement: true })
-      .webp({ quality: 70, effort: 6, smartSubsample: true })
+      .webp({ quality: 84, effort: 6, smartSubsample: true })
       .toBuffer();
     fs.writeFileSync(path.join(root, 'public/images/hero-apex.webp'), fullWebp);
   } catch (err) {
@@ -72,7 +74,7 @@ async function optimizeHero() {
 
   try {
     const jpgBuf = await sharp(source)
-      .jpeg({ quality: 68, mozjpeg: true, progressive: true })
+      .jpeg({ quality: 85, mozjpeg: true, progressive: true, chromaSubsampling: '4:4:4' })
       .toBuffer();
     fs.writeFileSync(heroJpg, jpgBuf);
     console.log(`Hero jpg → ${(jpgBuf.length / 1024).toFixed(0)}KB`);

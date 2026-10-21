@@ -10,6 +10,9 @@ export const HERO_IMAGE_SIZES = '(min-width: 1024px) 560px, (min-width: 640px) 7
 export const THUMB_IMAGE_WIDTHS = [320, 400] as const;
 /** Product / blog main images — prefer 960 as default src for clarity. */
 export const DEFAULT_IMAGE_WIDTHS = [640, 960] as const;
+/** Showcase panel ~352px CSS (22rem); 320–640 covers 1x–2x without pulling 960. */
+export const SHOWCASE_IMAGE_WIDTHS = [320, 400, 512, 640] as const;
+export const SHOWCASE_IMAGE_SIZES = '(min-width: 768px) 352px, calc(100vw - 2.5rem)';
 
 export function stripRasterExt(src: string): string {
   return src.replace(RASTER_EXT, '');
@@ -24,9 +27,11 @@ export function responsiveSrcSet(src: string, widths: readonly number[] = DEFAUL
 }
 
 /**
- * Default img src: largest listed width so no-srcset / first-paint clients get a sharp file.
- * Responsive `srcset` still lets the browser pick a smaller candidate when appropriate.
+ * Default img src: mid-tier width (not the max) so fallback clients avoid oversized files.
+ * Browsers with srcset still select the best candidate from the full list.
  */
 export function defaultWebpSrc(src: string, widths: readonly number[]): string {
-  return webpSrc(src, widths[widths.length - 1] ?? 960);
+  if (!widths.length) return webpSrc(src, 640);
+  const mid = widths[Math.min(widths.length - 1, Math.floor(widths.length / 2))] ?? 640;
+  return webpSrc(src, mid);
 }

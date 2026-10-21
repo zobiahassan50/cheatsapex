@@ -323,11 +323,18 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
 }
 
 .hero-status-marquee-track {
-  /* transform-only + GPU layer → composited animation (Lighthouse) */
+  /* Single composited layer — avoid animating hundreds of child badges */
   animation: hero-status-marquee 55s linear infinite;
   will-change: transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  contain: paint;
+}
+
+.hero-status-marquee-track > * {
+  /* Children must not create their own animation / transition layers */
+  transition: none !important;
+  animation: none !important;
 }
 
 .hero-status-marquee:hover .hero-status-marquee-track {

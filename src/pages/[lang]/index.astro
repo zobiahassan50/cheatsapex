@@ -26,7 +26,9 @@ Astro.locals.locale = locale;
 const t = useTranslations(locale);
 const seo = resolvePageSeo('/');
 const homeFaqs = getAllFaqs();
-const heroPoster = '/videos/apex-hero-poster.jpg';
+const heroPosterSrcset =
+  '/videos/apex-hero-poster-640.webp 640w, /videos/apex-hero-poster-960.webp 960w, /videos/apex-hero-poster-1280.webp 1280w';
+const heroPosterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
 const heroBgSrcset =
   '/images/hero-apex-640.webp 640w, /images/hero-apex-960.webp 960w, /images/hero-apex-1280.webp 1280w, /images/hero-apex-1920.webp 1920w';
 ---
@@ -40,8 +42,10 @@ const heroBgSrcset =
     slot="head"
     rel="preload"
     as="image"
-    href={heroPoster}
-    type="image/jpeg"
+    type="image/webp"
+    href="/videos/apex-hero-poster-960.webp"
+    imagesrcset={heroPosterSrcset}
+    imagesizes={heroPosterSizes}
     fetchpriority="high"
   />
   <link
@@ -50,7 +54,7 @@ const heroBgSrcset =
     as="image"
     type="image/webp"
     imagesrcset={heroBgSrcset}
-    imagesizes="100vw"
+    imagesizes="(min-width: 1600px) 1920px, 1280px"
   />
   <HeroSection />
   <FeaturesSection />

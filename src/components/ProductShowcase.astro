@@ -4,7 +4,7 @@ import Icon from './icons/Icon.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { Button } from '@/components/starwind/button';
 import { DEFAULT_LOCALE, getLocaleFromPathname, useTranslations } from '../i18n';
-import { DEFAULT_IMAGE_WIDTHS } from '../utils/responsiveImage';
+import { SHOWCASE_IMAGE_SIZES, SHOWCASE_IMAGE_WIDTHS } from '../utils/responsiveImage';
 
 interface Props {
   eyebrow: string;
@@ -134,9 +134,9 @@ const {
                   width={640}
                   height={360}
                   loading={index === 0 ? 'eager' : 'lazy'}
-                  fetchPriority={index === 0 ? 'high' : 'auto'}
-                  widths={DEFAULT_IMAGE_WIDTHS}
-                  sizes="(min-width: 768px) 22rem, 100vw"
+                  fetchPriority="auto"
+                  widths={SHOWCASE_IMAGE_WIDTHS}
+                  sizes={SHOWCASE_IMAGE_SIZES}
                   class="aspect-video w-full max-w-[22rem] rounded-2xl border border-border/70 bg-muted/40 object-cover shadow-sm"
                 />
               </div>
