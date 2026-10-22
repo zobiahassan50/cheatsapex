@@ -9,7 +9,9 @@ import {
 import { t } from '../../i18n';
 import { resolvePageSeo } from '../../config/seo';
 import { breadcrumbSchema, collectionPageSchema, itemListSchema } from '../../utils/schema';
-import { CARD_IMAGE_WIDTHS, webpSrc } from '../../utils/responsiveImage';
+import { getImage } from 'astro:assets';
+import { CARD_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+import { resolveLocalImage } from '../../utils/imageRegistry';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import BlogSortSelect from '../../components/BlogSortSelect.astro';
@@ -28,7 +30,23 @@ const breadcrumbs = [
 const featured = getFeaturedBlogPost();
 const gridPosts = getNonFeaturedBlogPosts();
 const tags = getBlogTags();
-const lcpImage = webpSrc(featured?.image ?? blogPosts[0]!.image, CARD_IMAGE_WIDTHS[0]);
+const lcpMeta = resolveLocalImage(featured?.image ?? blogPosts[0]!.image);
+const lcpAvif = lcpMeta
+  ? await getImage({
+      src: lcpMeta,
+      width: CARD_IMAGE_WIDTHS[0],
+      format: 'avif',
+      quality: 86,
+    })
+  : null;
+const lcpWebp = lcpMeta
+  ? await getImage({
+      src: lcpMeta,
+      width: CARD_IMAGE_WIDTHS[0],
+      format: 'webp',
+      quality: 86,
+    })
+  : null;
 
 const tagIcon = (tag: string): IconName => blogTagIcons[tag] ?? 'tag';
 ---
@@ -51,7 +69,30 @@ const tagIcon = (tag: string): IconName => blogTagIcons[tag] ?? 'tag';
     breadcrumbSchema(breadcrumbs),
   ]}
 >
-  <link slot="head" rel="preload" as="image" href={lcpImage} type="image/webp" fetchpriority="high" />
+  {
+    lcpAvif && (
+      <link
+        slot="head"
+        rel="preload"
+        as="image"
+        href={lcpAvif.src}
+        type="image/avif"
+        fetchpriority="high"
+      />
+    )
+  }
+  {
+    lcpWebp && (
+      <link
+        slot="head"
+        rel="preload"
+        as="image"
+        href={lcpWebp.src}
+        type="image/webp"
+        fetchpriority="high"
+      />
+    )
+  }
 
   <section
     class="border-y border-border bg-muted/20 pb-12 pt-4 md:pb-16 md:pt-5"

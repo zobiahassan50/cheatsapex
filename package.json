@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/sync-public-redirects.mjs && node scripts/audit-seo.mjs && node scripts/optimize-images.mjs && node scripts/optimize-video.mjs && astro build && node scripts/defer-css.mjs && node scripts/prune-dist-images.mjs && node scripts/finalize-sitemap.mjs && node scripts/indexnow.mjs",
+    "build": "node scripts/sync-public-redirects.mjs && node scripts/audit-seo.mjs && node scripts/optimize-images.mjs && node scripts/optimize-video.mjs && astro build && node scripts/defer-css.mjs && node scripts/prune-dist-images.mjs && node scripts/indexnow.mjs",
     "preview": "astro preview --host 0.0.0.0",
     "start": "node scripts/serve.mjs",
     "deploy": "wrangler deploy",
@@ -17,7 +17,6 @@
     "seo:audit": "node scripts/sync-public-redirects.mjs && node scripts/audit-seo.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
     "@lucide/astro": "^1.48.0",
     "@starwind-ui/astro": "^1.2.1",
     "@tabler/icons": "^3.48.0",

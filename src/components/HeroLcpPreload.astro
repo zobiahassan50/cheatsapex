@@ -1,5 +1,5 @@
 ---
-/** Preload LCP poster URL that matches HeroLcpPicture output (quality 90 WebP). */
+/** Preload LCP poster that matches HeroLcpPicture (AVIF preferred, WebP fallback). */
 import { getImage } from 'astro:assets';
 import posterSrc from '../assets/hero/apex-hero-poster.jpg';
 import heroBgSrc from '../assets/hero/hero-apex.jpg';
@@ -7,31 +7,37 @@ import heroBgSrc from '../assets/hero/hero-apex.jpg';
 const poster620 = await getImage({
   src: posterSrc,
   width: 620,
-  format: 'webp',
+  format: 'avif',
   quality: 90,
 });
 const poster960 = await getImage({
   src: posterSrc,
   width: 960,
-  format: 'webp',
+  format: 'avif',
   quality: 90,
 });
 const poster1240 = await getImage({
   src: posterSrc,
   width: 1240,
+  format: 'avif',
+  quality: 90,
+});
+const poster960Webp = await getImage({
+  src: posterSrc,
+  width: 960,
   format: 'webp',
   quality: 90,
 });
 const bg1280 = await getImage({
   src: heroBgSrc,
   width: 1280,
-  format: 'webp',
+  format: 'avif',
   quality: 90,
 });
 const bg1920 = await getImage({
   src: heroBgSrc,
   width: 1920,
-  format: 'webp',
+  format: 'avif',
   quality: 90,
 });
 
@@ -43,7 +49,7 @@ const bgSrcset = `${bg1280.src} 1280w, ${bg1920.src} 1920w`;
 <link
   rel="preload"
   as="image"
-  type="image/webp"
+  type="image/avif"
   href={poster960.src}
   imagesrcset={posterSrcset}
   imagesizes={posterSizes}
@@ -53,6 +59,13 @@ const bgSrcset = `${bg1280.src} 1280w, ${bg1920.src} 1920w`;
   rel="preload"
   as="image"
   type="image/webp"
+  href={poster960Webp.src}
+  fetchpriority="high"
+/>
+<link
+  rel="preload"
+  as="image"
+  type="image/avif"
   href={bg1280.src}
   imagesrcset={bgSrcset}
   imagesizes="(min-width: 1600px) 1920px, 1280px"

@@ -12,11 +12,12 @@ if (!key) {
 }
 
 const sitemapPath = [
+  path.join(dist, 'sitemap.xml'),
   path.join(dist, 'sitemap-all.xml'),
   path.join(dist, 'sitemap-0.xml'),
 ].find((p) => fs.existsSync(p));
 if (!sitemapPath) {
-  console.warn('IndexNow: sitemap-all.xml missing — skipping ping.');
+  console.warn('IndexNow: sitemap.xml missing — skipping ping.');
   process.exit(0);
 }
 

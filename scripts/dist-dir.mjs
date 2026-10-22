@@ -8,6 +8,7 @@ export function resolveDistDir() {
   const candidates = [path.join(root, 'dist', 'client'), path.join(root, 'dist')];
   for (const dir of candidates) {
     if (
+      fs.existsSync(path.join(dir, 'sitemap.xml')) ||
       fs.existsSync(path.join(dir, 'sitemap-0.xml')) ||
       fs.existsSync(path.join(dir, 'sitemap-index.xml')) ||
       fs.existsSync(path.join(dir, 'index.html'))

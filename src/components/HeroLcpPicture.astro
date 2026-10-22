@@ -1,7 +1,7 @@
 ---
 /**
- * LCP hero poster + background via Astro assets Picture (sharp), quality 90.
- * Exact responsive widths include mobile 620w (~620×348) so browsers pick the right file.
+ * LCP hero poster + background via Astro assets Picture (sharp).
+ * AVIF → WebP → jpeg fallback; exact responsive widths for LCP.
  */
 import { Picture } from 'astro:assets';
 import posterSrc from '../assets/hero/apex-hero-poster.jpg';
@@ -21,7 +21,7 @@ const bgSizes = '(min-width: 1600px) 1920px, 1280px';
   variant === 'poster' ? (
     <Picture
       src={posterSrc}
-      formats={['webp']}
+      formats={['avif', 'webp']}
       widths={[620, 960, 1240]}
       sizes={posterSizes}
       quality={90}
@@ -36,7 +36,7 @@ const bgSizes = '(min-width: 1600px) 1920px, 1280px';
   ) : (
     <Picture
       src={heroBgSrc}
-      formats={['webp']}
+      formats={['avif', 'webp']}
       widths={[640, 960, 1280, 1920]}
       sizes={bgSizes}
       quality={90}

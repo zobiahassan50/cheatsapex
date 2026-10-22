@@ -141,7 +141,7 @@ type GalleryKey = keyof typeof galleryRaw;
 
 const gameplay = '/images/gameplay';
 
-/** Original product images — keep in sync with public/images/gameplay. */
+/** Original product images — sources live in src/assets/images/gameplay (Astro Picture). */
 const galleryRaw = {
   gpEspWallhack: {
     src: `${gameplay}/apex-esp-wallhack.png`,

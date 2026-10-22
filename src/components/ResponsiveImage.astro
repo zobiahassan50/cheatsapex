@@ -1,9 +1,11 @@
 ---
-import {
-  DEFAULT_IMAGE_WIDTHS,
-  defaultWebpSrc,
-  responsiveSrcSet,
-} from '../utils/responsiveImage';
+/**
+ * Astro Picture wrapper — AVIF + WebP srcset from src/assets via imageRegistry.
+ * Falls back to a plain <img> for SVG / unresolved paths.
+ */
+import { Picture } from 'astro:assets';
+import { DEFAULT_IMAGE_WIDTHS } from '../utils/responsiveImage';
+import { resolveLocalImage } from '../utils/imageRegistry';
 
 interface Props {
   src: string;
@@ -16,6 +18,7 @@ interface Props {
   widths?: readonly number[];
   class?: string;
   desktopOnly?: boolean;
+  quality?: number;
 }
 
 const {
@@ -29,34 +32,30 @@ const {
   widths = DEFAULT_IMAGE_WIDTHS,
   class: className,
   desktopOnly = false,
+  quality = 86,
 } = Astro.props;
 
-const isRaster = /\.(png|jpe?g|webp)$/i.test(src);
-const srcSet = responsiveSrcSet(src, widths);
-const imgSrc = desktopOnly
-  ? 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-  : defaultWebpSrc(src, widths);
+const meta = resolveLocalImage(src);
 const pictureSizes = desktopOnly ? '(min-width: 1024px) 490px, 1px' : sizes;
-const pictureMedia = desktopOnly ? '(min-width: 1024px)' : undefined;
+const widthList = [...widths];
 ---
 
 {
-  isRaster ? (
-    <picture>
-      <source type="image/webp" srcset={srcSet} sizes={pictureSizes} media={pictureMedia} />
-      <img
-        src={imgSrc}
-        srcset={desktopOnly ? undefined : srcSet}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-        decoding="async"
-        fetchpriority={fetchPriority}
-        sizes={pictureSizes}
-        class={className}
-      />
-    </picture>
+  meta ? (
+    <Picture
+      src={meta}
+      formats={['avif', 'webp']}
+      widths={widthList}
+      sizes={pictureSizes}
+      width={width}
+      height={height}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      fetchpriority={fetchPriority}
+      quality={quality}
+      class={className}
+    />
   ) : (
     <img
       src={src}
