@@ -82,10 +82,10 @@ const heroMarqueePills = [
 
       <div class="mx-auto flex w-full max-w-xl flex-col items-center gap-5 lg:mx-0 lg:max-w-none lg:items-end">
         <div
-          class="relative w-full overflow-hidden rounded-xl border border-border bg-card p-2 shadow-sm"
+          class="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-card p-2 shadow-sm"
           data-hero-video-wrap
         >
-          {/* Astro Picture LCP poster (exact widths, q90) — video src injected later. */}
+          {/* LCP poster — space reserved by wrap aspect-video; video src injected later. */}
           <div
             data-hero-poster
             class="pointer-events-none absolute inset-2 z-[1] overflow-hidden rounded-lg [&>picture]:contents"
@@ -93,13 +93,14 @@ const heroMarqueePills = [
             <HeroLcpPicture variant="poster" />
           </div>
           <video
-            class="relative z-0 aspect-video h-auto w-full rounded-lg object-cover"
+            class="relative z-0 h-full w-full rounded-lg object-cover"
             muted
             loop
             playsinline
             preload="none"
             data-hero-video
-            aria-label="Apex Legends cheat gameplay preview"
+            aria-hidden="true"
+            tabindex="-1"
           ></video>
         </div>
         <div class="grid w-full grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4 lg:grid-cols-2">

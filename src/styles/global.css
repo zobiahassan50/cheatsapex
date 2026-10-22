@@ -117,6 +117,10 @@ html::-webkit-scrollbar,
   padding-bottom: 4.5rem;
 }
 
+#hero [data-hero-video-wrap] {
+  aspect-ratio: 16 / 9;
+}
+
 /* Brand blue cast over hero photo (#2d6ee2) — CSS-only so master image stays sharp */
 #hero .hero-bg-blue-tint {
   background:
@@ -164,7 +168,9 @@ html.fonts-pending body {
 /* Lucide icons via Icon.astro — white in dark mode; muted + primary accents in light */
 .icon-app {
   color: #ffffff;
+  /* Compositor-only — never transition layout/paint props on hundreds of SVGs */
   transition: color 0.2s ease;
+  transition-property: color, opacity, fill, stroke;
 }
 
 html:not(.dark) .icon-app {
@@ -403,6 +409,7 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
   margin: 0;
   border-radius: 1.625rem;
   background: var(--primary);
+  /* Width expand is intentional for this single CTA; mass transition-all elsewhere was removed. */
   transition:
     width 0.45s cubic-bezier(0.65, 0, 0.076, 1),
     background-color 0.45s cubic-bezier(0.65, 0, 0.076, 1);
@@ -418,7 +425,9 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
   margin: auto;
   background: none;
   transform: translate(-1rem, 0);
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  transition:
+    transform 0.45s cubic-bezier(0.65, 0, 0.076, 1),
+    background-color 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 }
 
 .learn-more-btn__arrow::before {

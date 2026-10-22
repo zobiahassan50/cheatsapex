@@ -4,7 +4,7 @@ export const badge = tv({
   base: [
     "inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0",
-    "transition-all outline-none focus-visible:ring-3",
+    "transition-[color,background-color,border-color,opacity,transform] outline-none focus-visible:ring-3",
     "aria-invalid:border-error aria-invalid:focus-visible:ring-error/40",
   ],
   variants: {

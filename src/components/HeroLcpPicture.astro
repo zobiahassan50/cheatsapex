@@ -1,7 +1,7 @@
 ---
 /**
- * LCP hero poster + background via Astro assets Picture (sharp), quality 90.
- * Exact responsive widths include mobile 620w (~620×348) so browsers pick the right file.
+ * LCP hero poster + background via Astro assets Picture (sharp).
+ * Widths/sizes map to real display slots; quality 75 for bytes without visible UI change.
  */
 import { Picture } from 'astro:assets';
 import posterSrc from '../assets/hero/apex-hero-poster.jpg';
@@ -13,8 +13,9 @@ interface Props {
 
 const { variant } = Astro.props;
 
+/** ~720 CSS px poster slot; 360 for narrow phones, 960 for 2x desktop. */
 const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
-const bgSizes = '(min-width: 1600px) 1920px, 1280px';
+const bgSizes = '(min-width: 1600px) 1920px, (min-width: 768px) 1280px, 100vw';
 ---
 
 {
@@ -22,11 +23,11 @@ const bgSizes = '(min-width: 1600px) 1920px, 1280px';
     <Picture
       src={posterSrc}
       formats={['webp']}
-      widths={[620, 960, 1240]}
+      widths={[360, 720, 960]}
       sizes={posterSizes}
-      quality={90}
-      width={960}
-      height={540}
+      quality={75}
+      width={720}
+      height={405}
       alt=""
       loading="eager"
       fetchpriority="high"
@@ -39,12 +40,12 @@ const bgSizes = '(min-width: 1600px) 1920px, 1280px';
       formats={['webp']}
       widths={[640, 960, 1280, 1920]}
       sizes={bgSizes}
-      quality={90}
+      quality={75}
       width={1280}
       height={715}
       alt=""
       loading="eager"
-      fetchpriority="low"
+      fetchpriority="high"
       decoding="async"
       class="absolute inset-0 !h-full !max-h-none !w-full !max-w-none object-cover brightness-[0.85] dark:brightness-[0.4]"
     />

@@ -1,50 +1,56 @@
 ---
-/** Preload LCP poster URL that matches HeroLcpPicture output (quality 90 WebP). */
+/** Preload LCP poster + hero bg URLs matching HeroLcpPicture (quality 75 WebP). */
 import { getImage } from 'astro:assets';
 import posterSrc from '../assets/hero/apex-hero-poster.jpg';
 import heroBgSrc from '../assets/hero/hero-apex.jpg';
 
-const poster620 = await getImage({
+const poster360 = await getImage({
   src: posterSrc,
-  width: 620,
+  width: 360,
   format: 'webp',
-  quality: 90,
+  quality: 75,
+});
+const poster720 = await getImage({
+  src: posterSrc,
+  width: 720,
+  format: 'webp',
+  quality: 75,
 });
 const poster960 = await getImage({
   src: posterSrc,
   width: 960,
   format: 'webp',
-  quality: 90,
+  quality: 75,
 });
-const poster1240 = await getImage({
-  src: posterSrc,
-  width: 1240,
+const bg960 = await getImage({
+  src: heroBgSrc,
+  width: 960,
   format: 'webp',
-  quality: 90,
+  quality: 75,
 });
 const bg1280 = await getImage({
   src: heroBgSrc,
   width: 1280,
   format: 'webp',
-  quality: 90,
+  quality: 75,
 });
 const bg1920 = await getImage({
   src: heroBgSrc,
   width: 1920,
   format: 'webp',
-  quality: 90,
+  quality: 75,
 });
 
-const posterSrcset = `${poster620.src} 620w, ${poster960.src} 960w, ${poster1240.src} 1240w`;
+const posterSrcset = `${poster360.src} 360w, ${poster720.src} 720w, ${poster960.src} 960w`;
 const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
-const bgSrcset = `${bg1280.src} 1280w, ${bg1920.src} 1920w`;
+const bgSrcset = `${bg960.src} 960w, ${bg1280.src} 1280w, ${bg1920.src} 1920w`;
 ---
 
 <link
   rel="preload"
   as="image"
   type="image/webp"
-  href={poster960.src}
+  href={poster720.src}
   imagesrcset={posterSrcset}
   imagesizes={posterSizes}
   fetchpriority="high"
@@ -55,5 +61,6 @@ const bgSrcset = `${bg1280.src} 1280w, ${bg1920.src} 1920w`;
   type="image/webp"
   href={bg1280.src}
   imagesrcset={bgSrcset}
-  imagesizes="(min-width: 1600px) 1920px, 1280px"
+  imagesizes="(min-width: 1600px) 1920px, (min-width: 768px) 1280px, 100vw"
+  fetchpriority="high"
 />

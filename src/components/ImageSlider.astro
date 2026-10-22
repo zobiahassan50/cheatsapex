@@ -93,7 +93,7 @@ const imageWidths = isHero ? HERO_IMAGE_WIDTHS : undefined;
           <button
             type="button"
             role="tab"
-            class="hero-embla-dot relative h-2 shrink-0 overflow-hidden rounded-full bg-white/30 transition-[width] duration-300 data-[active=false]:w-2 data-[active=true]:w-9"
+            class="hero-embla-dot relative h-2 w-2 origin-left shrink-0 overflow-hidden rounded-full bg-white/30 transition-transform duration-300 data-[active=true]:scale-x-[4.5]"
             data-hero-embla-dot={i}
             aria-label={`Slide ${i + 1}`}
             aria-selected={i === 0 ? 'true' : 'false'}

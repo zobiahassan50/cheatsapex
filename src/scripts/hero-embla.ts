@@ -13,10 +13,10 @@ type AutoplayPlugin = {
 };
 
 function restartProgress(progressEl: HTMLElement) {
+  // Batch write → frame → write; avoid forced sync layout via offsetWidth.
   progressEl.style.animation = 'none';
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      void progressEl.offsetWidth;
       progressEl.style.animation = `hero-embla-progress ${HERO_AUTOPLAY_MS}ms linear forwards`;
     });
   });
@@ -110,11 +110,10 @@ async function initHeroCarousels(root: ParentNode = document) {
     }
 
     const resumeIfVisible = () => {
+      // Visibility is owned by IntersectionObserver — avoid sync layout reads here.
       if (document.hidden) return;
       requestAnimationFrame(() => {
-        const rect = carouselRoot.getBoundingClientRect();
-        const inView = rect.bottom > 0 && rect.top < window.innerHeight;
-        if (inView) autoplay.play();
+        autoplay.play();
       });
     };
 
