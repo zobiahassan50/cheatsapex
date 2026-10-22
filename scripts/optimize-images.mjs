@@ -1,91 +1,100 @@
+/**
+ * Same pattern as r6-blog-net: WebP + smart AVIF + LQIP placeholders for public images.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
 
 const root = process.cwd();
-const widths = [320, 400, 512, 640, 960];
-/** High visual quality for gameplay/blog (efficiency via size match, not heavy crush). */
-const WEBP_QUALITY = 86;
-const dirs = [
-  'public/images/gameplay',
-  'public/images/blog',
-];
 
-async function writeIfSmaller(output, buffer) {
-  if (fs.existsSync(output) && fs.statSync(output).size <= buffer.length) return false;
-  fs.writeFileSync(output, buffer);
-  return true;
+/** Display slots up to 2x retina for common layouts + full-bleed hero. */
+const widths = [320, 400, 512, 640, 960, 1280, 1920];
+
+const dirs = ['public/images', 'public/images/gameplay', 'public/images/blog'];
+
+/**
+ * Top-tier look + instant loads:
+ * - AVIF (primary): photographic quality, typically much smaller than WebP
+ * - WebP (fallback): Safari-safe
+ * - Tiny LQIP placeholder for zero-delay first paint
+ */
+async function writeVariants(input, baseDir, baseName) {
+  const placeholderOut = path.join(baseDir, `${baseName}-placeholder.webp`);
+  await sharp(input, { failOn: 'none' })
+    .resize({ width: 32, withoutEnlargement: true, kernel: sharp.kernel.lanczos3 })
+    .blur(1)
+    .webp({ quality: 50, effort: 4 })
+    .toFile(placeholderOut);
+  console.log(`Wrote ${path.relative(root, placeholderOut)}`);
+
+  for (const width of widths) {
+    const pipeline = () =>
+      sharp(input, { failOn: 'none' }).resize({
+        width,
+        withoutEnlargement: true,
+        kernel: sharp.kernel.lanczos3,
+      });
+
+    const webpOut = path.join(baseDir, `${baseName}-${width}.webp`);
+    const isHeroBg = /hero-apex|herobackground|bloghero/i.test(baseName);
+    const webpQuality = isHeroBg ? 62 : 82;
+    const avifQuality = isHeroBg ? 45 : 68;
+
+    await pipeline()
+      .webp({
+        quality: webpQuality,
+        alphaQuality: 100,
+        effort: 6,
+        smartSubsample: true,
+      })
+      .toFile(webpOut);
+    console.log(`Wrote ${path.relative(root, webpOut)}`);
+
+    const avifOut = path.join(baseDir, `${baseName}-${width}.avif`);
+    await pipeline()
+      .avif({ quality: avifQuality, effort: 7, chromaSubsampling: '4:2:0' })
+      .toFile(avifOut);
+
+    const webpBytes = fs.statSync(webpOut).size;
+    const avifBytes = fs.statSync(avifOut).size;
+    if (avifBytes >= webpBytes * 0.95) {
+      fs.unlinkSync(avifOut);
+      console.log(`Skipped AVIF ${path.relative(root, avifOut)} (not smaller than WebP)`);
+    } else {
+      console.log(
+        `Wrote ${path.relative(root, avifOut)} (${Math.round((1 - avifBytes / webpBytes) * 100)}% smaller)`,
+      );
+    }
+  }
 }
 
 async function optimizeDir(relativeDir) {
   const dir = path.join(root, relativeDir);
   if (!fs.existsSync(dir)) return;
 
-  const files = fs.readdirSync(dir).filter((file) => /\.png$/i.test(file) && !/-\d+\.webp$/i.test(file));
+  const files = fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-\d+\.(webp|avif)$/i.test(file));
 
+  // Prefer PNG when the same basename exists as JPEG (avoids overwriting variants).
+  const byBase = new Map();
   for (const file of files) {
+    const base = file.replace(/\.(png|jpe?g)$/i, '');
+    const prev = byBase.get(base);
+    if (!prev || /\.png$/i.test(file)) byBase.set(base, file);
+  }
+
+  for (const file of byBase.values()) {
     const input = path.join(dir, file);
-    const base = file.replace(/\.png$/i, '');
-
-    for (const width of widths) {
-      const output = path.join(dir, `${base}-${width}.webp`);
-      const buffer = await sharp(input)
-        .resize({ width, withoutEnlargement: true, kernel: sharp.kernel.lanczos3 })
-        .webp({ quality: WEBP_QUALITY, effort: 6, smartSubsample: true })
-        .toBuffer();
-      if (await writeIfSmaller(output, buffer)) {
-        console.log(`Wrote ${path.relative(root, output)}`);
-      }
-    }
-  }
-}
-
-/** Crush LCP hero assets (responsive webp + jpg fallback). */
-async function optimizeHero() {
-  const heroJpg = path.join(root, 'public/images/hero-apex.jpg');
-  const heroWidths = [640, 960, 1280, 1920];
-  if (!fs.existsSync(heroJpg)) return;
-
-  const source = await sharp(heroJpg).toBuffer();
-
-  for (const width of heroWidths) {
-    const output = path.join(root, `public/images/hero-apex-${width}.webp`);
-    try {
-      const buffer = await sharp(source)
-        .resize({ width, withoutEnlargement: true, kernel: sharp.kernel.lanczos3 })
-        .webp({ quality: 84, effort: 6, smartSubsample: true })
-        .toBuffer();
-      fs.writeFileSync(output, buffer);
-      console.log(`Hero ${width}w → ${(buffer.length / 1024).toFixed(0)}KB`);
-    } catch (err) {
-      console.warn(`Skip hero ${width}w:`, err.message);
-    }
-  }
-
-  try {
-    const fullWebp = await sharp(source)
-      .resize({ width: 1920, withoutEnlargement: true })
-      .webp({ quality: 84, effort: 6, smartSubsample: true })
-      .toBuffer();
-    fs.writeFileSync(path.join(root, 'public/images/hero-apex.webp'), fullWebp);
-  } catch (err) {
-    console.warn('Skip hero-apex.webp:', err.message);
-  }
-
-  try {
-    const jpgBuf = await sharp(source)
-      .jpeg({ quality: 85, mozjpeg: true, progressive: true, chromaSubsampling: '4:4:4' })
-      .toBuffer();
-    fs.writeFileSync(heroJpg, jpgBuf);
-    console.log(`Hero jpg → ${(jpgBuf.length / 1024).toFixed(0)}KB`);
-  } catch (err) {
-    console.warn('Skip hero-apex.jpg:', err.message);
+    const base = file.replace(/\.(png|jpe?g)$/i, '');
+    await writeVariants(input, dir, base);
   }
 }
 
 for (const dir of dirs) {
   await optimizeDir(dir);
 }
-await optimizeHero();
 
-console.log('Image optimization complete.');
+console.log('Image optimization complete (WebP + smart AVIF + LQIP).');

@@ -22,8 +22,24 @@ export function webpSrc(src: string, width: number): string {
   return `${stripRasterExt(src)}-${width}.webp`;
 }
 
-export function responsiveSrcSet(src: string, widths: readonly number[] = DEFAULT_IMAGE_WIDTHS): string {
-  return widths.map((width) => `${webpSrc(src, width)} ${width}w`).join(', ');
+export function avifSrc(src: string, width: number): string {
+  return `${stripRasterExt(src)}-${width}.avif`;
+}
+
+export function responsiveSrcSet(
+  src: string,
+  widths: readonly number[] = DEFAULT_IMAGE_WIDTHS,
+  format: 'webp' | 'avif' = 'webp',
+): string {
+  const toSrc = format === 'avif' ? avifSrc : webpSrc;
+  return widths.map((width) => `${toSrc(src, width)} ${width}w`).join(', ');
+}
+
+export function responsiveAvifSrcSet(
+  src: string,
+  widths: readonly number[] = DEFAULT_IMAGE_WIDTHS,
+): string {
+  return responsiveSrcSet(src, widths, 'avif');
 }
 
 /**

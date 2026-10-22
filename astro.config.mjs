@@ -14,9 +14,14 @@ const astroRedirects = Object.fromEntries(
   [...PATH_REDIRECTS.entries()].filter(([from]) => from.endsWith('/') || from === '/'),
 );
 
+/** Production: https://cheatsapex.com. Preview: set PUBLIC_SITE_URL / SITE to the *.pages.dev URL. */
+const site = (process.env.PUBLIC_SITE_URL || process.env.SITE || 'https://cheatsapex.com').replace(
+  /\/+$/,
+  '',
+);
+
 export default defineConfig({
-  // Production origin for sitemap/canonicals — not pages.dev preview host.
-  site: 'https://cheatsapex.com',
+  site,
   trailingSlash: 'always',
   i18n: {
     defaultLocale: 'en',

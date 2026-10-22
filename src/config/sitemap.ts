@@ -55,6 +55,12 @@ export function sitemapSerialize(item: SitemapItem): SitemapItem | undefined {
     return item;
   }
 
+  if (bare.startsWith('/guides/')) {
+    item.priority = 0.65;
+    item.changefreq = 'monthly';
+    return item;
+  }
+
   if (bare.startsWith('/products/')) {
     item.priority = 0.8;
     item.changefreq = 'weekly';
