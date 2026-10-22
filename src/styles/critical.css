@@ -74,5 +74,9 @@ body {
   transition: opacity 0.35s ease;
 }
 header {
-  position: relative;
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 100;
+  pointer-events: none;
 }

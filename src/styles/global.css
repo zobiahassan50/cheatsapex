@@ -71,8 +71,7 @@ html.dark .section-header__subtitle {
 }
 
 :root {
-  /* Kept for blog sidebar offset math; header is in-flow (not fixed). */
-  --floating-nav-clearance: 1rem;
+  --floating-nav-clearance: 4.75rem;
   --scrollbar-size: 0.625rem;
   --scrollbar-track: var(--muted);
   --scrollbar-thumb: color-mix(in oklch, var(--primary) 38%, var(--muted-foreground));
@@ -85,8 +84,14 @@ html.dark {
   --scrollbar-thumb-hover: var(--primary-accent);
 }
 
+@media (min-width: 640px) {
+  :root {
+    --floating-nav-clearance: 5.25rem;
+  }
+}
+
 html {
-  scroll-padding-top: 1rem;
+  scroll-padding-top: var(--floating-nav-clearance);
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -103,9 +108,12 @@ html::-webkit-scrollbar,
   -ms-overflow-style: none;
 }
 
-/* Header scrolls with the page — no top padding to clear a fixed nav. */
+#main-content > :first-child:not(#hero) {
+  padding-top: var(--floating-nav-clearance);
+}
+
 #hero {
-  padding-top: 2.75rem;
+  padding-top: calc(var(--floating-nav-clearance) + 2.75rem);
   padding-bottom: 4.5rem;
 }
 
@@ -137,14 +145,14 @@ html:not(.dark) .text-muted-foreground {
 
 @media (min-width: 768px) {
   #hero {
-    padding-top: 4rem;
+    padding-top: calc(var(--floating-nav-clearance) + 4rem);
     padding-bottom: 6.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   #hero {
-    padding-top: 5rem;
+    padding-top: calc(var(--floating-nav-clearance) + 5rem);
     padding-bottom: 8rem;
   }
 }
@@ -199,6 +207,18 @@ html:not(.dark) #why-us .why-compare-other-card .icon-app,
 html:not(.dark) #why-us .why-compare-other-card:hover .icon-app,
 html:not(.dark) #why-us .why-compare-other-card :hover .icon-app {
   color: var(--muted-foreground);
+}
+
+/* Dark “Apex Cheats” column keeps white type/icons in light mode */
+html:not(.dark) #why-us .why-compare-us-card .why-compare-card-head [data-slot='card-title'],
+html:not(.dark) #why-us .why-compare-us-card .why-compare-card-head:hover [data-slot='card-title'] {
+  color: #ffffff;
+}
+
+html:not(.dark) #why-us .why-compare-us-card .icon-app,
+html:not(.dark) #why-us .why-compare-us-card:hover .icon-app,
+html:not(.dark) #why-us .why-compare-us-card :hover .icon-app {
+  color: #ffffff;
 }
 
 /* Dark mode — icons stay white by default; allow explicit blue accents */
@@ -731,7 +751,7 @@ html:not(.dark) .deployment-cta-secondary:hover {
 
 #why-us .why-compare-us-card .why-compare-card-head [data-slot='card-title'],
 #why-us .why-compare-us-card .why-compare-card-head:hover [data-slot='card-title'] {
-  color: var(--foreground);
+  color: #ffffff;
 }
 
 #why-us .why-compare-other-card .why-compare-card-head [data-slot='card-title'],
