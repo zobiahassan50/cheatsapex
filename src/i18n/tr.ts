@@ -1,5 +1,6 @@
 import type { Translations } from './types';
 import { DISCORD_URL, PRODUCT_BASE } from '../config/site';
+import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
 
 const productBase = PRODUCT_BASE;
 
@@ -527,75 +528,42 @@ export const tr: Partial<Translations> = {
   support: {
     eyebrow: 'Destek',
     title: 'Apex Cheats destek',
-    subtitle:
-      'Windows PC’de Elite ESP ve aimbot için loader, HWID Spoofer, ödeme, lisans ve hesap yardımı.',
+    subtitle: 'Loader, HWID, ödeme ve hesap yardımı.',
     channels: [
       {
         icon: 'users',
         title: 'Satın almadan önce',
-        desc: 'Tier farkları (Lite / Pro / Elite), ESP ve aimbot içeriği, plana hangi araçların gerektiği.',
+        desc: 'Tier’ler ve her ürünün içeriği hakkında sorun.',
+        linkLabel: 'Ödemeye git',
+        href: PRIMARY_CHECKOUT_PATH,
       },
       {
         icon: 'headphones',
         title: 'E-posta desteği',
-        desc: 'Loader hataları, HWID Spoofer, lisans taşıma ve makbuz için support@cheatsapex.com.',
+        desc: 'Loader hataları, HWID ve hesap sorunları.',
+        linkLabel: 'support@cheatsapex.com',
+        href: 'mailto:support@cheatsapex.com',
       },
       {
         icon: 'navFaq',
-        title: 'SSS yanıtları',
-        desc: 'EA Javelin uyumu, banlar, Ranked, stream proof ve kurulum SSS sayfasında.',
+        title: 'SSS',
+        desc: 'Uyumluluk, ban ve kurulum yanıtları.',
+        linkLabel: 'SSS’yi gör',
+        href: '/faq/',
       },
       {
-        icon: 'messageCircle',
-        title: 'Discord yardımı',
-        desc: 'Canlı durum, yama notları ve 24/7 Discord desteği—acil loader sorunları için ideal.',
-      },
-      {
-        icon: 'settings',
-        title: 'Loader ve kurulum',
-        desc: 'İlk açılış, Defender istisnaları, EA App çakışmaları ve BR / Ranked profilleri.',
-      },
-      {
-        icon: 'shield',
-        title: 'HWID ve güvenlik',
-        desc: 'HWID Spoofer ne zaman çalıştırılır, donanım banı nasıl görünür, Javelin sonrası retest.',
-      },
-    ],
-    helpTitle: 'Nelerde yardımcı oluruz',
-    helpItems: [
-      {
-        title: 'Ödeme ve teslimat',
-        desc: 'Portal erişimi yok, ödeme beklemede veya satın alma sonrası lisans açılmıyor.',
-      },
-      {
-        title: 'Loader açılmıyor',
-        desc: 'Açılışta çökme, antivirüs karantinası, eksik VC++ veya “zaten çalışıyor” hatası.',
-      },
-      {
-        title: 'ESP / aimbot ayarları',
-        desc: 'Smoothness, FOV, kemik seçimi, loot ESP filtreleri ve stream-proof overlay.',
-      },
-      {
-        title: 'Apex güncellemesinden sonra',
-        desc: 'Ranked öncesi Undetected / Updating durumunu kontrol edin; her yamadan sonra Elite retest edilir.',
-      },
-      {
-        title: 'UGC ve Skin Changer',
-        desc: 'Araç kilidi, Elite ile sıra ve skin uygulanmazsa ne göndereceğiniz.',
-      },
-      {
-        title: 'Hesap ve lisans',
-        desc: 'Lisansı yeni PC’ye taşıma, HWID limitleri ve sipariş e-postasıyla erişim kurtarma.',
+        icon: 'clock',
+        title: 'Discord',
+        desc: 'Destek 24/7 online.',
+        linkLabel: 'Discord’a katıl',
+        href: DISCORD_URL,
       },
     ],
     ticketTitle: 'Ticket’a ekleyin',
     ticketItems: [
       { title: 'Sipariş e-postası', desc: 'cheatsapex.com’da ödemede kullandığınız e-posta.' },
-      { title: 'Sipariş ID veya makbuz', desc: 'Ödeme ID’si, fatura numarası veya onay e-postasının ekran görüntüsü.' },
-      { title: 'Platform', desc: 'Windows 10 veya 11 (64-bit), EA App veya Steam ve Apex istemci sürümü.' },
-      { title: 'Ürün ve plan', desc: 'Elite / Pro / Lite, HWID Spoofer, UGC veya Skin Changer—Ranked mı pubs mı.' },
-      { title: 'Hata ayrıntısı', desc: 'Loader, portal veya EA / Javelin mesajından ekran görüntüsü ya da birebir metin.' },
-      { title: 'Denenen adımlar', desc: 'Antivirüs duraklatma, yönetici olarak çalıştırma, temiz yeniden başlatma veya Discord #status.' },
+      { title: 'Platform', desc: 'Windows 10 veya 11, EA Launcher ve Apex sürümünüz.' },
+      { title: 'Hata ayrıntısı', desc: 'Loader veya EA’dan ekran görüntüsü ya da birebir metin.' },
     ],
   },
   faq: {

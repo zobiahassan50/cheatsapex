@@ -1,5 +1,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
+import { sitemapSerialize } from './src/config/sitemap.ts';
 import { PATH_REDIRECTS } from './scripts/redirects.mjs';
 import { accordionRafPlugin } from './scripts/vite-accordion-raf.mjs';
 
@@ -33,6 +35,12 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/404') && !page.includes('/go/'),
+      serialize: sitemapSerialize,
+    }),
+  ],
   vite: {
     plugins: [accordionRafPlugin(), tailwindcss()],
     esbuild: {

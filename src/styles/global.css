@@ -209,18 +209,6 @@ html:not(.dark) #why-us .why-compare-other-card :hover .icon-app {
   color: var(--muted-foreground);
 }
 
-/* Dark “Apex Cheats” column keeps white type/icons in light mode */
-html:not(.dark) #why-us .why-compare-us-card .why-compare-card-head [data-slot='card-title'],
-html:not(.dark) #why-us .why-compare-us-card .why-compare-card-head:hover [data-slot='card-title'] {
-  color: #ffffff;
-}
-
-html:not(.dark) #why-us .why-compare-us-card .icon-app,
-html:not(.dark) #why-us .why-compare-us-card:hover .icon-app,
-html:not(.dark) #why-us .why-compare-us-card :hover .icon-app {
-  color: #ffffff;
-}
-
 /* Dark mode — icons stay white by default; allow explicit blue accents */
 html.dark .icon-app,
 html.dark .icon-app.icon-app--primary,
@@ -751,7 +739,7 @@ html:not(.dark) .deployment-cta-secondary:hover {
 
 #why-us .why-compare-us-card .why-compare-card-head [data-slot='card-title'],
 #why-us .why-compare-us-card .why-compare-card-head:hover [data-slot='card-title'] {
-  color: #ffffff;
+  color: var(--foreground);
 }
 
 #why-us .why-compare-other-card .why-compare-card-head [data-slot='card-title'],

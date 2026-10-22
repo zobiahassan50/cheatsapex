@@ -11,6 +11,7 @@
   --muted-foreground: #4a4d5c;
   --border: #d8dde8;
   --radius: 0.625rem;
+  --floating-nav-clearance: 4.75rem;
 }
 .dark {
   --background: #0b1018;
@@ -53,30 +54,40 @@ body {
   left: 1rem;
   top: 1rem;
 }
-/* Hero ATF shell so first paint is stable before deferred Tailwind CSS */
+/* Hero ATF — do NOT force height:auto on imgs (breaks absolute cover bg). */
 #hero {
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
   background: var(--background);
-  min-height: 70vh;
+  padding-top: calc(var(--floating-nav-clearance) + 2.75rem);
+  padding-bottom: 4.5rem;
 }
 .dark #hero {
   background: #0a0a0a;
 }
-#hero img,
-#hero picture,
-#hero video {
-  max-width: 100%;
-  height: auto;
+/* Background plane: fill the section edge-to-edge */
+#hero [data-hero-bg] {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+#hero [data-hero-bg] img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
 }
 #hero [data-hero-poster] {
   transition: opacity 0.35s ease;
 }
-header {
-  position: fixed;
-  inset-inline: 0;
-  top: 0;
-  z-index: 100;
-  pointer-events: none;
+#hero [data-hero-poster] img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
 }

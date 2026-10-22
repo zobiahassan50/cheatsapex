@@ -214,9 +214,9 @@ export interface Translations {
       icon: string;
       title: string;
       desc: string;
+      linkLabel: string;
+      href: string;
     }[];
-    helpTitle: string;
-    helpItems: { title: string; desc: string }[];
     ticketTitle: string;
     ticketItems: { title: string; desc: string }[];
   };

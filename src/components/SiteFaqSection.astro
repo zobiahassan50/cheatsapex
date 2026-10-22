@@ -20,7 +20,6 @@ interface Props {
   eyebrow?: string;
   title?: string;
   subtitle?: string;
-  level?: 1 | 2;
 }
 
 const {
@@ -33,7 +32,6 @@ const {
   eyebrow: eyebrowProp,
   title: titleProp,
   subtitle: subtitleProp,
-  level = 2,
 } = Astro.props;
 
 const defaults = variant === 'full' ? SITE_FAQ_SECTION_COPY : CONTEXTUAL_FAQ_SECTION_COPY;
@@ -57,5 +55,4 @@ const showFilters = filterTopics.length > 1;
   showFilters={showFilters}
   filterTopics={filterTopics}
   class={className}
-  level={level}
 />

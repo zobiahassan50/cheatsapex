@@ -27,7 +27,11 @@ const heroMarqueePills = [
   class="relative overflow-hidden border-b border-border bg-background dark:bg-neutral-950"
   aria-labelledby="hero-title"
 >
-  <div class="pointer-events-none absolute inset-0 overflow-hidden [&>picture]:contents" aria-hidden="true">
+  <div
+    class="pointer-events-none absolute inset-0 z-0 overflow-hidden [&>picture]:contents"
+    aria-hidden="true"
+    data-hero-bg
+  >
     <HeroLcpPicture variant="background" />
   </div>
   <div class="pointer-events-none absolute inset-0 bg-white/80 dark:bg-black/55" aria-hidden="true" />
@@ -37,7 +41,7 @@ const heroMarqueePills = [
   />
   <div class="pointer-events-none absolute inset-0 hero-bg-blue-tint" aria-hidden="true" />
 
-  <div class="relative mx-auto flex max-w-6xl flex-col justify-center px-5">
+  <div class="relative z-10 mx-auto flex max-w-6xl flex-col justify-center px-5">
     <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
       <div class="w-full max-w-xl space-y-6 text-left md:space-y-7 lg:max-w-2xl">
         <Badge variant="secondary" class="uppercase tracking-wider">{h.eyebrow}</Badge>
@@ -96,15 +100,7 @@ const heroMarqueePills = [
             preload="none"
             data-hero-video
             aria-label="Apex Legends cheat gameplay preview"
-          >
-            <track
-              kind="captions"
-              srclang="en"
-              label="English"
-              src="/videos/apex-hero-captions.vtt"
-              default
-            />
-          </video>
+          ></video>
         </div>
         <div class="grid w-full grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4 lg:grid-cols-2">
           {h.metrics.map((m, i) => (

@@ -1,4 +1,5 @@
 import type { Translations } from './types';
+import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
 import { DISCORD_URL, PRODUCT_BASE } from '../config/site';
 
 const productBase = PRODUCT_BASE;
@@ -480,93 +481,42 @@ export const en: Translations = {
   support: {
     eyebrow: 'Support',
     title: 'Apex Cheats support',
-    subtitle:
-      'Loader, HWID Spoofer, checkout, license and account help for Elite ESP & aimbot on Windows PC.',
+    subtitle: 'Loader, HWID, checkout and account help.',
     channels: [
       {
         icon: 'users',
         title: 'Before you buy',
-        desc: 'Tier differences (Lite / Pro / Elite), what ESP and aimbot include, and which utilities you need with your plan.',
+        desc: 'Ask about tiers and what each product includes.',
+        linkLabel: 'Start checkout',
+        href: PRIMARY_CHECKOUT_PATH,
       },
       {
         icon: 'headphones',
         title: 'Email support',
-        desc: 'Write to support@cheatsapex.com for loader errors, HWID Spoofer, license moves and checkout receipts.',
+        desc: 'Loader errors, HWID and account issues.',
+        linkLabel: 'support@cheatsapex.com',
+        href: 'mailto:support@cheatsapex.com',
       },
       {
         icon: 'navFaq',
-        title: 'FAQ answers',
-        desc: 'Compatibility with EA Javelin, bans, Ranked use, stream proof and setup steps are covered on the FAQ page.',
+        title: 'FAQ',
+        desc: 'Compatibility, bans and setup answers.',
+        linkLabel: 'View FAQ',
+        href: '/faq/',
       },
       {
-        icon: 'messageCircle',
-        title: 'Discord help',
-        desc: 'Live status, patch notes and 24/7 help in Discord—best for urgent loader or post-update issues.',
-      },
-      {
-        icon: 'settings',
-        title: 'Loader & setup',
-        desc: 'First launch, Windows Defender exclusions, EA App conflicts and config profiles for Battle Royale or Ranked.',
-      },
-      {
-        icon: 'shield',
-        title: 'HWID & safety',
-        desc: 'When to run the HWID Spoofer, what a hardware ban looks like, and how we retest after EA Javelin patches.',
-      },
-    ],
-    helpTitle: 'What we can help with',
-    helpItems: [
-      {
-        title: 'Checkout & delivery',
-        desc: 'Missing portal access, payment pending, or license not unlocking after purchase.',
-      },
-      {
-        title: 'Loader will not start',
-        desc: 'Crash on open, antivirus quarantine, missing VC++ runtime, or “already running” errors.',
-      },
-      {
-        title: 'ESP / aimbot configs',
-        desc: 'Smoothness, FOV, bone selection, loot ESP filters and stream-proof overlays.',
-      },
-      {
-        title: 'After an Apex update',
-        desc: 'Confirm Undetected / Updating status before Ranked; we retest Elite builds after each patch.',
-      },
-      {
-        title: 'UGC & Skin Changer',
-        desc: 'Utility unlock issues, load order with Elite, and what to send if skins fail to apply.',
-      },
-      {
-        title: 'Account & license',
-        desc: 'Moving a license to a new PC, shared HWID limits, and recovering access with your order email.',
+        icon: 'clock',
+        title: 'Discord',
+        desc: 'Support online 24/7.',
+        linkLabel: 'Join Discord',
+        href: DISCORD_URL,
       },
     ],
     ticketTitle: 'Include in your ticket',
     ticketItems: [
-      {
-        title: 'Order email',
-        desc: 'The email you used at checkout on cheatsapex.com.',
-      },
-      {
-        title: 'Order ID or receipt',
-        desc: 'Payment ID, invoice number, or a screenshot of the confirmation email.',
-      },
-      {
-        title: 'Platform',
-        desc: 'Windows 10 or 11 (64-bit), EA App or Steam, and your Apex client version.',
-      },
-      {
-        title: 'Product & plan',
-        desc: 'Elite / Pro / Lite, HWID Spoofer, UGC or Skin Changer—and whether Ranked or pubs.',
-      },
-      {
-        title: 'Error detail',
-        desc: 'Screenshot or exact text from the loader, portal, or EA / Javelin message.',
-      },
-      {
-        title: 'Steps already tried',
-        desc: 'Antivirus pause, admin run, clean reboot, or Discord #status check after a patch.',
-      },
+      { title: 'Order email', desc: 'The email you used at checkout on cheatsapex.com.' },
+      { title: 'Platform', desc: 'Windows 10 or 11, EA Launcher, and your Apex version.' },
+      { title: 'Error detail', desc: 'Screenshot or exact text from the loader or EA.' },
     ],
   },
   faq: {

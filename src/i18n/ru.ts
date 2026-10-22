@@ -1,5 +1,6 @@
 import type { Translations } from './types';
 import { DISCORD_URL, PRODUCT_BASE } from '../config/site';
+import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
 
 const productBase = PRODUCT_BASE;
 
@@ -527,75 +528,42 @@ export const ru: Partial<Translations> = {
   support: {
     eyebrow: 'Поддержка',
     title: 'Поддержка Apex Cheats',
-    subtitle:
-      'Помощь по лоадеру, HWID Spoofer, оплате, лицензии и аккаунту для Elite ESP и аимбота на Windows PC.',
+    subtitle: 'Помощь по лоадеру, HWID, оплате и аккаунту.',
     channels: [
       {
         icon: 'users',
         title: 'Перед покупкой',
-        desc: 'Разница тарифов (Lite / Pro / Elite), что входят ESP и аимбот, какие утилиты нужны к плану.',
+        desc: 'Спросите про тарифы и что входит в каждый продукт.',
+        linkLabel: 'К оплате',
+        href: PRIMARY_CHECKOUT_PATH,
       },
       {
         icon: 'headphones',
         title: 'Email-поддержка',
-        desc: 'Пишите на support@cheatsapex.com по ошибкам лоадера, HWID Spoofer, переносу лицензии и чекам.',
+        desc: 'Ошибки лоадера, HWID и аккаунт.',
+        linkLabel: 'support@cheatsapex.com',
+        href: 'mailto:support@cheatsapex.com',
       },
       {
         icon: 'navFaq',
-        title: 'Ответы FAQ',
-        desc: 'Совместимость с EA Javelin, баны, Ranked, stream proof и сетап — на странице FAQ.',
+        title: 'FAQ',
+        desc: 'Совместимость, баны и сетап.',
+        linkLabel: 'Смотреть FAQ',
+        href: '/faq/',
       },
       {
-        icon: 'messageCircle',
-        title: 'Помощь в Discord',
-        desc: 'Живой статус, патчноуты и поддержка 24/7 в Discord — лучше для срочных проблем с лоадером.',
-      },
-      {
-        icon: 'settings',
-        title: 'Лоадер и сетап',
-        desc: 'Первый запуск, исключения Defender, конфликты с EA App и профили для BR или Ranked.',
-      },
-      {
-        icon: 'shield',
-        title: 'HWID и безопасность',
-        desc: 'Когда запускать HWID Spoofer, как выглядит hardware-бан и как мы ретестируем после патчей Javelin.',
-      },
-    ],
-    helpTitle: 'С чем мы помогаем',
-    helpItems: [
-      {
-        title: 'Оплата и выдача',
-        desc: 'Нет доступа в портал, платёж в ожидании или лицензия не открывается после покупки.',
-      },
-      {
-        title: 'Лоадер не запускается',
-        desc: 'Краш при открытии, карантин антивируса, нет VC++ runtime или ошибка «уже запущен».',
-      },
-      {
-        title: 'Конфиги ESP / аимбота',
-        desc: 'Smoothness, FOV, кости, фильтры loot ESP и stream-proof оверлеи.',
-      },
-      {
-        title: 'После обновления Apex',
-        desc: 'Проверьте статус Undetected / Updating перед Ranked; мы ретестируем Elite после каждого патча.',
-      },
-      {
-        title: 'UGC и Skin Changer',
-        desc: 'Проблемы с разблокировкой утилит, порядок с Elite и что прислать, если скины не применяются.',
-      },
-      {
-        title: 'Аккаунт и лицензия',
-        desc: 'Перенос лицензии на новый ПК, лимиты HWID и восстановление доступа по email заказа.',
+        icon: 'clock',
+        title: 'Discord',
+        desc: 'Поддержка онлайн 24/7.',
+        linkLabel: 'Войти в Discord',
+        href: DISCORD_URL,
       },
     ],
     ticketTitle: 'Укажите в тикете',
     ticketItems: [
       { title: 'Email заказа', desc: 'Email, который вы использовали при оплате на cheatsapex.com.' },
-      { title: 'ID заказа или чек', desc: 'ID платежа, номер счёта или скриншот письма с подтверждением.' },
-      { title: 'Платформа', desc: 'Windows 10 или 11 (64-bit), EA App или Steam и версия клиента Apex.' },
-      { title: 'Продукт и план', desc: 'Elite / Pro / Lite, HWID Spoofer, UGC или Skin Changer — и Ranked или pubs.' },
-      { title: 'Детали ошибки', desc: 'Скриншот или точный текст из лоадера, портала или сообщения EA / Javelin.' },
-      { title: 'Что уже пробовали', desc: 'Пауза антивируса, запуск от админа, чистая перезагрузка или проверка #status в Discord.' },
+      { title: 'Платформа', desc: 'Windows 10 или 11, EA Launcher и версия Apex.' },
+      { title: 'Детали ошибки', desc: 'Скриншот или точный текст из лоадера или EA.' },
     ],
   },
   faq: {

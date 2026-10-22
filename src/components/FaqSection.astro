@@ -22,8 +22,6 @@ interface Props {
   contentAlign?: 'left' | 'center';
   id?: string;
   class?: string;
-  /** Page H1 on /faq/; default h2 for embedded sections. */
-  level?: 1 | 2;
 }
 
 const {
@@ -38,7 +36,6 @@ const {
   contentAlign = 'center',
   id: sectionId,
   class: className,
-  level = 2,
 } = Astro.props;
 
 const topicLabels: Record<FaqTopic, string> = {
@@ -69,7 +66,6 @@ const filters = filterTopics ?? (['all', 'plans', 'esp', 'safety', 'products', '
       desc={subtitle}
       titleId={titleId}
       centered={centered}
-      level={level}
     />
 
     {
