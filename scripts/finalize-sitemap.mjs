@@ -1,5 +1,5 @@
 ﻿/**
- * Post-process @astrojs/sitemap output (same pattern as r6-blog-net):
+ * Post-process @astrojs/sitemap output:
  * - Read dist/sitemap-0.xml from the integration
  * - Emit split urlsets + sitemap.xml index for GSC
  * - Write robots.txt with Sitemap: pointing at production origin

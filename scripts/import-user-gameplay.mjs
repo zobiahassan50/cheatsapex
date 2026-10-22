@@ -12,7 +12,7 @@ const importDir = path.resolve('_import');
 const gameplayDir = path.resolve('public/images/gameplay');
 const blogDir = path.resolve('public/images/blog');
 
-/** Skip Valorant screenshot only. */
+/** Skip non-Apex screenshots by filename fragment. */
 const SKIP_SUBSTRINGS = ['065800-cb09d0b5'];
 
 const GAMEPLAY = [

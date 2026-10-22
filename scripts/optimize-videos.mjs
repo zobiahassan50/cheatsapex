@@ -1,5 +1,5 @@
 /**
- * Same pattern as r6-blog-net: ffmpeg re-encode + sharp posters (skip gracefully without ffmpeg).
+ * ffmpeg re-encode + sharp posters (skip gracefully without ffmpeg).
  */
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';

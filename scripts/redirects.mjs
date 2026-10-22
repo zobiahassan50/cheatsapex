@@ -38,7 +38,7 @@ for (const [from, to] of Object.entries(PRODUCT_PATH_REDIRECTS)) {
 // Account-recovery alias (final: ban-appeal)
 add('/products/apex-cheats/account-recovery', '/products/apex-cheats/ban-appeal/');
 
-// Legacy Dota / Fortnite product trees → Apex finals
+// Legacy product URLs (pre-rebrand domains) → Apex finals — SEO only, not site content
 add('/products/dota-2-cheats', '/products/apex-cheats/');
 add('/products/dota-2-cheats/elite', '/products/apex-cheats/apex-elite/');
 add('/products/dota-2-cheats/utilities', '/products/apex-cheats/cheat-tools/');

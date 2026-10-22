@@ -1,5 +1,5 @@
 /**
- * Same pattern as r6-blog-net: WebP + smart AVIF + LQIP placeholders for public images.
+ * WebP + smart AVIF + LQIP placeholders for public images.
  */
 import fs from 'node:fs';
 import path from 'node:path';
