@@ -23,7 +23,7 @@ const { features, productName } = Astro.props;
       {
         features.map((feature) => (
           <li
-            class="flex items-start gap-2.5 rounded-xl border border-border/80 bg-muted/15 px-4 py-3 text-sm text-muted-foreground transition-colors hover:border-primary/25 hover:bg-muted/30"
+            class="flex items-start gap-2.5 rounded-xl border border-border/80 bg-muted/15 px-4 py-3 text-sm text-muted-foreground transition-none hover:border-primary/25 hover:bg-muted/30"
           >
             <Icon name="check" size={15} class="product-feature-check mt-0.5 shrink-0 icon-app--primary" />
             <span>{feature}</span>

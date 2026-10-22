@@ -3,10 +3,7 @@
 
 /* Blog index filters */
 .blog-filter {
-  transition:
-    border-color 0.15s ease,
-    background-color 0.15s ease,
-    color 0.15s ease;
+  transition: none;
 }
 
 #blog-grid {

@@ -82,7 +82,7 @@ const {
             <button
               type="button"
               class:list={[
-                'product-feature-tab flex min-w-[11rem] max-w-[16rem] items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3.5 py-3 text-left shadow-sm backdrop-blur-md transition-[color,background-color,border-color,opacity,transform] duration-200 ease-in-out hover:border-primary/40 hover:shadow-[0_0_10px_-8px_var(--primary)] motion-reduce:transform-none lg:max-w-none lg:min-w-0 lg:w-full dark:border-border/70 dark:bg-background/35 dark:shadow-none',
+                'product-feature-tab flex min-w-[11rem] max-w-[16rem] items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3.5 py-3 text-left shadow-sm backdrop-blur-md transition-none hover:border-primary/40 hover:shadow-[0_0_10px_-8px_var(--primary)] motion-reduce:transform-none lg:max-w-none lg:min-w-0 lg:w-full dark:border-border/70 dark:bg-background/35 dark:shadow-none',
                 index === 0 && 'is-selected',
               ]}
               role="tab"
@@ -137,7 +137,7 @@ const {
                   fetchPriority="auto"
                   widths={SHOWCASE_IMAGE_WIDTHS}
                   sizes={SHOWCASE_IMAGE_SIZES}
-                  quality={75}
+                  quality={60}
                   class="aspect-video w-full max-w-[22rem] rounded-2xl border border-border/70 bg-muted/40 object-cover shadow-sm"
                 />
               </div>

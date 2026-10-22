@@ -1,9 +1,8 @@
 ---
 /**
- * LCP hero poster + background via Astro assets Picture (sharp).
- * Widths/sizes map to real display slots; quality 75 for bytes without visible UI change.
+ * LCP poster via Astro Picture; hero BG via CSS background-image (avoids CLS from absolute <img>).
  */
-import { Picture } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
 import posterSrc from '../assets/hero/apex-hero-poster.jpg';
 import heroBgSrc from '../assets/hero/hero-apex.jpg';
 
@@ -13,9 +12,16 @@ interface Props {
 
 const { variant } = Astro.props;
 
-/** ~720 CSS px poster slot; 360 for narrow phones, 960 for 2x desktop. */
 const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
-const bgSizes = '(min-width: 1600px) 1920px, (min-width: 768px) 1280px, 100vw';
+
+/** Mobile-first BG: 640 / 960 / 1280 — CSS background cannot use srcset, so pick one URL + image-set. */
+const bg640 = await getImage({ src: heroBgSrc, width: 640, format: 'webp', quality: 55 });
+const bg960 = await getImage({ src: heroBgSrc, width: 960, format: 'webp', quality: 55 });
+const bg1280 = await getImage({ src: heroBgSrc, width: 1280, format: 'webp', quality: 60 });
+
+const cover = 'background-size:cover;background-position:center;background-repeat:no-repeat';
+const bgStyleSm = `${cover};background-image:image-set(url("${bg640.src}") 1x,url("${bg960.src}") 2x);background-image:-webkit-image-set(url("${bg640.src}") 1x,url("${bg960.src}") 2x)`;
+const bgStyleLg = `${cover};background-image:image-set(url("${bg960.src}") 1x,url("${bg1280.src}") 2x);background-image:-webkit-image-set(url("${bg960.src}") 1x,url("${bg1280.src}") 2x)`;
 ---
 
 {
@@ -23,9 +29,9 @@ const bgSizes = '(min-width: 1600px) 1920px, (min-width: 768px) 1280px, 100vw';
     <Picture
       src={posterSrc}
       formats={['webp']}
-      widths={[360, 720, 960]}
+      widths={[360, 540, 720]}
       sizes={posterSizes}
-      quality={75}
+      quality={65}
       width={720}
       height={405}
       alt=""
@@ -35,19 +41,17 @@ const bgSizes = '(min-width: 1600px) 1920px, (min-width: 768px) 1280px, 100vw';
       class="aspect-video h-auto w-full object-cover"
     />
   ) : (
-    <Picture
-      src={heroBgSrc}
-      formats={['webp']}
-      widths={[640, 960, 1280, 1920]}
-      sizes={bgSizes}
-      quality={75}
-      width={1280}
-      height={715}
-      alt=""
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-      class="absolute inset-0 !h-full !max-h-none !w-full !max-w-none object-cover brightness-[0.85] dark:brightness-[0.4]"
-    />
+    <>
+      <div
+        class="absolute inset-0 hero-lcp-bg brightness-[0.85] dark:brightness-[0.4] lg:hidden"
+        style={bgStyleSm}
+        aria-hidden="true"
+      />
+      <div
+        class="absolute inset-0 hero-lcp-bg hidden brightness-[0.85] dark:brightness-[0.4] lg:block"
+        style={bgStyleLg}
+        aria-hidden="true"
+      />
+    </>
   )
 }

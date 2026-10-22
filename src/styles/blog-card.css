@@ -9,10 +9,8 @@
   --tw-ring-shadow: 0 0 #0000;
   --tw-ring-offset-shadow: 0 0 #0000;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  /* Compositor-friendly: avoid animating box-shadow (layout/paint). */
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  /* No border-color / box-shadow transitions — non-composited on mobile */
+  transition: none;
 }
 
 .blog-card:hover {

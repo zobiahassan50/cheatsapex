@@ -168,9 +168,8 @@ html.fonts-pending body {
 /* Lucide icons via Icon.astro — white in dark mode; muted + primary accents in light */
 .icon-app {
   color: #ffffff;
-  /* Compositor-only — never transition layout/paint props on hundreds of SVGs */
-  transition: color 0.2s ease;
-  transition-property: color, opacity, fill, stroke;
+  /* Instant color swaps — animating `color` on 200+ SVGs fails compositor audits */
+  transition: none !important;
 }
 
 html:not(.dark) .icon-app {

@@ -67,9 +67,12 @@ const lastRowIndex = why.rows.length - 1;
                     "why-compare-card-row",
                     i === lastRowIndex && "why-compare-card-row--last",
                   ]}
-                  aria-label={`${why.usLabel}: included — ${row.title}`}
                 >
-                  <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/15 ring-1 ring-primary/40">
+                  <span
+                    class="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/15 ring-1 ring-primary/40"
+                    role="img"
+                    aria-label={`${why.usLabel}: included — ${row.title}`}
+                  >
                     <Icon name="circleCheck" size={20} />
                   </span>
                 </div>
@@ -96,9 +99,12 @@ const lastRowIndex = why.rows.length - 1;
                     "why-compare-card-row",
                     i === lastRowIndex && "why-compare-card-row--last",
                   ]}
-                  aria-label={`${why.otherLabel}: not included — ${row.title}`}
                 >
-                  <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-muted/80 ring-1 ring-border">
+                  <span
+                    class="flex size-11 shrink-0 items-center justify-center rounded-full bg-muted/80 ring-1 ring-border"
+                    role="img"
+                    aria-label={`${why.otherLabel}: not included — ${row.title}`}
+                  >
                     <Icon name="x" size={18} class="text-muted-foreground" />
                   </span>
                 </div>

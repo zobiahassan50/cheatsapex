@@ -18,7 +18,7 @@ export const navigationMenuItem = tv({
 
 export const navigationMenuTrigger = tv({
   base: [
-    "group/nav-menu-trigger inline-flex w-max items-center justify-center rounded-lg font-medium transition-[color,background-color,border-color,opacity,transform] outline-none",
+    "group/nav-menu-trigger inline-flex w-max items-center justify-center rounded-lg font-medium transition-none outline-none",
     "group-data-[size=sm]/nav-menu:h-9 group-data-[size=sm]/nav-menu:px-2.5 group-data-[size=sm]/nav-menu:py-1.5 group-data-[size=sm]/nav-menu:text-sm",
     "group-data-[size=md]/nav-menu:h-11 group-data-[size=md]/nav-menu:px-3 group-data-[size=md]/nav-menu:py-2 group-data-[size=md]/nav-menu:text-base",
     "hover:bg-muted focus:bg-muted focus-visible:ring-outline/50 focus-visible:ring-3 focus-visible:outline-1",
@@ -45,7 +45,7 @@ export const navigationMenuContent = tv({
 
 export const navigationMenuLink = tv({
   base: [
-    "flex items-center gap-2 rounded-lg p-2 text-sm transition-[color,background-color,border-color,opacity,transform] outline-none",
+    "flex items-center gap-2 rounded-lg p-2 text-sm transition-none outline-none",
     "group-data-[size=sm]/nav-menu-positioner:gap-2 group-data-[size=sm]/nav-menu-positioner:px-2 group-data-[size=sm]/nav-menu-positioner:py-1.5 group-data-[size=sm]/nav-menu-positioner:text-sm",
     "group-data-[size=md]/nav-menu-positioner:gap-2.5 group-data-[size=md]/nav-menu-positioner:px-3 group-data-[size=md]/nav-menu-positioner:py-2 group-data-[size=md]/nav-menu-positioner:text-base",
     "focus-visible:ring-outline/50 focus-visible:ring-3 focus-visible:outline-1",

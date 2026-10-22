@@ -55,7 +55,7 @@ const purchaseUrl = checkoutPath('apex');
       {t.nav.map((link) => (
         <a
           href={link.href}
-          class="nav-link inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          class="nav-link inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-medium text-muted-foreground transition-none hover:text-primary"
           data-nav-link
           {...(link.scrollTarget ? { 'data-scroll-target': link.scrollTarget } : {})}
         >
@@ -80,7 +80,7 @@ const purchaseUrl = checkoutPath('apex');
 
       <Sheet class="lg:hidden">
         <SheetTrigger
-          class="inline-flex size-9 items-center justify-center rounded-lg border border-border/80 bg-background/50 text-foreground transition-colors hover:bg-muted lg:hidden"
+          class="inline-flex size-9 items-center justify-center rounded-lg border border-border/80 bg-background/50 text-foreground transition-none hover:bg-muted lg:hidden"
           aria-label={t.ui.menuOpen}
         >
           <Icon name="menu" size={20} />
@@ -94,7 +94,7 @@ const purchaseUrl = checkoutPath('apex');
             {t.nav.map((link) => (
               <a
                 href={link.href}
-                class="nav-link flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                class="nav-link flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-none hover:bg-muted hover:text-primary"
                 data-nav-link
                 {...(link.scrollTarget ? { 'data-scroll-target': link.scrollTarget } : {})}
               >
