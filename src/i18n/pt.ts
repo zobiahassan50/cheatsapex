@@ -1,6 +1,5 @@
 import type { Translations } from './types';
 import { DISCORD_URL, PRODUCT_BASE } from '../config/site';
-import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
 
 const productBase = PRODUCT_BASE;
 
@@ -101,6 +100,100 @@ export const pt: Partial<Translations> = {
         tags: ['discord support', 'setup', 'loader'],
         bento: 'sm:col-span-2 lg:col-span-4 lg:col-start-9 lg:row-start-4',
       },
+    ],
+  },
+  whyUs: {
+    eyebrow: 'Por que nossos cheats',
+    title: 'Cheats de Apex que ficam online',
+    subtitle:
+      'A maioria das lojas cai após patches do EAC e te deixa com bots. A gente entrega updates do loader rápido, mantém defaults de aimbot seguros para Ranked e responde no Discord 24/7.',
+    usLabel: 'Apex Cheats',
+    otherLabel: 'Loja típica',
+    rows: [
+      {
+        title: 'Updates após patches',
+        desc: 'Novos builds costumam sair em horas após um update do Apex ou EA Javelin. Confira o Discord #status antes de entrar na fila.',
+      },
+      {
+        title: 'Defaults suaves de aimbot',
+        desc: 'Smoothness, FOV e bone priority pensados para Ranked. Depois você pode apertar se quiser.',
+      },
+      {
+        title: 'Suporte Discord',
+        desc: 'Ajuda com setup do loader, configs de arma e reset de HWID. Cobertura 24/7.',
+      },
+      {
+        title: 'External + stream proof',
+        desc: 'Loader externo com modo OBS-safe para overlays ficarem fora do stream.',
+      },
+      {
+        title: 'Configs na nuvem',
+        desc: 'Salve presets de Battle Royale, Ranked e por arma e carregue em outro PC.',
+      },
+      {
+        title: 'Reset de HWID',
+        desc: 'Resets de hardware e transferência de licença pelo Discord. Muitas lojas te prendem a um PC.',
+      },
+    ],
+    metrics: [
+      {
+        value: '<24h',
+        title: 'Tempo de patch',
+        desc: 'Tempo típico até um loader novo após um update grande do Apex ou EA Javelin.',
+      },
+      {
+        value: '24/7',
+        title: 'Suporte',
+        desc: 'Ajuda no Discord com setup, configs e conta.',
+      },
+      {
+        value: '300+',
+        title: 'Usuários',
+        desc: 'Jogadores de PC com aimbot, ESP e tools em cheatsapex.com.',
+      },
+    ],
+  },
+  setup: {
+    eyebrow: 'Setup',
+    titleLead: 'Compre cheats. Jogue em',
+    titleHighlight: 'três passos',
+    intro:
+      'Compre seu cheat de Apex, baixe o loader, carregue um preset e abra o Apex. O Discord ajuda se travar.',
+    ctaPrimary: 'Comprar cheats',
+    ctaSecondary: 'Ver FAQ',
+    ctaPrimaryHref: productBase,
+    ctaSecondaryHref: '/faq/',
+    steps: [
+      {
+        step: 'Passo 1',
+        title: 'Compre e baixe o loader',
+        desc: 'Finalize o checkout, abra o portal e baixe o loader Windows atual.',
+      },
+      {
+        step: 'Passo 2',
+        title: 'Carregue presets',
+        desc: 'Rode o loader, escolha Pubs ou Ranked e ajuste aimbot e ESP.',
+      },
+      {
+        step: 'Passo 3',
+        title: 'Confira o status e jogue',
+        desc: 'Confirme o banner de status online, abra o Apex no EA App e use seu config salvo.',
+      },
+    ],
+  },
+  compatibility: {
+    eyebrow: 'Plataforma',
+    title: 'Windows PC',
+    subtitle: 'Confira o banner de status após updates do Apex antes de abrir o jogo.',
+    items: [
+      'Windows 10 e 11',
+      'EA Launcher',
+      'Cliente Apex',
+      'Auto updater',
+      'Sync de configs na nuvem',
+      'Suporte Discord',
+      'Reset de HWID',
+      'Loader external',
     ],
   },
   products: {
@@ -330,6 +423,109 @@ export const pt: Partial<Translations> = {
       },
     ],
   },
+  toolkit: {
+    eyebrow: 'Menu do cheat',
+    title: 'Menu de cheat de Apex, organizado',
+    subtitle:
+      'Cada módulo fica agrupado para você ajustar aimbot e ESP no meio da partida sem caçar no caos.',
+    items: [
+      {
+        num: '01',
+        label: 'Aimbot',
+        title: 'Tracking que se adapta por arma',
+        desc: 'Smoothness, FOV, Sticky Aim e Bone Priority numa única aba de aimbot.',
+      },
+      {
+        num: '02',
+        label: 'ESP',
+        title: 'Wallhack que continua legível',
+        desc: 'Caixas, skeletons, distância, vida e filtros de cor do time.',
+      },
+      {
+        num: '03',
+        label: 'Radar',
+        title: 'Loot e rotações sob controle',
+        desc: 'Pontos inimigos, timers de loot e mini-radar num overlay compacto.',
+      },
+      {
+        num: '04',
+        label: 'Weapons',
+        title: 'Perfis de aimbot por arma',
+        desc: 'Salve presets de AR, SMG, shotgun e sniper e troque com hotkeys.',
+      },
+      {
+        num: '05',
+        label: 'Loot',
+        title: 'Chest ESP e loot assist',
+        desc: 'Destaques de baús, drops raros e pathing loot-assist Elite.',
+      },
+      {
+        num: '06',
+        label: 'Profiles',
+        title: 'Configs para cada modo',
+        desc: 'Presets de Battle Royale, Ranked e Arenas com backup na nuvem.',
+      },
+    ],
+  },
+  workflow: {
+    eyebrow: 'Como funciona',
+    badge: '4 passos',
+    titleBefore: 'Da compra aos',
+    titleHighlight: 'cheats in-game.',
+    subtitle:
+      'Compre cheats Apex, baixe o loader, ative os módulos e salve o config para a próxima partida.',
+    ctaLabel: 'Comprar cheats',
+    ctaHref: productBase,
+    ctaSecondary: 'FAQ de setup',
+    ctaSecondaryHref: '/faq/',
+    items: [
+      {
+        num: '01',
+        phase: 'Antes da compra',
+        title: 'Confira o status',
+        desc: 'Leia o banner ao vivo em cheatsapex.com antes de comprar ou abrir o jogo.',
+      },
+      {
+        num: '02',
+        phase: 'Checkout',
+        title: 'Escolha o tier',
+        desc: 'Lite, Pro ou Elite conforme os módulos que você precisa.',
+      },
+      {
+        num: '03',
+        phase: 'Loader',
+        title: 'Abra e configure',
+        desc: 'Baixe no portal, ative os módulos e teste em Arenas ou bot lobby.',
+      },
+      {
+        num: '04',
+        phase: 'In-game',
+        title: 'Salve seu config',
+        desc: 'Quando estiver bom, salve presets de Battle Royale e Ranked na nuvem.',
+      },
+    ],
+  },
+  fieldNotes: {
+    eyebrow: 'Notas',
+    title: 'Dicas rápidas',
+    items: [
+      {
+        num: '01',
+        title: 'Depois de patches',
+        desc: 'Confira o Discord e o status do portal antes de entrar na fila Ranked após um update do Apex.',
+      },
+      {
+        num: '02',
+        title: 'Comece devagar',
+        desc: 'Use primeiro o smoothness padrão do aimbot e o range do ESP; aumente depois se precisar.',
+      },
+      {
+        num: '03',
+        title: 'Ajuda no Discord',
+        desc: 'Travou no loader ou nas configs? Pergunte no Discord que alguém te guia.',
+      },
+    ],
+  },
   footer: {
     tagline: 'Cheats de Apex para PC: aimbot, ESP, wallhack e ferramentas.',
     explore: 'Explorar',
@@ -342,42 +538,75 @@ export const pt: Partial<Translations> = {
   support: {
     eyebrow: 'Suporte',
     title: 'Suporte Apex Cheats',
-    subtitle: 'Ajuda com loader, HWID, aimbot/ESP e checkout.',
+    subtitle:
+      'Ajuda com loader, HWID Spoofer, checkout, licença e conta para Elite ESP e aimbot no PC Windows.',
     channels: [
       {
         icon: 'users',
         title: 'Antes de comprar',
-        desc: 'Pergunte sobre tiers e o que cada produto inclui.',
-        linkLabel: 'Ir ao checkout',
-        href: PRIMARY_CHECKOUT_PATH,
+        desc: 'Diferenças de tiers (Lite / Pro / Elite), o que ESP e aimbot incluem e quais utilitários combinar com o plano.',
       },
       {
         icon: 'headphones',
         title: 'E-mail',
-        desc: 'Erros de loader, HWID e conta.',
-        linkLabel: 'support@cheatsapex.com',
-        href: 'mailto:support@cheatsapex.com',
+        desc: 'Escreva para support@cheatsapex.com sobre erros de loader, HWID Spoofer, mudança de licença e recibos.',
       },
       {
         icon: 'navFaq',
-        title: 'FAQ',
-        desc: 'Compatibilidade, bans e setup.',
-        linkLabel: 'Ver FAQ',
-        href: '/faq/',
+        title: 'Respostas FAQ',
+        desc: 'Compatibilidade com EA Javelin, bans, Ranked, stream proof e setup estão na página de FAQ.',
       },
       {
-        icon: 'clock',
-        title: 'Discord',
-        desc: 'Suporte online 24/7.',
-        linkLabel: 'Entrar no Discord',
-        href: DISCORD_URL,
+        icon: 'messageCircle',
+        title: 'Ajuda no Discord',
+        desc: 'Status ao vivo, notas de patch e ajuda 24/7 no Discord—ideal para loader ou pós-atualização.',
+      },
+      {
+        icon: 'settings',
+        title: 'Loader e setup',
+        desc: 'Primeira execução, exclusões do Defender, conflitos com EA App e perfis BR ou Ranked.',
+      },
+      {
+        icon: 'shield',
+        title: 'HWID e segurança',
+        desc: 'Quando usar o HWID Spoofer, como parece um ban de hardware e como retestamos após patches Javelin.',
+      },
+    ],
+    helpTitle: 'Com o que podemos ajudar',
+    helpItems: [
+      {
+        title: 'Checkout e entrega',
+        desc: 'Portal sem acesso, pagamento pendente ou licença que não desbloqueia após a compra.',
+      },
+      {
+        title: 'Loader não inicia',
+        desc: 'Crash ao abrir, quarentena do antivírus, runtime VC++ ausente ou erro “já em execução”.',
+      },
+      {
+        title: 'Configs de ESP / aimbot',
+        desc: 'Suavidade, FOV, ossos, filtros de loot ESP e overlays stream-proof.',
+      },
+      {
+        title: 'Após update do Apex',
+        desc: 'Confirme Undetected / Updating antes do Ranked; retestamos builds Elite após cada patch.',
+      },
+      {
+        title: 'UGC e Skin Changer',
+        desc: 'Desbloqueio de utilitários, ordem com Elite e o que enviar se skins não aplicarem.',
+      },
+      {
+        title: 'Conta e licença',
+        desc: 'Mover licença para outro PC, limites de HWID e recuperar acesso com o e-mail do pedido.',
       },
     ],
     ticketTitle: 'Inclua no ticket',
     ticketItems: [
       { title: 'E-mail do pedido', desc: 'O e-mail usado no checkout em cheatsapex.com.' },
-      { title: 'Plataforma', desc: 'Windows 10 ou 11, EA App e versão do Apex.' },
-      { title: 'Detalhe do erro', desc: 'Print ou texto exato do loader ou EA.' },
+      { title: 'ID do pedido ou recibo', desc: 'ID do pagamento, fatura ou print do e-mail de confirmação.' },
+      { title: 'Plataforma', desc: 'Windows 10 ou 11 (64-bit), EA App ou Steam e versão do cliente Apex.' },
+      { title: 'Produto e plano', desc: 'Elite / Pro / Lite, HWID Spoofer, UGC ou Skin Changer—e se é Ranked ou pubs.' },
+      { title: 'Detalhe do erro', desc: 'Print ou texto exato do loader, portal ou mensagem EA / Javelin.' },
+      { title: 'Passos já tentados', desc: 'Pausa do antivírus, execução como admin, reboot limpo ou checagem do #status no Discord.' },
     ],
   },
   faq: {
@@ -494,5 +723,24 @@ export const pt: Partial<Translations> = {
     menuClose: 'Fechar menu',
     themeLight: 'Mudar para modo claro',
     themeDark: 'Mudar para modo escuro',
+    home: 'Início',
+  },
+  productHub: {
+    pricingEyebrow: 'Preços',
+    plansTitle: 'Planos de cheats Apex Legends',
+    plansDesc:
+      'Os mesmos módulos em todos os planos—player ESP, aimbot avançado, loot ESP, EAC bypass, stream proof e Cloud-DMA / AWS opcional.',
+    modulesEyebrow: 'Módulos',
+    modulesTitle: 'O que está incluído',
+    modulesDesc: 'Módulos principais de cheats Apex em Lite, Pro e Elite.',
+    catalogEyebrow: 'Catálogo',
+    catalogTitle: 'Mais ferramentas Apex',
+    catalogDesc: 'HWID Spoofer, recuperação UGC e Skin Changer junto com cheats Elite.',
+    stepsEyebrow: 'Como funciona',
+    stepsTitle: 'Do checkout ao jogo',
+    stepsDesc: 'Compre, baixe o loader, ative os módulos e entre na fila quando o status estiver online.',
+    faqEyebrow: 'FAQ',
+    faqTitle: 'FAQ do hub de produtos',
+    faqDesc: 'Respostas rápidas sobre planos, status e entrega.',
   },
 } as Partial<Translations>;

@@ -14,8 +14,12 @@ type AutoplayPlugin = {
 
 function restartProgress(progressEl: HTMLElement) {
   progressEl.style.animation = 'none';
-  void progressEl.offsetWidth;
-  progressEl.style.animation = `hero-embla-progress ${HERO_AUTOPLAY_MS}ms linear forwards`;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      void progressEl.offsetWidth;
+      progressEl.style.animation = `hero-embla-progress ${HERO_AUTOPLAY_MS}ms linear forwards`;
+    });
+  });
 }
 
 function bindHeroDots(wrapper: HTMLElement, api: EmblaApi, autoplay: AutoplayPlugin) {
@@ -107,9 +111,11 @@ async function initHeroCarousels(root: ParentNode = document) {
 
     const resumeIfVisible = () => {
       if (document.hidden) return;
-      const rect = carouselRoot.getBoundingClientRect();
-      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
-      if (inView) autoplay.play();
+      requestAnimationFrame(() => {
+        const rect = carouselRoot.getBoundingClientRect();
+        const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+        if (inView) autoplay.play();
+      });
     };
 
     const pauseWhenHidden = () => {

@@ -1,0 +1,52 @@
+---
+/**
+ * LCP hero poster + background via Astro assets Picture (sharp), quality 90.
+ * Exact responsive widths include mobile 620w (~620×348) so browsers pick the right file.
+ */
+import { Picture } from 'astro:assets';
+import posterSrc from '../assets/hero/apex-hero-poster.jpg';
+import heroBgSrc from '../assets/hero/hero-apex.jpg';
+
+interface Props {
+  variant: 'poster' | 'background';
+}
+
+const { variant } = Astro.props;
+
+const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
+const bgSizes = '(min-width: 1600px) 1920px, 1280px';
+---
+
+{
+  variant === 'poster' ? (
+    <Picture
+      src={posterSrc}
+      formats={['webp']}
+      widths={[620, 960, 1240]}
+      sizes={posterSizes}
+      quality={90}
+      width={960}
+      height={540}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="aspect-video h-auto w-full object-cover"
+    />
+  ) : (
+    <Picture
+      src={heroBgSrc}
+      formats={['webp']}
+      widths={[640, 960, 1280, 1920]}
+      sizes={bgSizes}
+      quality={90}
+      width={1280}
+      height={715}
+      alt=""
+      loading="eager"
+      fetchpriority="low"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover brightness-[0.85] dark:brightness-[0.4]"
+    />
+  )
+}

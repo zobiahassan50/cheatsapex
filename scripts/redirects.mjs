@@ -100,6 +100,25 @@ for (const [from, to] of Object.entries(FORUM_SLUG_REDIRECTS)) {
   add(`/forum/${from}`, `/forum/${to}/`);
 }
 
+// Content-collection /guides/{blogSlug}/ → /blog/{slug}/ (dedupe indexables)
+// Keep unique guide MD slugs (e.g. best-apex-cheats-hub) as real /guides/ pages.
+const BLOG_GUIDE_DEDUPE_SLUGS = [
+  'best-cheats',
+  'apex-aimbot',
+  'esp-wallhack',
+  'ea-javelin',
+  'hwid-guide',
+  'buy-cheats',
+  'cheat-safety',
+  'cheat-features',
+  'elite-guide',
+  'skin-guide',
+  'external-cheat',
+];
+for (const slug of BLOG_GUIDE_DEDUPE_SLUGS) {
+  add(`/guides/${slug}`, `/blog/${slug}/`);
+}
+
 /** Resolve a pathname to a single final Location (or null). */
 export function resolvePathRedirect(pathname) {
   const direct = PATH_REDIRECTS.get(pathname);

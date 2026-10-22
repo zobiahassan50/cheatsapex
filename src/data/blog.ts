@@ -36,22 +36,65 @@ export function getFeaturedBlogPosts(limit = 3, locale: LocaleCode = 'en') {
   return localizeBlogPosts(ordered, locale);
 }
 
+/** Pillar post for a cluster (or the post itself when it is a pillar). */
+export function getPillarForPost(slug: string, locale: LocaleCode = 'en') {
+  const current = blogPosts.find((p) => p.slug === slug);
+  if (!current) return undefined;
+  if (current.type === 'pillar' || !current.parentPillar) {
+    return localizeBlogPost(current, locale);
+  }
+  const pillar = blogPosts.find((p) => p.slug === current.parentPillar);
+  return pillar ? localizeBlogPost(pillar, locale) : undefined;
+}
+
+/** Cluster articles that belong under a pillar slug. */
+export function getClusterPosts(pillarSlug: string, locale: LocaleCode = 'en') {
+  return localizeBlogPosts(
+    blogPosts.filter((p) => p.type === 'cluster' && p.parentPillar === pillarSlug),
+    locale,
+  );
+}
+
 export function getRelatedBlogPosts(slug: string, limit = 3, locale: LocaleCode = 'en') {
   const current = blogPosts.find((p) => p.slug === slug);
   if (!current) return [];
 
-  const sameTag = blogPosts.filter((p) => p.slug !== slug && p.tag === current.tag);
-  const others = blogPosts.filter((p) => p.slug !== slug && p.tag !== current.tag);
-  const pool = [...sameTag, ...others];
+  const used = new Set<string>([slug]);
+  const ordered: typeof blogPosts = [];
+
+  const pushUnique = (posts: typeof blogPosts) => {
+    for (const p of posts) {
+      if (used.has(p.slug)) continue;
+      used.add(p.slug);
+      ordered.push(p);
+    }
+  };
+
+  // 1) Silo siblings: same pillar clusters, or clusters under this pillar
+  if (current.type === 'pillar') {
+    pushUnique(blogPosts.filter((p) => p.parentPillar === current.slug));
+  } else if (current.parentPillar) {
+    const pillar = blogPosts.find((p) => p.slug === current.parentPillar);
+    if (pillar) pushUnique([pillar]);
+    pushUnique(
+      blogPosts.filter(
+        (p) => p.slug !== slug && p.parentPillar === current.parentPillar,
+      ),
+    );
+  }
+
+  // 2) Same tag, then everything else
+  pushUnique(blogPosts.filter((p) => p.slug !== slug && p.tag === current.tag));
+  pushUnique(blogPosts.filter((p) => p.slug !== slug));
 
   // Prefer posts that have a locale overlay so related titles stay translated.
   if (locale !== 'en') {
-    const translated = pool.filter((p) => getBlogOverlay(locale, p.slug));
-    const fallback = pool.filter((p) => !getBlogOverlay(locale, p.slug));
+    const translated = ordered.filter((p) => getBlogOverlay(locale, p.slug));
+    const fallback = ordered.filter((p) => !getBlogOverlay(locale, p.slug));
     return localizeBlogPosts([...translated, ...fallback].slice(0, limit), locale);
   }
 
-  return localizeBlogPosts(pool.slice(0, limit), locale);
+  return localizeBlogPosts(ordered.slice(0, limit), locale);
 }
 
 export function getBlogPostsBySlugs(slugs: string[], locale: LocaleCode = 'en') {

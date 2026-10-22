@@ -1,8 +1,9 @@
 import { t } from '../i18n';
-import { SITE_DOMAIN as INDEXNOW_HOST_NAME } from './site';
+import { SITE_DOMAIN, SITE_DOMAIN as INDEXNOW_HOST_NAME, SITE_URL } from './site';
 import { getPageSeoEntry } from './pageSeo';
 
-export const SITE_ORIGIN = `https://${t.site.domain}`;
+/** Always the custom domain (cheatsapex.com), never www or pages.dev. */
+export const SITE_ORIGIN = SITE_URL;
 
 export const DEFAULT_OG_IMAGE = '/images/gameplay/apex-esp-wallhack.png';
 
@@ -25,11 +26,28 @@ export function getOrganizationSameAs(): string[] {
 
 export const INDEXNOW_KEY = import.meta.env.INDEXNOW_KEY as string | undefined;
 
+/**
+ * Absolute canonical for trailingSlash: 'always'.
+ * Strips host/query/hash if a full URL sneaks in; never emits www or pages.dev.
+ */
 export function canonicalUrl(pathname: string): string {
   let path = pathname || '/';
+  try {
+    if (/^https?:\/\//i.test(path)) {
+      const u = new URL(path);
+      path = u.pathname || '/';
+    }
+  } catch {
+    /* keep path as-is */
+  }
+  // Drop accidental host prefixes like //cheatsapex.pages.dev/blog/
+  path = path.replace(/^\/\/[^/]+/, '');
   if (!path.startsWith('/')) path = `/${path}`;
+  // Collapse duplicate slashes except root
+  path = path.replace(/\/{2,}/g, '/');
   if (path !== '/' && !path.endsWith('/')) path = `${path}/`;
-  return `${SITE_ORIGIN}${path}`;
+  // Force production origin (ignore preview hosts)
+  return `https://${SITE_DOMAIN}${path}`;
 }
 
 export function absoluteAssetUrl(path: string): string {

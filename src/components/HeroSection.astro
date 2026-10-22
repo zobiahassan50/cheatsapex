@@ -3,6 +3,7 @@ import { DEFAULT_LOCALE, getLocaleFromPathname, useTranslations, withLocalePrefi
 import { ROUTES } from '../utils/path';
 import { compatibilityIcons, heroStatIcons, heroStatusPills } from '../data/sectionIcons';
 import Icon from './icons/Icon.astro';
+import HeroLcpPicture from './HeroLcpPicture.astro';
 import { Button } from '@/components/starwind/button';
 import { Badge } from '@/components/starwind/badge';
 
@@ -10,16 +11,6 @@ const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) 
 const t = useTranslations(locale);
 const h = t.hero;
 const productsHref = withLocalePrefix(ROUTES.products ?? '/products/apex-cheats/', locale);
-/** Display ~510–620px → 960w covers 2x; avoid shipping 1280 poster as LCP. */
-const heroPosterDefault = '/videos/apex-hero-poster-960.webp';
-const heroPosterSrcset =
-  '/videos/apex-hero-poster-640.webp 640w, /videos/apex-hero-poster-960.webp 960w, /videos/apex-hero-poster-1280.webp 1280w';
-const heroPosterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
-const heroBgDefault = '/images/hero-apex-1280.webp';
-const heroBgSrcset =
-  '/images/hero-apex-640.webp 640w, /images/hero-apex-960.webp 960w, /images/hero-apex-1280.webp 1280w, /images/hero-apex-1920.webp 1920w';
-/** Prefer 1280 for typical desktop widths so we don't pull 1920 for ~1500 CSS px. */
-const heroBgSizes = '(min-width: 1600px) 1920px, 1280px';
 
 const heroMarqueePills = [
   ...heroStatusPills,
@@ -37,21 +28,7 @@ const heroMarqueePills = [
   aria-labelledby="hero-title"
 >
   <div class="pointer-events-none absolute inset-0 overflow-hidden [&>picture]:contents" aria-hidden="true">
-    <picture>
-      <source type="image/webp" srcset={heroBgSrcset} sizes={heroBgSizes} />
-      <img
-        src={heroBgDefault}
-        srcset={heroBgSrcset}
-        sizes={heroBgSizes}
-        alt=""
-        width="1280"
-        height="715"
-        loading="eager"
-        decoding="async"
-        fetchpriority="low"
-        class="absolute inset-0 h-full w-full object-cover brightness-[0.85] dark:brightness-[0.4]"
-      />
-    </picture>
+    <HeroLcpPicture variant="background" />
   </div>
   <div class="pointer-events-none absolute inset-0 bg-white/80 dark:bg-black/55" aria-hidden="true" />
   <div
@@ -104,25 +81,13 @@ const heroMarqueePills = [
           class="relative w-full overflow-hidden rounded-xl border border-border bg-card p-2 shadow-sm"
           data-hero-video-wrap
         >
-          {/* Responsive poster is LCP — video src injected later (one format only). */}
-          <picture
+          {/* Astro Picture LCP poster (exact widths, q90) — video src injected later. */}
+          <div
             data-hero-poster
-            class="pointer-events-none absolute inset-2 z-[1] overflow-hidden rounded-lg"
+            class="pointer-events-none absolute inset-2 z-[1] overflow-hidden rounded-lg [&>picture]:contents"
           >
-            <source type="image/webp" srcset={heroPosterSrcset} sizes={heroPosterSizes} />
-            <img
-              src={heroPosterDefault}
-              srcset={heroPosterSrcset}
-              sizes={heroPosterSizes}
-              alt=""
-              width="960"
-              height="540"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-              class="aspect-video h-auto w-full object-cover"
-            />
-          </picture>
+            <HeroLcpPicture variant="poster" />
+          </div>
           <video
             class="relative z-0 aspect-video h-auto w-full rounded-lg object-cover"
             muted

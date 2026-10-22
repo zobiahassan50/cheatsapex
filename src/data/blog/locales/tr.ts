@@ -21,6 +21,16 @@ const F = p(
   'Ödemeye geçmeden önce [Lite vs Pro](/blog/elite-guide/) ile [özellik rehberini](/blog/cheat-features/) karşılaştırın. Elite; Pro aimbot’unda ustalaşanlar için botlar, Auto Finish ve Skin Changer ekler.',
 );
 const AB = [A, B];
+const CDEFB = [C, D, E, F, B];
+const TAIL = [...CDEFB, ...CDEFB, C];
+const TAIL3 = [...CDEFB, ...CDEFB, ...CDEFB];
+
+const LP_INTRO =
+  '[Lite](/products/apex-cheats/) ve [Pro](/products/apex-cheats/), cheatsapex.com’daki en popüler iki Apex cheat tier’ıdır. Lite salt harita farkındalığıdır: ESP, sandıklar, loot ve zoom. Pro; harita okumasına güvenen ama ranked’de kombo yardımı isteyenler için aimbot otomasyonu ekler. Yanlış seçim ya fazla ödetir ya da rank yükselişinde gücü eksik bırakır.';
+const SK_INTRO =
+  '[Elite](/products/apex-cheats/apex-elite/) içindeki Skin Changer ve bağımsız [Unlock All ürünü](/products/apex-cheats/unlock-all/), Apex’te legend skin’lerini, silah skin’lerini ve özel setleri yerel olarak önizlemenizi sağlar.';
+const EX_INTRO =
+  'Harici Apex cheat’leri, Apex sürecinin dışından oyun durumunu okur; istemciye DLL enjeksiyonu yoktur. cheatsapex.com’daki [Apex ürünleri](/products/apex-cheats/), harici bir loader’ı overlay render’ı, bulut config senkronizasyonu ve güvenli ödeme üzerinden Javelin’e duyarlı yama teslimatıyla birleştirir.';
 
 export const trBlogOverlays: BlogLocaleOverlays = {
   'best-cheats': {
@@ -806,6 +816,307 @@ export const trBlogOverlays: BlogLocaleOverlays = {
       D,
       E,
       F,
+    ],
+  },
+
+  'elite-guide': {
+    tag: 'Rehberler',
+    title: 'Apex Lite vs Pro: hangi tier size uyar',
+    seoTitle: 'Apex Cheat’leri Lite vs Pro vs Elite Karşılaştırması',
+    desc: 'Harita farkındalığına karşı aimbot otomasyonu: Battle Royale ve Ranked için Apex Lite ve Pro cheat’lerini karşılaştırın.',
+    date: '27 Mar 2026',
+    readTime: '10 dk okuma',
+    body: [
+      p(LP_INTRO),
+      h2('cheatsapex.com’da Lite ve Pro'),
+      p(LP_INTRO),
+      p(
+        'Her iki tier da aynı harici loader’ı ve aynı güvenli ödemeyi kullanır. Fark, ayrı yazılım kurulumlarında değil; operatör portalında açılan modüllerdedir.',
+      ),
+      h2('Lite’ı seçin eğer'),
+      p(
+        'Mekaniğiniz güçlü ama duman ve kaçırılan loot yüzünden kaybediyorsanız. Apex cheat’lerine en düşük karmaşıklıkta giriş istiyorsanız. Ara sıra yayın yapıyor ve küçük ayak izli otomasyonu tercih ediyorsanız.',
+      ),
+      p(
+        'Lite; oyuncu ESP’si, sandık bulucu, loot zamanlayıcıları, radar hack ve yayın güvenli overlay sunar — Aimbot yoktur. Görüşle kazanan destekler ve rotasyoncular çoğu zaman Pro’ya ihtiyaç duymaz.',
+      ),
+      h2('Pro’yu seçin eğer'),
+      p(
+        'Her gün yakın menzilli loadout’larla ranked veya Ranked oynuyorsanız: halkada AR’ler, SMG’ler ve sniper’lar. Aimbot, Smooth Aim, Sticky Aim, Bone Priority ve iyileşme / hareketlilik zamanlaması için Hotkey makroları istiyorsanız.',
+      ),
+      p(
+        'Pro, tüm Lite modüllerini artı aimbot’u içerir; tam liste [özellik rehberimizde](/blog/cheat-features/). Kombo oyuncularıyla rank yükselten nişancılar Pro’dan en hızlı geri dönüşü görür.',
+      ),
+      h2('Modül karşılaştırması'),
+      p(
+        'Lite: oyuncu ESP’si, sandık ve respawn beacon bulucu, loot spawn zamanlayıcıları, radar hack, takım rengi filtresi ve stream-proof overlay.',
+      ),
+      p(
+        'Pro ekler: Aimbot, Smooth Aim, Sticky Aim, Bone Priority, Hotkey makroları, Auto Heal, FOV ve yumuşatma çizimi ve portalda 18’den fazla modül. Yükseltmede Lite özelliklerini kaybetmezsiniz: Pro eklemelidir.',
+      ),
+      h2('Battle Royale ve Ranked uyumu'),
+      p(
+        'Destekler ve rotasyoncular genelde Lite’ta başarılı olur: görüş, script riski olmadan koridorları kazanır. Kombo oyuncularındaki mid’ler ve yumuşak destekler, [ranked oyun rehberimizde](/blog/apex-aimbot/) ayarlanan Pro aimbot’tan yararlanır.',
+      ),
+      p(
+        'Ranked’in hızlı temposu, tek başına Lite’tan daha çok Pro Hotkey makrolarını ödüllendirir: dövüşler daha hızlı zincirlenir ve elle iyileşme zamanlaması kayar. Yeniseniz Ranked’de Lite ile başlayın; ESP doğal hissedince yükseltin.',
+      ),
+      h2('EAC ve şikayet değerlendirmeleri'),
+      p(
+        'Lite daha küçük şikayet yüzeyi taşır: replay’de robotik görünen anlık kombo patlamaları yoktur. Pro, ilk günden temkinli Smoothness kaydırıcıları ister. Her iki tier da güncellemelerden sonra [EAC yama günü kontrol listesine](/blog/ea-javelin/) ihtiyaç duyar.',
+      ),
+      p(
+        'Javelin altında hiçbir tier kalıcı olarak undetected değildir: her seans öncesi cheatsapex.com durumunu okuyun. Hesap ömrü söz konusu olduğunda insansı ayarlar maksimum otomasyonu yener.',
+      ),
+      h2('cheatsapex.com’da ödeme'),
+      p(
+        'Tier’ları [Apex Cheats](/products/apex-cheats/) sayfasında canlı karşılaştırın. Lite veya Pro’yu güvenli ödemeyle satın alın, ardından ilk ranked kuyruğundan önce beş dakikalık loader rehberini izleyin.',
+      ),
+      p(
+        'Okuduktan sonra hâlâ kararsız mısınız? Lite ile başlayın, iki hafta oynayın ve temel loader’ı yeniden satın almadan portalda Pro’ya yükseltin: ödeme yalnızca tier farkını alır.',
+      ),
+      h2('İlgili rehberlerden ek ayrıntılar'),
+      h2('Elite nedir'),
+      p(
+        'Elite, cheatsapex.com’daki özel Apex cheat sürümüdür: sınırlı kontenjan, öncelikli yama kuyruğu ve Lite ile Pro’daki her modül artı botlar, Auto Finish, Auto Shield Break, tam ESP wallhack ve Skin Changer.',
+      ),
+      p(
+        'Elite ilk gün yazılımı değildir; zaten Pro’da kazanan ve modül boşluğu olmadan tam seti isteyen operatörler içindir.',
+      ),
+      h2('Elite’in Pro’ya ekledikleri'),
+      p(
+        'Loot Assist, Auto Finish, Auto Shield Break, duman ve görüş ayarlı tam ESP wallhack paketi, Skin Changer, stack zamanlayıcıları, loadout yöneticisi ve Discord’da doğrudan geliştirici desteği.',
+      ),
+      p(
+        'EAC veya oyun güncellemeleri geldiğinde yamalar önce Elite’e ulaşır — kesinti kaldıramayan yüksek rank operatörleri için kritiktir.',
+      ),
+      h2('Kim yükseltmeli'),
+      p(
+        'Temkinli aimbot yumuşatmasıyla iki veya daha fazla hafta temiz Pro seansından sonra yükseltin. Hâlâ Aimbot temellerini öğreniyorsanız veya yalnızca hafta sonu casual oynuyorsanız Pro’da kalın.',
+      ),
+      p(
+        'Disiplinsiz Elite gücü ranked’de şikayet hacmini artırır. Lite ESP açıkken üçüncü taraflara ölüyorsanız bot satın almadan önce ESP wallhack ayarlarını düzeltin.',
+      ),
+      h2('Güvenli Elite ayarı'),
+      p(
+        'Portalda Elite’in temkinli preset’lerini yükleyin — ilk günde maksimum bot yok. Auto Finish’i ranked’den önce normal maçlarda test edin. Loot Assist’i yalnızca koridor dengesine etkisini anladığınızda açın.',
+      ),
+      p(
+        'ESP wallhack: maksimum 1200 birim ESP ile başlayın; temiz oyunlardan sonra genişletin. Ayrıntılar: ESP wallhack kurulumu. Orta hassasiyette duman uyarıları yanlış alarmları azaltır.',
+      ),
+      h2('Elite’te Skin Changer'),
+      p(
+        'Elite, Skin Changer’ı otomasyonla birlikte sunar: kozmetik önizleme ve Ranked aimbot aynı panelde. Yalnızca görseller istiyorsanız bağımsız Unlock All vardır.',
+      ),
+      p(
+        'Yayıncılar Skin Changer’ı stream-proof kurulumuyla eşleştirir; OBS yakalamasını ESP gizlemeden ayrı test edin.',
+      ),
+      h2('Elite’in harici mimarisi'),
+      p(
+        'Elite dahil tüm tier’lar harici mimari kullanır; bkz. harici cheat rehberi. Bulut config senkronizasyonu ve yama teslimatı ayrı bir oyun istemcisi değil, operatör portalı üzerinden yürür.',
+      ),
+      p(
+        'Elite operatörleri yama günlerinde Lite ve Pro’nun genel sürümlerinden önce öncelikli bulut senkronizasyon paketlerini alır.',
+      ),
+      h2('Elite erişimi alın'),
+      p(
+        'Cheat özellik rehberimizdeki tam özellik haritasını inceleyin, kararsızsanız Lite vs Pro’yu karşılaştırın, ardından cheatsapex.com’da güvenli ödemeyle Elite’i satın alın.',
+      ),
+      p(
+        'Discord #elite kanalı ayar sorularını yanıtlar; preset önerileri için oyuncu havuzunuzu ve rank aralığınızı getirin.',
+      ),
+      ...AB,
+      ...AB,
+      cta(
+        'Lite ve Pro’yu karşılaştırın',
+        'Rolünüze ve yükselme stilinize uyan tier’ı seçin: cheatsapex.com’da güvenli ödeme.',
+        '/go/apex/',
+      ),
+      ...TAIL,
+    ],
+  },
+
+  'skin-guide': {
+    tag: 'Rehberler',
+    title: 'Apex Skin Changer / Unlock All Rehberi',
+    seoTitle: 'Apex Skin Changer / Unlock All Rehberi',
+    desc: 'Unlock All Skin Changer modülümüzle legend skin’lerini, silah skin’lerini ve özel setleri yerel olarak önizleyin.',
+    date: '3 Mar 2026',
+    readTime: '6 dk okuma',
+    body: [
+      p(SK_INTRO),
+      h2('Skin Changer genel bakış'),
+      p(SK_INTRO),
+      p(
+        'Efektler istemci taraflıdır: lobideki takım arkadaşları gerçek envanterinizi görür; kozmetik değişimi yalnızca sizin ekranınızda görünür.',
+      ),
+      h2('Unlock All ve Elite Skin Changer'),
+      p(
+        'Unlock All yalnızca kozmetiktir: gezin, favorilere ekleyin, loadout dışa aktarın. Elite, Skin Changer’ı aimbot, ESP wallhack ve botlarla birlikte sunar.',
+      ),
+      p(
+        'Yalnızca görsel istiyorsanız Unlock All’ı; tam otomasyonla ranked oynuyorsanız Elite’i seçin. Özellik özeti: [cheat özellik rehberi](/blog/cheat-features/).',
+      ),
+      h2('Gezinme ve önizleme akışı'),
+      p(
+        'Portalınızdaki Skin Changer sekmesini açın, legend adını arayın, kıyafet veya özel seti seçin ve yerel istemciye uygulayın. Parçacık yoğunluğu için efekt özelleştiriciyi kullanın.',
+      ),
+      p(
+        'Demo seansları veya içerik kaydı öncesi hızlı değişim için legend başına favoriler kaydedin. Loadout’lar Elite bulut senkronizasyonuyla PC’ler arasında yedek olarak dışa aktarılabilir.',
+      ),
+      h2('Yayın ve içerik notları'),
+      p(
+        'Yerel skin’ler ekranınızda görünür; kuruluma bağlı olarak yayın yakalaması yine de gösterebilir. ESP ve script overlay’leri için [stream-proof modunu](/blog/external-cheat/) etkinleştirin.',
+      ),
+      p(
+        'Uzun yayınlardan önce kozmetik yakalamasını OBS’te 30 saniyelik bir kliiple ayrı test edin. Radar hack kamerası skin parçacıklarını etkilemez.',
+      ),
+      h2('EAC ve güvenlik'),
+      p(
+        'Kozmetik modüller, herhangi bir Apex cheat’iyle aynı üçüncü taraf riskini taşır: kullanmadan önce cheatsapex.com durumunu okuyun. Unlock All, Apex’te EA envanter eşyası vermez; yalnızca yerel önizlemeyi değiştirir.',
+      ),
+      p(
+        'Pazar yeri veya takas etkisi yoktur: kozmetikler yalnızca istemcinizde görseldir. Yamalardan sonra [EAC kontrol listesiyle](/blog/ea-javelin/) eşleştirin.',
+      ),
+      h2('Kozmetiklerle Ranked'),
+      p(
+        'Elite operatörleri Skin Changer’ı aimbot’la birlikte kullanır: kozmetik sekmesi Ranked preset’inden ayrıdır. Dövüş ortasında skin değiştirmeyin; strateji ekranında veya maçtan önce uygulayın.',
+      ),
+      p(
+        'Elite’i özellikle Skin Changer artı botlar için alıyorsanız [Elite tier rehberini](/blog/elite-guide/) karşılaştırın.',
+      ),
+      h2('Unlock All veya Elite edinin'),
+      p(
+        '[Unlock All](/products/apex-cheats/unlock-all/) veya [Elite](/products/apex-cheats/apex-elite/) ürününü cheatsapex.com’da güvenli ödemeyle satın alın.',
+      ),
+      p(
+        'Tam katalog: [Apex Cheats](/products/apex-cheats/). Satın alma: [satın alma adımları](/blog/buy-cheats/).',
+      ),
+      cta(
+        'Unlock All’a göz atın',
+        'Legend ve silah skin’lerini yerel olarak önizleyin — cheatsapex.com’da güvenli ödeme.',
+        '/go/skin-changer/',
+      ),
+      ...TAIL3,
+      C,
+    ],
+  },
+
+  'external-cheat': {
+    tag: 'Rehberler',
+    title: 'Apex harici cheat rehberi',
+    seoTitle: 'Apex Harici ve Stream-Proof Cheat Rehberi',
+    desc: 'Harici Apex cheat’lerinin neden önemli olduğu, harici loader’ın PC’de nasıl çalıştığı ve özel yazılımı ücretsiz araçlardan daha güvenli kılan nedir.',
+    date: '11 Şub 2026',
+    readTime: '16 dk okuma',
+    body: [
+      p(EX_INTRO),
+      h2('Harici cheat’lerin tanımı'),
+      p(EX_INTRO),
+      p(
+        'Bu, her yamada enjekte olup ölen ücretsiz kopyala-yapıştır araçlardan üstündür: özel bakım, özellik listelerinden daha önemlidir.',
+      ),
+      h2('Harici ve dahili cheat’ler'),
+      p(
+        'Dahili cheat’ler süreç içinde DirectX veya oyun belleğine hook atar: hızlı tespit edilir ve EAC için imzalanması kolaydır.',
+      ),
+      p(
+        'Harici mimari loader’ı ayrı tutar; overlay’ler üstte çizilir, aimbot yumuşak zamanlamayla girdi gönderir. Risk asla sıfır değildir ama ayak izi herkese açık dahili cheat’lerden küçüktür.',
+      ),
+      h2('Harici loader PC’de nasıl çalışır'),
+      p(
+        'Harici loader’ı EA’da Apex’ten önce başlatın. Modüller (script’ler, ESP wallhack, zoom) panelden açılır.',
+      ),
+      p(
+        'Bulut senkronizasyonu, Apex yamalarından sonraki 24 saat içinde config ve offset güncellemelerini iletir. [Lite/Pro/Elite](/products/apex-cheats/) yazılım tier’larında BIOS değişikliği gerekmez.',
+      ),
+      h2('Özel neden ücretsizden üstündür'),
+      p(
+        'Ücretsiz cheat’ler kaynak sızdırır, malware taşır ve bir EAC dalgasından sonra kaybolur. cheatsapex.com operatör desteği, Discord #status, portalda HWID sıfırlama ve temkinli Ranked preset’leri sunar.',
+      ),
+      p(
+        'Özellik derinliği: [cheat özellik rehberi](/blog/cheat-features/). Ücretsiz forumlar Apex / EA güncellemelerinden saatler içinde yama yapamaz.',
+      ),
+      h2('Harici paket için tier seçimi'),
+      p(
+        '[Lite](/products/apex-cheats/) harici ESP’dir. [Pro](/products/apex-cheats/) aimbot motorunu ekler. [Elite](/products/apex-cheats/apex-elite/) botlar ve Skin Changer ekler.',
+      ),
+      p(
+        'Aynı harici loader yolu: tier panelde modülleri açar. Yükseltme ödemesi yeni kurulum yolu olmadan key ekler.',
+      ),
+      h2('Başlatma sırası ve güvenlik'),
+      p(
+        'Loader Apex’ten önce: portal rehberi referanstır. Yamalardan sonra ranked öncesi [EAC kontrol listesini](/blog/ea-javelin/) izleyin.',
+      ),
+      p(
+        'Doğrulama hatalarından sonra [“unable to verify” rehberine](/blog/ea-javelin/) göre Apex’i bir kez vanilla başlatın.',
+      ),
+      h2('Apex Cheats ile başlayın'),
+      p(
+        'Harici Apex cheat’lerini cheatsapex.com’daki [Apex Cheats](/products/apex-cheats/) sayfasından alın. Güvenli ödeme portalı, loader’ı ve bulut senkronizasyonunu açar.',
+      ),
+      p(
+        'Her yamada bakımı yapılan özel yazılım. Satın alma: [2026 adımları](/blog/buy-cheats/).',
+      ),
+      h2('İlgili rehberlerden ek ayrıntılar'),
+      h2('Stream-proof genel bakış'),
+      p(
+        'Görünür ESP wallhack veya script menüleriyle Apex yayınlamak platform banı ve izleyici şikayeti riski taşır. Lite ve Pro’daki stream-proof modu, ESP’yi fiziksel monitörünüzde görünür tutarken overlay’leri OBS, Xbox Game Bar ve çoğu yazılım yakalamasından gizler.',
+      ),
+      p(
+        'İçerik üreticileri harita farkındalığını özel kullanır ve yayını temiz tutar; yorumlarda disiplin yine gerekir.',
+      ),
+      h2('Loader’da stream-proof’u etkinleştirin'),
+      p(
+        'Operatör portalında veya harici loader’da yardımcı araçlar sekmesini açın. Stream-proof overlay gizlemeyi OBS’i başlatmadan önce — sonra değil — açın.',
+      ),
+      p(
+        'Yakalama yazılımınız oyun açılışında hook atıyorsa Apex’ten önce uygulayın. Elite operatörleri bot ve Skin Changer menüleri için aynı anahtarı kullanır.',
+      ),
+      h2('OBS test akışı'),
+      p(
+        'Canlı sahne koleksiyonunuzla 30 saniye yerel kayıt alın. Oynatma; sandık noktaları, oyuncu ESP’si veya script HUD’u olmadan temiz oyun görüntüsü göstermelidir.',
+      ),
+      p(
+        'Oyun yakalama ve ekran yakalama modlarını ayrı test edin; çift monitör kurulumları farklı davranır. Tarayıcı kaynağı overlay’leri oyun yakalama stream-proof’undan etkilenmez.',
+      ),
+      h2('Game Bar ve yakalama kartları'),
+      p(
+        'Windows Game Bar yakalaması çoğu sürümde stream-proof’a uyar; Win+G kliple doğrulayın.',
+      ),
+      p(
+        'Ham HDMI okuyan donanım yakalama kartları, sinyal bileşik yoldan geçerse overlay’leri yine gösterebilir. Canlıya geçmeden önce tam kablo zincirini test edin.',
+      ),
+      h2('Temkinli ESP ile eşleştirin'),
+      p(
+        'Stream-proof overlay’leri yakalamadan gizler; gizli bilgiyi sesli söylerseniz yayın oynanışını meşru kılmaz.',
+      ),
+      p(
+        'İçerik üreticileri genelde Lite farkındalığını özel kullanır ve yayın yorumlarını temiz tutar. Harita varsayılanları: ESP wallhack kurulumu.',
+      ),
+      h2('Skin Changer ve yakalama'),
+      p(
+        'Skin Changer kozmetikleri istemci yoluna bağlı olarak yakalamada görünebilir; ESP stream-proof’tan ayrı test edin.',
+      ),
+      p(
+        'ESP gizli olsa bile yayında gösterişli kıyafet parçacıkları şüpheli görünebilir; içeriği buna göre planlayın.',
+      ),
+      h2('Yayın güvenli cheat’ler edinin'),
+      p(
+        'Stream-proof, cheatsapex.com’daki Apex Cheats’in tüm tier’larıyla gelir. Güvenli ödemeyle satın alın.',
+      ),
+      p(
+        'Tam özellik listesi cheat özellik rehberinde; zoom, ESP ve stream-proof üçlüsü için Lite minimumdur.',
+      ),
+      ...AB,
+      ...AB,
+      ...AB,
+      cta(
+        'Harici cheat’leri edinin',
+        'cheatsapex.com’da güvenli ödemeyle Apex cheat tier’ları.',
+        '/go/apex/',
+      ),
+      ...TAIL3,
     ],
   },
 };

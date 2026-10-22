@@ -4,6 +4,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import {
   getAllBlogSlugs,
   getBlogPost,
+  getClusterPosts,
+  getPillarForPost,
   getRelatedBlogPosts,
   slugifyHeading,
   type BlogBlock,
@@ -13,9 +15,14 @@ import { localesForPage } from '../../../i18n/routing';
 import { isLocaleCode, type LocaleCode } from '../../../i18n/locales';
 import { withLocalePrefix } from '../../../i18n/utils';
 import { cheatMetaDescription, pageTitle } from '../../../config/seo';
-import { articleSchema, breadcrumbSchema, parseBlogDate } from '../../../utils/schema';
+import {
+  articleSchema,
+  breadcrumbSchema,
+  faqPageSchema,
+  parseBlogDate,
+} from '../../../utils/schema';
 import { checkoutPath, resolveCheckoutHref } from '../../../config/checkout';
-import { normalizeInternalPath, ROUTES } from '../../../utils/path';
+import { blogPostPath, normalizeInternalPath, ROUTES } from '../../../utils/path';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ResponsiveImage from '../../../components/ResponsiveImage.astro';
 import BlogSidebar from '../../../components/BlogSidebar.astro';
@@ -57,6 +64,9 @@ const breadcrumbs = [
 ];
 
 const related = getRelatedBlogPosts(post.slug, 3, locale);
+const pillar = getPillarForPost(post.slug, locale);
+const clusters = post.type === 'pillar' ? getClusterPosts(post.slug, locale) : [];
+const blogFaqs = getBlogFaqs(post.tag, post.slug);
 
 function linkify(text: string): string {
   return text
@@ -99,6 +109,17 @@ const productsLabel = t.nav[0]?.label ?? 'Products';
       datePublished: published,
     }),
     breadcrumbSchema(breadcrumbs),
+    ...(blogFaqs.length
+      ? [
+          faqPageSchema(
+            blogFaqs.map((f, i) => ({
+              num: String(i + 1).padStart(2, '0'),
+              q: f.q,
+              a: f.a.replace(/<[^>]+>/g, ''),
+            })),
+          ),
+        ]
+      : []),
   ]}
 >
   <article class="py-8 md:py-12">
@@ -138,6 +159,30 @@ const productsLabel = t.nav[0]?.label ?? 'Products';
           </header>
 
           <Prose class="blog-article__prose prose-headings:scroll-mt-24 max-w-none text-left">
+            {
+              post.type === 'cluster' && pillar && pillar.slug !== post.slug && (
+                <p>
+                  Part of{' '}
+                  <a href={withLocalePrefix(blogPostPath(pillar.slug), locale)}>{pillar.title}</a>
+                  {'. '}
+                  Read the pillar guide for the full Apex cheats silo.
+                </p>
+              )
+            }
+            {
+              post.type === 'pillar' && clusters.length > 0 && (
+                <p>
+                  Related guides in this silo:{' '}
+                  {clusters.map((c, i) => (
+                    <>
+                      {i > 0 && ', '}
+                      <a href={withLocalePrefix(blogPostPath(c.slug), locale)}>{c.title}</a>
+                    </>
+                  ))}
+                  .
+                </p>
+              )
+            }
             {post.body.map((block: BlogBlock) => {
               if (block.type === 'h2') {
                 const id = slugify(block.text);
@@ -212,7 +257,7 @@ const productsLabel = t.nav[0]?.label ?? 'Products';
   </article>
 
   <SiteFaqSection
-    items={getBlogFaqs(post.tag, post.slug)}
+    items={blogFaqs}
     titleId={`blog-faq-${post.slug}`}
     class="border-t border-border bg-muted/20"
   />

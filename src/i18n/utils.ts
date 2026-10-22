@@ -4,7 +4,6 @@ import {
   isLocaleCode,
   LOCALE_BY_CODE,
   LOCALES,
-  TOP_BLOG_SLUGS_FOR_MEDIUM,
   type LocaleCode,
 } from './locales';
 import { localesForPage, type LocalizedPageKind } from './routing';
@@ -282,16 +281,7 @@ function localeHasPage(locale: LocaleCode, bare: string): boolean {
   if (locale === DEFAULT_LOCALE) return true;
   const info = pageKindFromPath(bare);
   if (!info) return false;
-  const allowed = localesForPage(info.kind, info.blogSlug);
-  if (!allowed.includes(locale)) return false;
-  // Light locales only ship elite product detail, not other slugs
-  if (info.kind === 'product-detail' && LOCALE_BY_CODE[locale].tier === 'light') {
-    return bare.includes('/apex-elite');
-  }
-  if (info.kind === 'blog-post' && LOCALE_BY_CODE[locale].tier === 'medium') {
-    return !!info.blogSlug && (TOP_BLOG_SLUGS_FOR_MEDIUM as readonly string[]).includes(info.blogSlug);
-  }
-  return true;
+  return localesForPage(info.kind, info.blogSlug).includes(locale);
 }
 
 export function hreflangAlternates(pathname: string, siteOrigin: string): { hreflang: string; href: string }[] {

@@ -1,9 +1,8 @@
 ---
-import AccordionPrimitive from "@starwind-ui/astro/accordion";
-import type { HTMLAttributes } from "astro/types";
-import { accordionItem } from "./variants";
+import type { HTMLAttributes } from 'astro/types';
+import { accordionItem } from './variants';
 
-type Props = HTMLAttributes<"div"> & {
+type Props = HTMLAttributes<'div'> & {
   value: string;
   disabled?: boolean;
 };
@@ -11,12 +10,14 @@ type Props = HTMLAttributes<"div"> & {
 const { value, disabled = false, class: className, ...rest } = Astro.props;
 ---
 
-<AccordionPrimitive.Item
+<div
   class={accordionItem({ class: className })}
-  value={value}
-  disabled={disabled}
-  {...rest}
+  data-sw-accordion-item
+  data-value={value}
+  data-disabled={disabled ? '' : undefined}
+  data-state="closed"
   data-slot="accordion-item"
+  {...rest}
 >
   <slot />
-</AccordionPrimitive.Item>
+</div>

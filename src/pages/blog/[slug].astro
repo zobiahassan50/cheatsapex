@@ -2,11 +2,18 @@
 import '../../styles/blog-pages.css';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { t } from '../../i18n';
-import { getAllBlogSlugs, getBlogPost, getRelatedBlogPosts } from '../../data/blog';
+import {
+  getAllBlogSlugs,
+  getBlogPost,
+  getClusterPosts,
+  getPillarForPost,
+  getRelatedBlogPosts,
+} from '../../data/blog';
 import { cheatMetaDescription, pageTitle } from '../../config/seo';
 import {
   articleSchema,
   breadcrumbSchema,
+  faqPageSchema,
   parseBlogDate,
 } from '../../utils/schema';
 import { checkoutPath, resolveCheckoutHref } from '../../config/checkout';
@@ -18,11 +25,10 @@ import { getBlogFaqs } from '../../data/faq';
 import SiteFaqSection from '../../components/SiteFaqSection.astro';
 import Icon from '../../components/icons/Icon.astro';
 import type { BlogBlock } from '../../data/blog';
-import { Badge } from '@/components/starwind/badge';
 import { Button } from '@/components/starwind/button';
 import { Prose } from '@/components/starwind/prose';
 import BlogPostCta from '../../components/BlogPostCta.astro';
-import { normalizeInternalPath, ROUTES } from '../../utils/path';
+import { blogPostPath, normalizeInternalPath, ROUTES } from '../../utils/path';
 
 export function getStaticPaths() {
   return getAllBlogSlugs().map((slug) => ({ params: { slug } }));
@@ -43,6 +49,9 @@ const breadcrumbs = [
 ];
 
 const related = getRelatedBlogPosts(post.slug, 3);
+const pillar = getPillarForPost(post.slug);
+const clusters = post.type === 'pillar' ? getClusterPosts(post.slug) : [];
+const blogFaqs = getBlogFaqs(post.tag, post.slug);
 
 function linkify(text: string): string {
   return text
@@ -84,6 +93,17 @@ const published = parseBlogDate(post.date);
       datePublished: published,
     }),
     breadcrumbSchema(breadcrumbs),
+    ...(blogFaqs.length
+      ? [
+          faqPageSchema(
+            blogFaqs.map((f, i) => ({
+              num: String(i + 1).padStart(2, '0'),
+              q: f.q,
+              a: f.a.replace(/<[^>]+>/g, ''),
+            })),
+          ),
+        ]
+      : []),
   ]}
 >
   <article class="py-8 md:py-12">
@@ -123,6 +143,30 @@ const published = parseBlogDate(post.date);
           </header>
 
           <Prose class="blog-article__prose prose-headings:scroll-mt-24 max-w-none text-left">
+            {
+              post.type === 'cluster' && pillar && pillar.slug !== post.slug && (
+                <p>
+                  Part of{' '}
+                  <a href={blogPostPath(pillar.slug)}>{pillar.title}</a>
+                  {'. '}
+                  Read the pillar guide for the full Apex cheats silo.
+                </p>
+              )
+            }
+            {
+              post.type === 'pillar' && clusters.length > 0 && (
+                <p>
+                  Related guides in this silo:{' '}
+                  {clusters.map((c, i) => (
+                    <>
+                      {i > 0 && ', '}
+                      <a href={blogPostPath(c.slug)}>{c.title}</a>
+                    </>
+                  ))}
+                  .
+                </p>
+              )
+            }
             {post.body.map((block: BlogBlock) => {
               if (block.type === 'h2') {
                 const id = slugify(block.text);
@@ -197,7 +241,7 @@ const published = parseBlogDate(post.date);
   </article>
 
   <SiteFaqSection
-    items={getBlogFaqs(post.tag, post.slug)}
+    items={blogFaqs}
     titleId={`blog-faq-${post.slug}`}
     class="border-t border-border bg-muted/20"
   />

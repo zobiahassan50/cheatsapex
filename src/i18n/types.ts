@@ -214,9 +214,9 @@ export interface Translations {
       icon: string;
       title: string;
       desc: string;
-      linkLabel: string;
-      href: string;
     }[];
+    helpTitle: string;
+    helpItems: { title: string; desc: string }[];
     ticketTitle: string;
     ticketItems: { title: string; desc: string }[];
   };
@@ -270,5 +270,25 @@ export interface Translations {
     menuClose: string;
     themeLight: string;
     themeDark: string;
+    /** Breadcrumb root label */
+    home: string;
+  };
+  /** Product hub page section chrome (headings only — layout unchanged). */
+  productHub: {
+    pricingEyebrow: string;
+    plansTitle: string;
+    plansDesc: string;
+    modulesEyebrow: string;
+    modulesTitle: string;
+    modulesDesc: string;
+    catalogEyebrow: string;
+    catalogTitle: string;
+    catalogDesc: string;
+    stepsEyebrow: string;
+    stepsTitle: string;
+    stepsDesc: string;
+    faqEyebrow: string;
+    faqTitle: string;
+    faqDesc: string;
   };
 }

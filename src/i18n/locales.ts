@@ -1,18 +1,8 @@
 /**
  * Geographic conversion ranking for cheatsapex.com
  *
- * Domain-specific Search Console geo exports were not available in-repo.
- * Ranking uses public Apex-cheats demand proxies (cheat-search studies +
- * non-English Apex market size), strongest → weakest for localization ROI.
- * English-default markets (US, UK, CA, AU) stay on `/` (en).
- *
- * 1. Brazil (pt) — strongest: #1 country for Apex Legends cheat search volume
- * 2. Russia (ru) — #1 overall gaming-cheat search index
- * 3. Turkey (tr) — top-10 cheat index, large non-EN Apex audience
- * 4. Germany (de) — major EU Apex market / high ARPU
- * 5. Poland (pl) — top-20 cheat index, strong Eastern EU gaming
- * 6. France (fr) — large FR Apex community
- * 7. Spain / LATAM ES (es) — Argentina & Spanish LATAM demand
+ * All non-EN locales are tier `full`: every page + every blog post is mirrored.
+ * Rank still reflects localization ROI (strongest → weakest non-EN market).
  */
 
 export type LocaleCode = 'en' | 'pt' | 'ru' | 'tr' | 'de' | 'pl' | 'fr' | 'es';
@@ -69,7 +59,7 @@ export const LOCALES: LocaleDefinition[] = [
     nativeName: 'Русский',
     country: 'Russia',
     rank: 2,
-    tier: 'medium',
+    tier: 'full',
     pathPrefix: '/ru',
   },
   {
@@ -80,7 +70,7 @@ export const LOCALES: LocaleDefinition[] = [
     nativeName: 'Türkçe',
     country: 'Turkey',
     rank: 3,
-    tier: 'medium',
+    tier: 'full',
     pathPrefix: '/tr',
   },
   {
@@ -91,7 +81,7 @@ export const LOCALES: LocaleDefinition[] = [
     nativeName: 'Deutsch',
     country: 'Germany',
     rank: 4,
-    tier: 'medium',
+    tier: 'full',
     pathPrefix: '/de',
   },
   {
@@ -102,7 +92,7 @@ export const LOCALES: LocaleDefinition[] = [
     nativeName: 'Polski',
     country: 'Poland',
     rank: 5,
-    tier: 'light',
+    tier: 'full',
     pathPrefix: '/pl',
   },
   {
@@ -113,7 +103,7 @@ export const LOCALES: LocaleDefinition[] = [
     nativeName: 'Français',
     country: 'France',
     rank: 6,
-    tier: 'light',
+    tier: 'full',
     pathPrefix: '/fr',
   },
   {
@@ -124,7 +114,7 @@ export const LOCALES: LocaleDefinition[] = [
     nativeName: 'Español',
     country: 'Spain / LATAM',
     rank: 7,
-    tier: 'light',
+    tier: 'full',
     pathPrefix: '/es',
   },
 ];
@@ -140,16 +130,17 @@ export const FULL_LOCALES = NON_DEFAULT_LOCALES.filter((locale) => locale.tier =
   (locale) => locale.code,
 );
 
-/** Homepage + main products + top blogs. */
+/** @deprecated All non-EN locales are full; kept for import compatibility. */
 export const MEDIUM_LOCALES = NON_DEFAULT_LOCALES.filter((locale) => locale.tier === 'medium').map(
   (locale) => locale.code,
 );
 
-/** Key pages only. */
+/** @deprecated All non-EN locales are full; kept for import compatibility. */
 export const LIGHT_LOCALES = NON_DEFAULT_LOCALES.filter((locale) => locale.tier === 'light').map(
   (locale) => locale.code,
 );
 
+/** @deprecated Prefer full locale blog mirrors; kept for older imports. */
 export const TOP_BLOG_SLUGS_FOR_MEDIUM = [
   'best-cheats',
   'apex-aimbot',
@@ -159,6 +150,9 @@ export const TOP_BLOG_SLUGS_FOR_MEDIUM = [
   'hwid-guide',
   'cheat-safety',
   'cheat-features',
+  'elite-guide',
+  'skin-guide',
+  'external-cheat',
 ] as const;
 
 export function isLocaleCode(value: string): value is LocaleCode {

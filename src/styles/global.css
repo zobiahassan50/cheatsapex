@@ -71,7 +71,8 @@ html.dark .section-header__subtitle {
 }
 
 :root {
-  --floating-nav-clearance: 4.75rem;
+  /* Kept for blog sidebar offset math; header is in-flow (not fixed). */
+  --floating-nav-clearance: 1rem;
   --scrollbar-size: 0.625rem;
   --scrollbar-track: var(--muted);
   --scrollbar-thumb: color-mix(in oklch, var(--primary) 38%, var(--muted-foreground));
@@ -84,14 +85,8 @@ html.dark {
   --scrollbar-thumb-hover: var(--primary-accent);
 }
 
-@media (min-width: 640px) {
-  :root {
-    --floating-nav-clearance: 5.25rem;
-  }
-}
-
 html {
-  scroll-padding-top: var(--floating-nav-clearance);
+  scroll-padding-top: 1rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -108,12 +103,9 @@ html::-webkit-scrollbar,
   -ms-overflow-style: none;
 }
 
-#main-content > :first-child:not(#hero) {
-  padding-top: var(--floating-nav-clearance);
-}
-
+/* Header scrolls with the page — no top padding to clear a fixed nav. */
 #hero {
-  padding-top: calc(var(--floating-nav-clearance) + 2.75rem);
+  padding-top: 2.75rem;
   padding-bottom: 4.5rem;
 }
 
@@ -145,14 +137,14 @@ html:not(.dark) .text-muted-foreground {
 
 @media (min-width: 768px) {
   #hero {
-    padding-top: calc(var(--floating-nav-clearance) + 4rem);
+    padding-top: 4rem;
     padding-bottom: 6.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   #hero {
-    padding-top: calc(var(--floating-nav-clearance) + 5rem);
+    padding-top: 5rem;
     padding-bottom: 8rem;
   }
 }

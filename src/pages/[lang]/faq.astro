@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getAllFaqs } from '../../data/faq';
 import { useTranslations } from '../../i18n';
 import { langStaticPaths } from '../../i18n/routing';
 import { isLocaleCode, type LocaleCode } from '../../i18n/locales';
@@ -8,7 +7,7 @@ import { withLocalePrefix } from '../../i18n/utils';
 import { breadcrumbSchema, faqPageSchema, webPageSchema } from '../../utils/schema';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import SiteFaqSection from '../../components/SiteFaqSection.astro';
-import SectionHeader from '../../components/SectionHeader.astro';
+import type { SiteFaqItem } from '../../data/faq';
 
 export function getStaticPaths() {
   return langStaticPaths('faq');
@@ -24,10 +23,18 @@ Astro.locals.locale = locale;
 const t = useTranslations(locale);
 const faqPath = withLocalePrefix('/faq/', locale);
 const breadcrumbs = [
-  { name: 'Home', path: withLocalePrefix('/', locale) },
+  { name: t.ui.home, path: withLocalePrefix('/', locale) },
   { name: t.nav.find((n) => n.href.includes('/faq'))?.label ?? 'FAQ', path: faqPath },
 ];
-const faqs = getAllFaqs();
+
+/** Prefer locale FAQ overlay (t.faq.items) over English data/faq.ts. */
+const faqs: SiteFaqItem[] = t.faq.items.map((item, i) => ({
+  id: `locale-faq-${i + 1}`,
+  topic: 'plans',
+  icon: 'navFaq',
+  q: item.q,
+  a: item.a,
+}));
 ---
 
 <BaseLayout
@@ -39,24 +46,29 @@ const faqs = getAllFaqs();
       description: t.faq.subtitle,
       url: faqPath,
     }),
-    faqPageSchema(faqs.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), q: f.q, a: f.a.replace(/<[^>]+>/g, '') }))),
+    faqPageSchema(
+      faqs.map((f, i) => ({
+        num: String(i + 1).padStart(2, '0'),
+        q: f.q,
+        a: f.a.replace(/<[^>]+>/g, ''),
+      })),
+    ),
     breadcrumbSchema(breadcrumbs),
   ]}
 >
-  <section class="border-b border-border bg-muted/10 py-8 md:py-12">
+  <section class="border-b border-border bg-muted/10 py-6 md:py-8">
     <div class="mx-auto max-w-6xl px-5">
       <Breadcrumbs items={breadcrumbs} />
-      <div class="mt-6">
-        <SectionHeader
-          eyebrow={t.faq.eyebrow}
-          title={t.faq.title}
-          desc={t.faq.subtitle}
-          titleId="faq-page-title"
-          level={1}
-        />
-      </div>
     </div>
   </section>
 
-  <SiteFaqSection items={faqs} variant="full" titleId="faq-page-list" />
+  <SiteFaqSection
+    items={faqs}
+    variant="full"
+    titleId="faq-page-title"
+    level={1}
+    eyebrow={t.faq.eyebrow}
+    title={t.faq.title}
+    subtitle={t.faq.subtitle}
+  />
 </BaseLayout>

@@ -15,6 +15,12 @@ export const blogPosts: BlogPostFull[] = [
     desc: "Best Apex Legends cheats 2026 compared—buy Apex aimbot, ESP wallhack, loot ESP and HWID tools built for EA Javelin on PC.",
     date: "Oct 19, 2026",
     readTime: "14 min read",
+    type: "pillar",
+    relatedKeywords: [
+      "best apex legends cheats",
+      "apex legends hacks 2026",
+      "buy apex cheats",
+    ],
     body: [
       {
         type: 'p',
@@ -95,6 +101,13 @@ export const blogPosts: BlogPostFull[] = [
     desc: "Set up an undetected Apex Legends aimbot for Ranked—smoothness, FOV, bone priority and per-weapon profiles after EA Javelin.",
     date: "Sep 8, 2026",
     readTime: "12 min read",
+    type: "cluster",
+    parentPillar: "best-cheats",
+    relatedKeywords: [
+      "undetected apex legends aimbot",
+      "apex aimbot ranked",
+      "apex aimbot settings",
+    ],
     body: [
       {
         type: 'p',
@@ -193,6 +206,13 @@ export const blogPosts: BlogPostFull[] = [
     desc: "Apex Legends ESP wallhack guide for 2026—player boxes, glow, health, distance and loot ESP tuned for Ranked and Battle Royale.",
     date: "Aug 14, 2026",
     readTime: "13 min read",
+    type: "cluster",
+    parentPillar: "best-cheats",
+    relatedKeywords: [
+      "apex legends esp wallhack",
+      "apex loot esp",
+      "apex radar hack",
+    ],
     body: [
       {
         type: 'p',
@@ -296,6 +316,12 @@ export const blogPosts: BlogPostFull[] = [
     desc: "What anti cheat Apex uses, apex anti cheat error fixes, and how EA Javelin affects Apex Legends cheats status on PC.",
     date: "Jul 22, 2026",
     readTime: "11 min read",
+    type: "pillar",
+    relatedKeywords: [
+      "ea javelin apex",
+      "apex anti cheat",
+      "javelin anticheat status",
+    ],
     body: [
       {
         type: 'p',
@@ -404,6 +430,13 @@ export const blogPosts: BlogPostFull[] = [
     desc: "Apex Legends HWID spoofer guide for EA Javelin hardware bans—when to spoof, when to new-account, and how to check status.",
     date: "Jun 30, 2026",
     readTime: "9 min read",
+    type: "cluster",
+    parentPillar: "ea-javelin",
+    relatedKeywords: [
+      "apex legends hwid spoofer",
+      "javelin hardware ban",
+      "apex hwid spoof",
+    ],
     body: [
       {
         type: 'p',
@@ -480,6 +513,13 @@ export const blogPosts: BlogPostFull[] = [
     desc: "How to buy undetected Apex Legends cheats in 2026—pick a tier, verify EA Javelin status, and complete secure checkout.",
     date: "Jun 5, 2026",
     readTime: "8 min read",
+    type: "cluster",
+    parentPillar: "best-cheats",
+    relatedKeywords: [
+      "buy apex legends cheats",
+      "buy undetected apex aimbot",
+      "how to buy apex cheats",
+    ],
     body: [
       {
         type: 'p',
@@ -553,6 +593,12 @@ export const blogPosts: BlogPostFull[] = [
     desc: "Are Apex Legends cheats safe in 2026? How EA Javelin detection, ban waves and “undetected” claims actually work.",
     date: "May 12, 2026",
     readTime: "7 min read",
+    type: "pillar",
+    relatedKeywords: [
+      "are apex legends cheats safe",
+      "undetected apex cheats",
+      "apex cheat ban risk",
+    ],
     body: [
       {
         type: 'p',
@@ -608,6 +654,13 @@ export const blogPosts: BlogPostFull[] = [
     date: "Apr 18, 2026",
     readTime: "5 min read",
     author: "Apex Cheats",
+    type: "cluster",
+    parentPillar: "best-cheats",
+    relatedKeywords: [
+      "apex cheats features",
+      "apex loot assist",
+      "apex auto shield break",
+    ],
     body: [
       { type: 'p', text: "Apex Cheats at cheatsapex.com sells external Apex cheats for PC Ranked. Aimbot, loot assist, ESP wallhack, radar and Skin Changer. See [Apex products](/products/apex-cheats/), [Lite](/products/apex-cheats/), [Pro](/products/apex-cheats/), and [Elite](/products/apex-cheats/apex-elite/)." },
       { type: 'h2', text: "Scripts: Aimbot, Smooth Aim, Sticky Aim" },
@@ -653,6 +706,13 @@ export const blogPosts: BlogPostFull[] = [
     desc: "Map awareness vs aimbot automation—compare Lite and Pro apex cheats for Battle Royale and Ranked.",
     date: "Mar 27, 2026",
     readTime: "10 min read",
+    type: "cluster",
+    parentPillar: "best-cheats",
+    relatedKeywords: [
+      "apex lite vs pro",
+      "apex elite tier",
+      "apex cheats compare",
+    ],
     body: [
       { type: 'p', text: "[Lite](/products/apex-cheats/) and [Pro](/products/apex-cheats/) are the two most popular apex cheat tiers at cheatsapex.com. Lite is pure awareness—ESP, chests, loot, zoom. Pro adds aimbot automation for players who trust their map reads but want combo help in ranked. Pick wrong and you either overpay or underpower your rank grind." },
       { type: 'h2', text: "Lite and Pro at cheatsapex.com" },
@@ -731,6 +791,13 @@ export const blogPosts: BlogPostFull[] = [
     desc: "Preview legend skins, weapon skins and exclusive sets locally with our Unlock All Skin Changer module.",
     date: "Mar 3, 2026",
     readTime: "6 min read",
+    type: "cluster",
+    parentPillar: "best-cheats",
+    relatedKeywords: [
+      "apex skin changer",
+      "apex unlock all",
+      "apex legends skin changer",
+    ],
     body: [
       { type: 'p', text: "Skin Changer on [Elite](/products/apex-cheats/apex-elite/) and the standalone [Unlock All product](/products/apex-cheats/unlock-all/) let you preview legend skins, weapon skins, and exclusive sets locally in Apex." },
       { type: 'h2', text: "Skin Changer overview" },
@@ -787,6 +854,13 @@ export const blogPosts: BlogPostFull[] = [
     desc: "How apex legends external cheat and apex DMA cheats work on PC—loader setup, stream-proof overlays and Javelin-aware updates.",
     date: "Feb 11, 2026",
     readTime: "16 min read",
+    type: "cluster",
+    parentPillar: "cheat-safety",
+    relatedKeywords: [
+      "apex legends external cheat",
+      "apex dma cheats",
+      "stream proof apex cheat",
+    ],
     body: [
       { type: 'p', text: "An apex legends external cheat reads game state from outside the Apex process—no DLL injection into the client. Players comparing external loaders and apex DMA cheats want the same outcome: ESP and aimbot with lower footprint than public internals. [Apex products](/products/apex-cheats/) at cheatsapex.com pairs an external loader with overlay rendering, optional Cloud-DMA / AWS delivery, and Javelin-aware patch delivery." },
       { type: 'h2', text: "External cheats defined" },

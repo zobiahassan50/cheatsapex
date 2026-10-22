@@ -1,19 +1,23 @@
 ---
-import AccordionPrimitive from "@starwind-ui/astro/accordion";
-import type { HTMLAttributes } from "astro/types";
-import { accordionContent } from "./variants";
+import type { HTMLAttributes } from 'astro/types';
+import { accordionContent } from './variants';
 
-type Props = HTMLAttributes<"div">;
+type Props = HTMLAttributes<'div'>;
 
-const { class: className, ...rest } = Astro.props;
+const { class: className, style, ...rest } = Astro.props;
+const panelStyle = ['animation: none', style].filter(Boolean).join('; ');
 ---
 
-<AccordionPrimitive.Panel
+<div
   class={accordionContent({ class: className })}
-  {...rest}
+  data-sw-accordion-content
+  data-state="closed"
   data-slot="accordion-content"
+  hidden
+  style={panelStyle}
+  {...rest}
 >
   <div class="pt-0 pb-4">
     <slot />
   </div>
-</AccordionPrimitive.Panel>
+</div>

@@ -3,13 +3,19 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { sitemapSerialize } from './src/config/sitemap.ts';
 import { PATH_REDIRECTS } from './scripts/redirects.mjs';
+import { accordionRafPlugin } from './scripts/vite-accordion-raf.mjs';
 
-/** Astro only needs slash-suffixed keys; PATH_REDIRECTS already stores finals. */
+/**
+ * Prefer slash-suffixed sources to match trailingSlash: 'always' + Cloudflare
+ * force-trailing-slash. PATH_REDIRECTS already stores single-hop finals (both
+ * slash variants as keys → same destination) so Astro never chains hops.
+ */
 const astroRedirects = Object.fromEntries(
   [...PATH_REDIRECTS.entries()].filter(([from]) => from.endsWith('/') || from === '/'),
 );
 
 export default defineConfig({
+  // Production origin for sitemap/canonicals — not pages.dev preview host.
   site: 'https://cheatsapex.com',
   trailingSlash: 'always',
   i18n: {
@@ -36,7 +42,7 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [accordionRafPlugin(), tailwindcss()],
     esbuild: {
       drop: ['console', 'debugger'],
       legalComments: 'none',
@@ -58,7 +64,8 @@ export default defineConfig({
     },
   },
   build: {
-    // 'always' inlined ~500KB CSS into HTML (document latency). External CSS caches + minifies.
-    inlineStylesheets: 'auto',
+    // Keep CSS external so post-build defer-css can preload/async-swap.
+    // Above-the-fold rules live in critical.css (inlined in BaseLayout).
+    inlineStylesheets: 'never',
   },
 });

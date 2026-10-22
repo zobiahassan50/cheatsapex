@@ -21,6 +21,16 @@ const F = p(
   'Vergleiche [Lite vs Pro](/blog/elite-guide/) und den [Feature-Guide](/blog/cheat-features/), bevor du zur Kasse gehst. Elite ergänzt Bots, Auto Finish und Skin Changer für alle, die den Pro-Aimbot bereits beherrschen.',
 );
 const AB = [A, B];
+const CDEFB = [C, D, E, F, B];
+const TAIL = [...CDEFB, ...CDEFB, C];
+const TAIL3 = [...CDEFB, ...CDEFB, ...CDEFB];
+
+const LP_INTRO =
+  'Das [Lite](/products/apex-cheats/) und das [Pro](/products/apex-cheats/) sind die beiden beliebtesten Apex-Cheat-Tiers auf cheatsapex.com. Lite ist reine Map-Awareness: ESP, Kisten, Loot und Zoom. Pro ergänzt Aimbot-Automatisierung für alle, die ihre Map-Reads beherrschen, aber in Ranked Hilfe bei Combos wollen. Wählst du falsch, zahlst du zu viel oder hast zu wenig Power für den Rang-Aufstieg.';
+const SK_INTRO =
+  'Der Skin Changer im [Elite](/products/apex-cheats/apex-elite/) und das eigenständige [Unlock-All-Produkt](/products/apex-cheats/unlock-all/) lassen dich Legenden-Skins, Waffen-Skins und Exclusive-Sets lokal in Apex ansehen.';
+const EX_INTRO =
+  'Externe Apex-Cheats lesen den Spielzustand von außerhalb des Apex-Prozesses, ohne DLL-Injektion in den Client. Die [Apex-Produkte](/products/apex-cheats/) auf cheatsapex.com kombinieren einen externen Loader mit Overlay-Rendering, Cloud-Config-Sync und Javelin-bewusster Patch-Auslieferung über den sicheren Checkout.';
 
 export const deBlogOverlays: BlogLocaleOverlays = {
   'best-cheats': {
@@ -806,6 +816,307 @@ export const deBlogOverlays: BlogLocaleOverlays = {
       D,
       E,
       F,
+    ],
+  },
+
+  'elite-guide': {
+    tag: 'Guides',
+    title: 'Apex Lite vs Pro: Welches Tier passt zu dir',
+    seoTitle: 'Apex-Cheats Lite vs Pro vs Elite im Vergleich',
+    desc: 'Map-Awareness vs. Aimbot-Automatisierung: Vergleiche die Apex-Cheats Lite und Pro für Battle Royale und Ranked.',
+    date: '27. März 2026',
+    readTime: '10 Min. Lesezeit',
+    body: [
+      p(LP_INTRO),
+      h2('Lite und Pro auf cheatsapex.com'),
+      p(LP_INTRO),
+      p(
+        'Beide Tiers nutzen denselben externen Loader und denselben sicheren Checkout. Der Unterschied liegt in den freigeschalteten Modulen im Operator-Portal, nicht in getrennten Software-Installationen.',
+      ),
+      h2('Wähle Lite, wenn'),
+      p(
+        'Du starke Mechanik hast, aber an Rauch und übersehenem Loot scheiterst. Du den Einstieg mit der geringsten Komplexität in Apex-Cheats willst. Du gelegentlich streamst und eine Automatisierung mit kleinem Fußabdruck bevorzugst.',
+      ),
+      p(
+        'Lite liefert Spieler-ESP, Kisten-Locator, Loot-Timer, Radar-Hack und stream-sicheres Overlay – ohne Aimbot. Supports und Rotierer, die über Sicht gewinnen, brauchen oft nie das Pro.',
+      ),
+      h2('Wähle Pro, wenn'),
+      p(
+        'Du täglich Ranked oder Ranked mit Nahkampf-Loadouts spielst: ARs, SMGs und Snipers im Ring. Du Aimbot, Smooth Aim, Sticky Aim, Bone Priority und Hotkey-Makros für Heil- und Mobilitäts-Timing willst.',
+      ),
+      p(
+        'Pro enthält alle Lite-Module plus Aimbot; die vollständige Liste steht in unserem [Feature-Guide](/blog/cheat-features/). Aim-Duellisten, die mit Combo-Spielern Rang steigen, sehen den schnellsten Return mit Pro.',
+      ),
+      h2('Modul-Vergleich'),
+      p(
+        'Lite: Spieler-ESP, Locator für Kisten und Respawn-Beacons, Loot-Spawn-Timer, Radar-Hack, Teamfarben-Filter und Stream-Proof-Overlay.',
+      ),
+      p(
+        'Pro ergänzt: Aimbot, Smooth Aim, Sticky Aim, Bone Priority, Hotkey-Makros, Auto Heal, FOV- und Smoothness-Zeichnung sowie über 18 Module im Portal. Beim Upgrade verlierst du keine Lite-Features: Pro ist additiv.',
+      ),
+      h2('Passung für Battle Royale und Ranked'),
+      p(
+        'Supports und Rotierer kommen oft mit Lite klar: Sicht gewinnt die Lanes ohne Script-Risiko. Midlaner und Soft-Supports mit Combo-Spielern profitieren vom Pro-Aimbot, abgestimmt in unserem [Ranked-Guide](/blog/apex-aimbot/).',
+      ),
+      p(
+        'Das schnelle Tempo von Ranked belohnt die Hotkey-Makros von Pro stärker als Lite allein: Kämpfe ketten sich schneller und manuelles Heil-Timing rutscht. Starte in Ranked mit Lite, wenn du neu bist, und upgrade, wenn sich ESP natürlich anfühlt.',
+      ),
+      h2('EAC- und Report-Überlegungen'),
+      p(
+        'Lite hat eine kleinere Report-Oberfläche: keine instant Combo-Bursts, die im Replay roboterhaft wirken. Pro braucht von Tag eins konservative Smoothness-Regler. Beide Tiers brauchen nach Updates die [EAC-Patch-Tag-Checkliste](/blog/ea-javelin/).',
+      ),
+      p(
+        'Kein Tier ist unter Javelin dauerhaft undetected: Lies den Status auf cheatsapex.com vor jeder Session. Humanisierte Einstellungen schlagen maximale Automatisierung, wenn es um die Lebensdauer des Accounts geht.',
+      ),
+      h2('Checkout auf cheatsapex.com'),
+      p(
+        'Vergleiche die Tiers live unter [Apex Cheats](/products/apex-cheats/). Kaufe Lite oder Pro über den sicheren Checkout und folge dem Fünf-Minuten-Loader-Guide vor deiner ersten Ranked-Queue.',
+      ),
+      p(
+        'Nach dem Lesen noch unsicher? Starte mit Lite, spiele zwei Wochen und upgrade im Portal auf Pro, ohne den Basis-Loader neu zu kaufen: Der Checkout berechnet nur die Tier-Differenz.',
+      ),
+      h2('Zusätzliche Details aus verwandten Guides'),
+      h2('Was Elite ist'),
+      p(
+        'Elite ist der private Apex-Cheats-Build von cheatsapex.com: begrenzte Plätze, Prioritäts-Patch-Queue und alle Module von Lite und Pro plus Bots, Auto Finish, Auto Shield Break, voller ESP-Wallhack und Skin Changer.',
+      ),
+      p(
+        'Elite ist keine Software für den ersten Tag; sie ist für Operatoren, die bereits mit Pro gewinnen und das volle Toolkit ohne Modullücken wollen.',
+      ),
+      h2('Was Elite gegenüber Pro ergänzt'),
+      p(
+        'Loot Assist, Auto Finish, Auto Shield Break, komplette ESP-Wallhack-Suite mit Rauch- und Vision-Abstimmung, Skin Changer, Stack-Timer, Loadout-Manager und direkter Dev-Support im Discord.',
+      ),
+      p(
+        'Patches erreichen Elite zuerst, wenn EAC- oder Spiel-Updates landen – entscheidend für Operatoren mit hohem Rang, die keinen Ausfall verkraften.',
+      ),
+      h2('Wer upgraden sollte'),
+      p(
+        'Upgrade nach zwei oder mehr Wochen sauberer Pro-Sessions mit konservativer Aimbot-Glättung. Bleib bei Pro, wenn du noch Aimbot-Grundlagen lernst oder nur am Wochenende casual spielst.',
+      ),
+      p(
+        'Elite-Power ohne Disziplin erhöht das Report-Volumen in Ranked. Stirbst du mit Lite-ESP an Third-Partys, korrigiere zuerst die ESP-Wallhack-Einstellungen, bevor du Bots kaufst.',
+      ),
+      h2('Sichere Elite-Abstimmung'),
+      p(
+        'Lade die konservativen Elite-Presets im Portal, keine Maximal-Bots am ersten Tag. Teste Auto Finish zuerst im Normalmodus vor Ranked. Aktiviere Loot Assist erst, wenn du den Einfluss auf das Lane-Gleichgewicht verstehst.',
+      ),
+      p(
+        'ESP-Wallhack: Starte mit maximal 1200 Einheiten ESP und erweitere nach sauberen Spielen. Details: ESP-Wallhack-Setup. Rauch-Warnungen bei mittlerer Empfindlichkeit reduzieren Fehlalarme.',
+      ),
+      h2('Skin Changer im Elite'),
+      p(
+        'Elite bündelt den Skin Changer mit der Automatisierung: Kosmetik-Vorschau und Ranked-Aimbot in einem Panel. Das eigenständige Unlock All gibt es, wenn du nur Visuals ohne Bots willst.',
+      ),
+      p(
+        'Streamer kombinieren den Skin Changer mit dem Stream-Proof-Setup; teste die OBS-Aufnahme getrennt vom Verstecken des ESP.',
+      ),
+      h2('Externe Architektur von Elite'),
+      p(
+        'Alle Tiers inklusive Elite nutzen externe Architektur; siehe Guide für externe Cheats. Cloud-Config-Sync und Patch-Auslieferung laufen über das Operator-Portal, nicht über einen separaten Spielclient.',
+      ),
+      p(
+        'Elite-Operatoren erhalten an Patch-Tagen die Cloud-Sync-Pakete mit Priorität, noch vor den öffentlichen Builds von Lite und Pro.',
+      ),
+      h2('Elite-Zugang sichern'),
+      p(
+        'Prüfe die komplette Feature-Karte in unserem Feature-Guide, vergleiche Lite vs Pro bei Unsicherheit und checke Elite danach über den sicheren Checkout auf cheatsapex.com aus.',
+      ),
+      p(
+        'Der Discord-Kanal #elite beantwortet Abstimmungsfragen; bringe deinen Spielerpool und dein Rang-Bracket mit, um Preset-Empfehlungen zu erhalten.',
+      ),
+      ...AB,
+      ...AB,
+      cta(
+        'Lite und Pro vergleichen',
+        'Wähle das Tier, das zu deiner Rolle und deinem Climb-Stil passt: sicherer Checkout auf cheatsapex.com.',
+        '/go/apex/',
+      ),
+      ...TAIL,
+    ],
+  },
+
+  'skin-guide': {
+    tag: 'Guides',
+    title: 'Apex Skin Changer / Unlock-All-Guide',
+    seoTitle: 'Apex Skin Changer / Unlock-All-Guide',
+    desc: 'Sieh dir Legenden-Skins, Waffen-Skins und Exclusive-Sets lokal mit unserem Unlock-All-Skin-Changer-Modul an.',
+    date: '3. März 2026',
+    readTime: '6 Min. Lesezeit',
+    body: [
+      p(SK_INTRO),
+      h2('Skin Changer im Überblick'),
+      p(SK_INTRO),
+      p(
+        'Die Effekte sind clientseitig: Mitspieler in der Lobby sehen dein echtes Inventar; du siehst den kosmetischen Tausch nur auf deinem Bildschirm.',
+      ),
+      h2('Unlock All vs. Elite-Skin-Changer'),
+      p(
+        'Unlock All ist rein kosmetisch: browsen, favorisieren und Loadouts exportieren. Elite bündelt den Skin Changer mit Aimbot, ESP-Wallhack und Bots.',
+      ),
+      p(
+        'Wähle Unlock All, wenn du nur Visuals willst; wähle Elite, wenn du Ranked mit voller Automatisierung spielst. Feature-Übersicht: [Feature-Guide der Cheats](/blog/cheat-features/).',
+      ),
+      h2('Ablauf für Browse und Vorschau'),
+      p(
+        'Öffne den Skin-Changer-Tab in deinem Portal, suche den Legenden-Namen, wähle Outfit oder Exclusive-Set und wende es auf den lokalen Client an. Nutze den Effect-Customizer für die Partikel-Intensität.',
+      ),
+      p(
+        'Speichere Favoriten pro Legende für den schnellen Wechsel vor Demo-Sessions oder Content-Aufnahmen. Loadouts lassen sich über den Cloud-Sync von Elite als Backup zwischen PCs exportieren.',
+      ),
+      h2('Hinweise zu Stream und Content'),
+      p(
+        'Lokale Skins erscheinen auf deinem Bildschirm; je nach Setup kann die Stream-Aufnahme sie trotzdem zeigen. Aktiviere den [Stream-Proof-Modus](/blog/external-cheat/) für ESP- und Script-Overlays.',
+      ),
+      p(
+        'Teste die Kosmetik-Aufnahme getrennt mit einem 30-Sekunden-Clip in OBS, bevor du lange Streams startest. Die Radar-Hack-Kamera beeinflusst die Skin-Partikel nicht.',
+      ),
+      h2('EAC und Sicherheit'),
+      p(
+        'Kosmetik-Module tragen dasselbe Drittanbieter-Risiko wie jeder Apex-Cheat: Lies den Status auf cheatsapex.com vor der Nutzung. Unlock All vergibt keine EA-Inventar-Items in Apex; es ändert nur die lokale Vorschau.',
+      ),
+      p(
+        'Kein Einfluss auf Marketplace oder Trades: Die Kosmetik ist rein visuell auf deinem Client. Kombiniere es nach Patches mit der [EAC-Checkliste](/blog/ea-javelin/).',
+      ),
+      h2('Ranked mit Kosmetik'),
+      p(
+        'Elite-Operatoren nutzen den Skin Changer zusammen mit dem Aimbot: Der Kosmetik-Tab ist vom Ranked-Preset getrennt. Wechsle keine Skins mitten im Kampf; wende sie auf dem Strategy-Bildschirm oder vor dem Match an.',
+      ),
+      p(
+        'Vergleiche den [Elite-Tier-Guide](/blog/elite-guide/), wenn du Elite vor allem wegen Skin Changer plus Bots kaufst.',
+      ),
+      h2('Unlock All oder Elite holen'),
+      p(
+        'Kaufe [Unlock All](/products/apex-cheats/unlock-all/) oder [Elite](/products/apex-cheats/apex-elite/) über den sicheren Checkout auf cheatsapex.com.',
+      ),
+      p(
+        'Kompletter Katalog: [Apex Cheats](/products/apex-cheats/). So kaufst du: [Kauf-Anleitung](/blog/buy-cheats/).',
+      ),
+      cta(
+        'Unlock All entdecken',
+        'Sieh dir Legenden- und Waffen-Skins lokal an, mit sicherem Checkout auf cheatsapex.com.',
+        '/go/skin-changer/',
+      ),
+      ...TAIL3,
+      C,
+    ],
+  },
+
+  'external-cheat': {
+    tag: 'Guides',
+    title: 'Guide für externe Apex-Cheats',
+    seoTitle: 'Guide für externe und Stream-Proof-Cheats für Apex',
+    desc: 'Warum externe Apex-Cheats wichtig sind, wie der externe Loader am PC funktioniert und was private Software sicherer macht als kostenlose Tools.',
+    date: '11. Feb. 2026',
+    readTime: '16 Min. Lesezeit',
+    body: [
+      p(EX_INTRO),
+      h2('Externe Cheats definiert'),
+      p(EX_INTRO),
+      p(
+        'Das schlägt kostenlose Copy-and-paste-Tools, die injizieren und bei jedem Patch sterben: Private Wartung zählt mehr als Feature-Listen.',
+      ),
+      h2('Externe vs. interne Cheats'),
+      p(
+        'Interne Cheats hooken DirectX oder den Speicher des Spiels innerhalb des Prozesses: Sie sind schnell zu erkennen und für EAC leicht zu signieren.',
+      ),
+      p(
+        'Die externe Architektur hält den Loader getrennt; Overlays werden darübergelegt und der Aimbot sendet Input mit sanftem Timing. Das Risiko ist nie null, aber der Fußabdruck ist kleiner als bei öffentlichen Internals.',
+      ),
+      h2('So funktioniert der externe Loader am PC'),
+      p(
+        'Starte den externen Loader vor Apex über EA. Die Module (Scripts, ESP-Wallhack, Zoom) werden über das Panel aktiviert.',
+      ),
+      p(
+        'Der Cloud-Sync liefert Configs und Offset-Updates innerhalb von 24 Stunden nach Apex-Patches. An den Software-Tiers [Lite/Pro/Elite](/products/apex-cheats/) sind keine BIOS-Änderungen nötig.',
+      ),
+      h2('Warum privat das Kostenlose schlägt'),
+      p(
+        'Kostenlose Cheats leaken Quellen, bringen Malware mit und verschwinden nach einer EAC-Welle. cheatsapex.com liefert Operator-Support, Discord #status, HWID-Reset im Portal und konservative Ranked-Presets.',
+      ),
+      p(
+        'Feature-Tiefe: [Feature-Guide der Cheats](/blog/cheat-features/). Kostenlose Foren schaffen keine Updates innerhalb weniger Stunden nach Apex-/EA-Updates.',
+      ),
+      h2('Tier-Auswahl für die externe Suite'),
+      p(
+        '[Lite](/products/apex-cheats/) ist das externe ESP. [Pro](/products/apex-cheats/) ergänzt die Aimbot-Engine. [Elite](/products/apex-cheats/apex-elite/) ergänzt Bots und Skin Changer.',
+      ),
+      p(
+        'Derselbe externe Loader-Pfad: Das Tier schaltet Module im Panel frei. Der Upgrade-Checkout fügt Keys hinzu, ohne einen neuen Installationsweg.',
+      ),
+      h2('Startreihenfolge und Sicherheit'),
+      p(
+        'Loader vor Apex: Der Portal-Guide ist die Referenz. Nach Patches folge der [EAC-Checkliste](/blog/ea-javelin/) vor Ranked.',
+      ),
+      p(
+        'Starte Apex einmal vanilla nach Verifizierungsfehlern gemäß dem [Guide zu „unable to verify“](/blog/ea-javelin/).',
+      ),
+      h2('Starte bei Apex Cheats'),
+      p(
+        'Hol dir externe Apex-Cheats unter [Apex Cheats](/products/apex-cheats/) auf cheatsapex.com. Der sichere Checkout freischaltet Portal, Loader und Cloud-Sync.',
+      ),
+      p(
+        'Private Software, die bei jedem Patch gewartet wird. So kaufst du: [Anleitung 2026](/blog/buy-cheats/).',
+      ),
+      h2('Zusätzliche Details aus verwandten Guides'),
+      h2('Stream-Proof im Überblick'),
+      p(
+        'Apex mit sichtbarem ESP-Wallhack oder Script-Menüs zu streamen riskiert Plattform-Bans und Reports von Zuschauern. Der Stream-Proof-Modus in Lite und Pro versteckt Overlays vor OBS, der Xbox Game Bar und den meisten Software-Captures, während das ESP auf deinem physischen Monitor sichtbar bleibt.',
+      ),
+      p(
+        'Creator nutzen die Map-Awareness privat und halten den Broadcast sauber; Disziplin in den Kommentaren bleibt nötig.',
+      ),
+      h2('Stream-Proof im Loader aktivieren'),
+      p(
+        'Öffne den Utility-Tab im Operator-Portal oder im externen Loader. Aktiviere das Verstecken des Stream-Proof-Overlays, bevor du OBS startest – nicht danach.',
+      ),
+      p(
+        'Wende es vor Apex an, wenn deine Capture-Software beim Spielstart hookt. Elite-Operatoren nutzen denselben Schalter für Bot- und Skin-Changer-Menüs.',
+      ),
+      h2('OBS-Testablauf'),
+      p(
+        'Nimm 30 Sekunden lokal mit deiner Live-Szenen-Sammlung auf. Die Wiedergabe muss das Spielbild sauber zeigen, ohne Kisten-Punkte, Spieler-ESP oder Script-HUD.',
+      ),
+      p(
+        'Teste Game-Capture und Display-Capture getrennt; Setups mit zwei Monitoren verhalten sich anders. Browser-Source-Overlays sind vom Stream-Proof der Game-Capture nicht betroffen.',
+      ),
+      h2('Game Bar und Capture-Karten'),
+      p(
+        'Die Windows-Game-Bar-Aufnahme respektiert Stream-Proof in den meisten Builds; bestätige es mit einem Win+G-Clip.',
+      ),
+      p(
+        'Hardware-Capture-Karten, die rohes HDMI lesen, können Overlays trotzdem zeigen, wenn das Signal einen zusammengesetzten Pfad nimmt. Teste die genaue Kabelkette, bevor du live gehst.',
+      ),
+      h2('Mit konservativem ESP kombinieren'),
+      p(
+        'Stream-Proof versteckt Overlays vor der Aufnahme; es macht die Spielweise auf dem Stream nicht legitim, wenn du versteckte Infos kommentierst.',
+      ),
+      p(
+        'Creator nutzen oft die Map-Awareness von Lite privat und halten die Broadcast-Kommentare sauber. Map-Standards: ESP-Wallhack-Setup.',
+      ),
+      h2('Skin Changer und Capture'),
+      p(
+        'Die Kosmetik des Skin Changers kann je nach Client-Pfad in der Aufnahme erscheinen; teste sie getrennt vom ESP-Stream-Proof.',
+      ),
+      p(
+        'Auffällige Outfit-Partikel auf dem Stream können verdächtig wirken, selbst wenn das ESP versteckt ist; plane Content entsprechend.',
+      ),
+      h2('Stream-sichere Cheats holen'),
+      p(
+        'Stream-Proof kommt in allen Tiers der Apex Cheats auf cheatsapex.com. Checkout über den sicheren Checkout.',
+      ),
+      p(
+        'Die komplette Feature-Liste steht im Feature-Guide der Cheats; Lite ist das Minimum für das Trio Zoom, ESP und Stream-Proof.',
+      ),
+      ...AB,
+      ...AB,
+      ...AB,
+      cta(
+        'Externe Cheats holen',
+        'Apex-Cheat-Tiers mit sicherem Checkout auf cheatsapex.com.',
+        '/go/apex/',
+      ),
+      ...TAIL3,
     ],
   },
 };

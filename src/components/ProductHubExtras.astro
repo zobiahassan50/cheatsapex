@@ -29,12 +29,12 @@ const t = useTranslations(locale);
 <div class="mt-14 space-y-16" data-product-hub-extras>
   <section aria-labelledby="apex-plans-title">
     <div class="max-w-2xl">
-      <p class="text-sm font-medium uppercase tracking-wider text-primary">Pricing</p>
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">{t.productHub.pricingEyebrow}</p>
       <h2 id="apex-plans-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
-        Apex Legends cheat plans
+        {t.productHub.plansTitle}
       </h2>
       <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-        Same modules on every plan—player ESP, advanced aimbot, loot ESP, EAC bypass, stream proof, and optional Cloud-DMA / AWS.
+        {t.productHub.plansDesc}
       </p>
     </div>
 
@@ -74,12 +74,12 @@ const t = useTranslations(locale);
 
   <section aria-labelledby="apex-modules-title">
     <div class="max-w-2xl">
-      <p class="text-sm font-medium uppercase tracking-wider text-primary">Modules</p>
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">{t.productHub.modulesEyebrow}</p>
       <h2 id="apex-modules-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
-        What's included in Apex cheats
+        {t.productHub.modulesTitle}
       </h2>
       <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-        Full Apex Legends cheat catalog—14 modules aligned with the live listing.
+        {t.productHub.modulesDesc}
       </p>
     </div>
 
@@ -102,12 +102,12 @@ const t = useTranslations(locale);
 
   <section aria-labelledby="apex-catalog-title">
     <div class="max-w-2xl">
-      <p class="text-sm font-medium uppercase tracking-wider text-primary">Catalog</p>
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">{t.productHub.catalogEyebrow}</p>
       <h2 id="apex-catalog-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
-        Apex products & utilities
+        {t.productHub.catalogTitle}
       </h2>
       <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-        Elite Apex Legends cheats plus HWID Spoofer, UGC ban appeal, and Skin Changer.
+        {t.productHub.catalogDesc}
       </p>
     </div>
 
@@ -139,10 +139,13 @@ const t = useTranslations(locale);
 
   <section aria-labelledby="apex-steps-title">
     <div class="max-w-2xl">
-      <p class="text-sm font-medium uppercase tracking-wider text-primary">How it works</p>
+      <p class="text-sm font-medium uppercase tracking-wider text-primary">{t.productHub.stepsEyebrow}</p>
       <h2 id="apex-steps-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
-        From checkout to first queue
+        {t.productHub.stepsTitle}
       </h2>
+      <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+        {t.productHub.stepsDesc}
+      </p>
     </div>
 
     <ol class="mt-8 grid gap-4 sm:grid-cols-2">
@@ -159,10 +162,13 @@ const t = useTranslations(locale);
   </section>
 
   <section aria-labelledby="apex-hub-faq-title" class="max-w-3xl">
-    <p class="text-sm font-medium uppercase tracking-wider text-primary">FAQ</p>
+    <p class="text-sm font-medium uppercase tracking-wider text-primary">{t.productHub.faqEyebrow}</p>
     <h2 id="apex-hub-faq-title" class="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
-      Apex cheats questions
+      {t.productHub.faqTitle}
     </h2>
+    <p class="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+      {t.productHub.faqDesc}
+    </p>
     <Accordion type="single" class="mt-6">
       {
         apexHubFaq.map((item, i) => (

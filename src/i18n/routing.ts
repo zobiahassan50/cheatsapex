@@ -1,11 +1,4 @@
-import {
-  FULL_LOCALES,
-  LIGHT_LOCALES,
-  MEDIUM_LOCALES,
-  NON_DEFAULT_LOCALES,
-  TOP_BLOG_SLUGS_FOR_MEDIUM,
-  type LocaleCode,
-} from './locales';
+import { NON_DEFAULT_LOCALES, type LocaleCode } from './locales';
 
 export type LocalizedPageKind =
   | 'home'
@@ -22,38 +15,16 @@ export type LocalizedPageKind =
   | 'terms'
   | 'forum';
 
+/** Every non-EN locale mirrors the full site (all pages + all blog posts). */
 const ALL_NON_DEFAULT = NON_DEFAULT_LOCALES.map((locale) => locale.code);
 
-export function localesForPage(kind: LocalizedPageKind, blogSlug?: string): LocaleCode[] {
+export function localesForPage(kind: LocalizedPageKind, _blogSlug?: string): LocaleCode[] {
   switch (kind) {
-    case 'home':
-    case 'products-hub':
-    case 'product-elite':
-      return ALL_NON_DEFAULT;
-    case 'product-utilities':
-    case 'blog-index':
-      return [...FULL_LOCALES, ...MEDIUM_LOCALES];
-    case 'product-detail':
-      return [...FULL_LOCALES, ...MEDIUM_LOCALES];
-    case 'blog-post': {
-      const full = [...FULL_LOCALES];
-      const mediumAllowed =
-        blogSlug && (TOP_BLOG_SLUGS_FOR_MEDIUM as readonly string[]).includes(blogSlug)
-          ? [...MEDIUM_LOCALES]
-          : [];
-      return [...full, ...mediumAllowed];
-    }
-    case 'faq':
-    case 'support':
-    case 'about':
-    case 'privacy':
-    case 'terms':
-      return [...FULL_LOCALES];
     case 'forum':
-      // Forum stays English-only (no [lang]/forum pages).
+      // Forum stays English-only (no [lang]/forum pages yet).
       return [];
     default:
-      return [...LIGHT_LOCALES];
+      return ALL_NON_DEFAULT;
   }
 }
 

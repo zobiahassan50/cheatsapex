@@ -1,6 +1,7 @@
 ---
 import '../styles/blog-sidebar.css';
 import Icon from './icons/Icon.astro';
+import TableOfContents from './TableOfContents.astro';
 import { blogPostPath, productPath, ROUTES } from '../utils/path';
 import { checkoutPath } from '../config/checkout';
 import {
@@ -11,7 +12,6 @@ import {
 } from '../i18n';
 import { slugifyHeading, type BlogPostFull } from '../data/blog';
 import type { IconName } from './icons/types';
-import { Badge } from '@/components/starwind/badge';
 import { Button } from '@/components/starwind/button';
 
 interface Props {
@@ -23,8 +23,6 @@ interface Props {
 const locale = Astro.locals.locale ?? getLocaleFromPathname(Astro.url.pathname) ?? DEFAULT_LOCALE;
 const t = useTranslations(locale);
 const { post, related, class: className } = Astro.props;
-
-const tocCount = post.body.filter((b) => b.type === 'h2').length;
 
 const toc = post.body
   .filter((block) => block.type === 'h2' || block.type === 'h3')
@@ -50,37 +48,7 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
   ]}
   aria-label="Article sidebar"
 >
-  {
-    toc.length > 0 && (
-      <section class="blog-sidebar__block" aria-labelledby="blog-sidebar-toc-title">
-        <h2 id="blog-sidebar-toc-title" class="blog-sidebar__heading">
-          <Icon name="layers" size={14} class="text-primary" aria-hidden="true" />
-          <span class="blog-sidebar__heading-text break-words">{t.blog.inThisArticle}</span>
-          {tocCount > 0 && (
-            <Badge variant="secondary" size="sm" class="h-5 shrink-0 rounded-full px-1.5 tabular-nums text-[10px]">
-              {tocCount}
-            </Badge>
-          )}
-        </h2>
-        <nav aria-label="Table of contents">
-          <ul class="blog-sidebar__toc-list" data-blog-toc>
-            {toc.map((item) => (
-              <li class:list={[item.level === 'h3' && 'blog-sidebar__toc-item--nested']}>
-                <button
-                  type="button"
-                  class="blog-sidebar__toc-link blog-toc-link min-w-0 text-left break-words whitespace-normal"
-                  data-toc-target={item.id}
-                  title={item.text}
-                >
-                  {item.text}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </section>
-    )
-  }
+  <TableOfContents headings={toc} title={t.blog.inThisArticle} titleId="blog-sidebar-toc-title" />
 
   {
     related.length > 0 && (
@@ -135,42 +103,3 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
     </Button>
   </section>
 </aside>
-
-<script>
-  const tocRoot = document.querySelector('[data-blog-toc]');
-  if (tocRoot) {
-    const links = [...tocRoot.querySelectorAll<HTMLButtonElement>('[data-toc-target]')];
-    const headings = links
-      .map((link) => document.getElementById(link.getAttribute('data-toc-target')!))
-      .filter((el): el is HTMLElement => Boolean(el));
-
-    links.forEach((link) => {
-      link.addEventListener('click', () => {
-        const id = link.getAttribute('data-toc-target');
-        if (!id) return;
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    if (headings.length > 0) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-          if (!visible) return;
-
-          links.forEach((link) => link.classList.remove('is-active'));
-          const active = links.find(
-            (link) => link.getAttribute('data-toc-target') === visible.target.id,
-          );
-          active?.classList.add('is-active');
-        },
-        { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.25, 0.5, 1] },
-      );
-
-      headings.forEach((heading) => observer.observe(heading));
-    }
-  }
-</script>

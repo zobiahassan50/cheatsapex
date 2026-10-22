@@ -1,30 +1,98 @@
 ---
-import AccordionPrimitive from "@starwind-ui/astro/accordion";
-import type { HTMLAttributes } from "astro/types";
-import { accordion } from "./variants";
+/**
+ * Accordion root with deferred init (IntersectionObserver + double rAF)
+ * so Starwind height measurement does not force reflow during LCP/TBT.
+ */
+import type { HTMLAttributes } from 'astro/types';
+import { accordion } from './variants';
 
-type Props = HTMLAttributes<"div"> & {
-  type?: "single" | "multiple";
+type Props = HTMLAttributes<'div'> & {
+  type?: 'single' | 'multiple';
   defaultValue?: string | string[];
   collapsible?: boolean;
 };
 
 const {
-  type = "single",
+  type = 'single',
   defaultValue,
   collapsible = true,
   class: className,
   ...rest
 } = Astro.props;
+
+const defaultValueAttribute = Array.isArray(defaultValue)
+  ? JSON.stringify(defaultValue)
+  : defaultValue;
 ---
 
-<AccordionPrimitive.Root
+<div
   class={accordion({ class: className })}
-  type={type}
-  defaultValue={defaultValue}
-  collapsible={collapsible}
-  {...rest}
+  data-sw-accordion
+  data-sw-accordion-deferred
+  data-type={type}
+  data-default-value={defaultValueAttribute}
+  data-collapsible={String(collapsible)}
+  data-state="closed"
   data-slot="accordion"
+  {...rest}
 >
   <slot />
-</AccordionPrimitive.Root>
+</div>
+
+<script>
+  import { createAccordion } from '@starwind-ui/runtime/accordion';
+
+  const READY = 'data-acc-ready';
+
+  function afterLayout(fn: () => void) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(fn);
+    });
+  }
+
+  function whenIdle(fn: () => void) {
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(() => afterLayout(fn), { timeout: 2500 });
+    } else {
+      window.setTimeout(() => afterLayout(fn), 1);
+    }
+  }
+
+  function initRoot(root: HTMLElement) {
+    if (root.hasAttribute(READY)) return;
+    root.setAttribute(READY, '');
+    afterLayout(() => {
+      createAccordion(root);
+    });
+  }
+
+  function setupAccordions() {
+    const roots = document.querySelectorAll<HTMLElement>(
+      '[data-sw-accordion-deferred]:not([data-acc-ready])',
+    );
+    if (!roots.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      roots.forEach((root) => whenIdle(() => initRoot(root)));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const root = entry.target as HTMLElement;
+          io.unobserve(root);
+          whenIdle(() => initRoot(root));
+        }
+      },
+      { rootMargin: '160px 0px' },
+    );
+
+    roots.forEach((root) => io.observe(root));
+  }
+
+  setupAccordions();
+  document.addEventListener('astro:after-swap', setupAccordions);
+  document.addEventListener('starwind:init', setupAccordions as EventListener);
+</script>

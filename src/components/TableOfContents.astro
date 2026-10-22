@@ -1,0 +1,119 @@
+---
+/**
+ * Sticky TOC with scroll-spy — uses existing blog-sidebar / primary tokens.
+ */
+import Icon from './icons/Icon.astro';
+import { Badge } from '@/components/starwind/badge';
+
+export interface TocHeading {
+  id: string;
+  text: string;
+  level: 'h2' | 'h3' | number;
+}
+
+interface Props {
+  headings: TocHeading[];
+  title?: string;
+  titleId?: string;
+  class?: string;
+}
+
+const {
+  headings,
+  title = 'In this article',
+  titleId = 'toc-title',
+  class: className,
+} = Astro.props;
+
+const h2Count = headings.filter((h) => h.level === 'h2' || h.level === 2).length;
+---
+
+{
+  headings.length > 0 && (
+    <section
+      class:list={['blog-sidebar__block', className]}
+      aria-labelledby={titleId}
+      data-toc-root
+    >
+      <h2 id={titleId} class="blog-sidebar__heading">
+        <Icon name="layers" size={14} class="text-primary" aria-hidden="true" />
+        <span class="blog-sidebar__heading-text break-words">{title}</span>
+        {h2Count > 0 && (
+          <Badge
+            variant="secondary"
+            size="sm"
+            class="h-5 shrink-0 rounded-full px-1.5 tabular-nums text-[10px]"
+          >
+            {h2Count}
+          </Badge>
+        )}
+      </h2>
+      <nav aria-label="Table of contents">
+        <ul class="blog-sidebar__toc-list" data-blog-toc>
+          {headings.map((item) => {
+            const nested = item.level === 'h3' || item.level === 3;
+            return (
+              <li class:list={[nested && 'blog-sidebar__toc-item--nested']}>
+                <button
+                  type="button"
+                  class="blog-sidebar__toc-link blog-toc-link min-w-0 text-left break-words whitespace-normal"
+                  data-toc-target={item.id}
+                  title={item.text}
+                >
+                  {item.text}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </section>
+  )
+}
+
+<script>
+  function bindToc(root: Element) {
+    const tocList = root.querySelector('[data-blog-toc]');
+    if (!tocList || tocList.hasAttribute('data-toc-bound')) return;
+    tocList.setAttribute('data-toc-bound', '');
+
+    const links = [...tocList.querySelectorAll<HTMLButtonElement>('[data-toc-target]')];
+    const headings = links
+      .map((link) => document.getElementById(link.getAttribute('data-toc-target')!))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        const id = link.getAttribute('data-toc-target');
+        if (!id) return;
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    if (!headings.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        links.forEach((link) => link.classList.remove('is-active'));
+        const active = links.find(
+          (link) => link.getAttribute('data-toc-target') === visible.target.id,
+        );
+        active?.classList.add('is-active');
+      },
+      { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.25, 0.5, 1] },
+    );
+
+    headings.forEach((heading) => observer.observe(heading));
+  }
+
+  function setup() {
+    document.querySelectorAll('[data-toc-root]').forEach(bindToc);
+  }
+
+  setup();
+  document.addEventListener('astro:after-swap', setup);
+</script>

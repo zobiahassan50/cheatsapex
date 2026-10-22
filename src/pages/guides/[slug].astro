@@ -1,0 +1,175 @@
+---
+/**
+ * Content-collection guides with silo cross-links.
+ * Matching blog slugs are 301'd to /blog/{slug}/ via redirects.mjs (no duplicate indexables).
+ * Layout reuses existing blog article classes — no new UI chrome.
+ */
+import '../../styles/blog-pages.css';
+import '../../styles/blog-sidebar.css';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { Prose } from '@/components/starwind/prose';
+import { cheatMetaDescription, pageTitle } from '../../config/seo';
+import {
+  articleSchema,
+  breadcrumbSchema,
+  parseBlogDate,
+} from '../../utils/schema';
+import { blogPostPath, normalizeInternalPath, ROUTES } from '../../utils/path';
+import { getAllBlogSlugs } from '../../data/blog';
+
+export async function getStaticPaths() {
+  const blogSlugSet = new Set(getAllBlogSlugs());
+  const guides = await getCollection('guides', ({ data }) => !data.draft);
+  return guides
+    .filter((entry) => !blogSlugSet.has(entry.id))
+    .map((entry) => ({
+      params: { slug: entry.id },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const blogSlugSet = new Set(getAllBlogSlugs());
+const { Content, headings } = await render(entry);
+const { data } = entry;
+
+const guidePath = `/guides/${entry.id}/`;
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Guides', path: '/blog/' },
+  { name: data.title, path: guidePath },
+];
+
+const allGuides = await getCollection('guides', ({ data: d }) => !d.draft);
+const pillar =
+  data.type === 'cluster' && data.parentPillar
+    ? allGuides.find((g) => g.id === data.parentPillar)
+    : undefined;
+const clusters =
+  data.type === 'pillar'
+    ? allGuides.filter((g) => g.data.type === 'cluster' && g.data.parentPillar === entry.id)
+    : [];
+
+const toc = headings
+  .filter((h) => h.depth === 2 || h.depth === 3)
+  .map((h) => ({
+    id: h.slug,
+    text: h.text,
+    level: (h.depth === 2 ? 'h2' : 'h3') as 'h2' | 'h3',
+  }));
+
+const published = parseBlogDate(data.pubDate.toISOString().slice(0, 10));
+const modified = data.updatedDate
+  ? parseBlogDate(data.updatedDate.toISOString().slice(0, 10))
+  : published;
+
+function guideHref(id: string): string {
+  if (blogSlugSet.has(id)) return blogPostPath(id);
+  return normalizeInternalPath(`/guides/${id}/`);
+}
+---
+
+<BaseLayout
+  title={pageTitle(data.title)}
+  description={cheatMetaDescription(data.description)}
+  ogType="article"
+  ogImage={data.image}
+  ogImageAlt={data.title}
+  articlePublishedTime={published}
+  articleModifiedTime={modified}
+  jsonLd={[
+    articleSchema({
+      name: data.title,
+      description: cheatMetaDescription(data.description),
+      url: guidePath,
+      image: data.image ?? '/images/gameplay/apex-esp-wallhack.png',
+      datePublished: published,
+      dateModified: modified,
+    }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <article class="py-8 md:py-12">
+    <div class="mx-auto max-w-6xl px-5">
+      <Breadcrumbs items={breadcrumbs} />
+
+      <div
+        class="blog-article__layout mt-6 grid gap-6 lg:grid-cols-[minmax(14rem,16.5rem)_minmax(0,1fr)] lg:items-start lg:gap-8 xl:grid-cols-[17.5rem_minmax(0,1fr)]"
+      >
+        <aside
+          class="blog-sidebar order-2 min-w-0 lg:sticky lg:top-[calc(var(--floating-nav-clearance)+0.5rem)] lg:order-1 lg:max-h-[calc(100vh-var(--floating-nav-clearance)-1rem)] lg:self-start lg:overflow-y-auto lg:overflow-x-hidden lg:pr-0.5"
+          aria-label="Guide sidebar"
+        >
+          <TableOfContents headings={toc} title="In this article" titleId="guide-toc-title" />
+          {
+            (pillar || clusters.length > 0) && (
+              <section class="blog-sidebar__block" aria-labelledby="guide-silo-title">
+                <h2 id="guide-silo-title" class="blog-sidebar__heading">
+                  <span class="break-words">Silo links</span>
+                </h2>
+                <ul class="blog-sidebar__list">
+                  {pillar && (
+                    <li>
+                      <a href={guideHref(pillar.id)} class="blog-sidebar__link" title={pillar.data.title}>
+                        <span class="blog-sidebar__truncate break-words whitespace-normal">
+                          Pillar: {pillar.data.title}
+                        </span>
+                      </a>
+                    </li>
+                  )}
+                  {clusters.map((c) => (
+                    <li>
+                      <a href={guideHref(c.id)} class="blog-sidebar__link" title={c.data.title}>
+                        <span class="blog-sidebar__truncate break-words whitespace-normal">
+                          {c.data.title}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )
+          }
+          <section class="blog-sidebar__block">
+            <a href={ROUTES.blog} class="blog-sidebar__link">More articles</a>
+          </section>
+        </aside>
+
+        <div class="order-1 min-w-0 lg:order-2">
+          <header class="blog-article__header">
+            <h1 class="blog-article__title">{data.title}</h1>
+            <p class="blog-article__lead">{data.description}</p>
+          </header>
+
+          <Prose class="blog-article__prose prose-headings:scroll-mt-24 max-w-none text-left">
+            {
+              data.type === 'cluster' && pillar && (
+                <p>
+                  Part of <a href={guideHref(pillar.id)}>{pillar.data.title}</a>.
+                </p>
+              )
+            }
+            {
+              data.type === 'pillar' && clusters.length > 0 && (
+                <p>
+                  Related guides in this silo:{' '}
+                  {clusters.map((c, i) => (
+                    <>
+                      {i > 0 && ', '}
+                      <a href={guideHref(c.id)}>{c.data.title}</a>
+                    </>
+                  ))}
+                  .
+                </p>
+              )
+            }
+            <Content />
+          </Prose>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
