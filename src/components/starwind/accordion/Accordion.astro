@@ -40,8 +40,7 @@ const defaultValueAttribute = Array.isArray(defaultValue)
 </div>
 
 <script>
-  import { createAccordion } from '@starwind-ui/runtime/accordion';
-
+  // client:visible — the accordion chunk loads only once the block is near the viewport.
   const READY = 'data-acc-ready';
 
   function afterLayout(fn: () => void) {
@@ -58,9 +57,19 @@ const defaultValueAttribute = Array.isArray(defaultValue)
     }
   }
 
-  function initRoot(root: HTMLElement) {
+  function rememberPanelHeights(root: HTMLElement) {
+    root.querySelectorAll<HTMLElement>('[data-sw-accordion-content]').forEach((panel) => {
+      const el = panel as HTMLElement & { __swPanelH?: number };
+      const height = panel.scrollHeight;
+      if (height > 0) el.__swPanelH = height;
+    });
+  }
+
+  async function initRoot(root: HTMLElement) {
     if (root.hasAttribute(READY)) return;
     root.setAttribute(READY, '');
+    rememberPanelHeights(root);
+    const { createAccordion } = await import('@starwind-ui/runtime/accordion');
     afterLayout(() => {
       createAccordion(root);
     });

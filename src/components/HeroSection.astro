@@ -43,7 +43,7 @@ const heroMarqueePills = [
 
   <div class="relative z-10 mx-auto flex max-w-6xl flex-col justify-center px-5">
     <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-      <div class="w-full max-w-xl space-y-6 text-left md:space-y-7 lg:max-w-2xl">
+      <div class="hero-copy w-full max-w-xl space-y-6 text-left md:space-y-7 lg:max-w-2xl">
         <Badge variant="secondary" class="uppercase tracking-wider">{h.eyebrow}</Badge>
 
         <h1 id="hero-title" class="text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
@@ -72,7 +72,7 @@ const heroMarqueePills = [
             href={t.site.discord}
             variant="secondary"
             size="lg"
-            class="rounded-xl"
+            class="hero-discord-btn min-h-12 rounded-xl"
           >
             <Icon name="messageCircle" size={18} />
             {h.ctaDiscord}
@@ -105,7 +105,12 @@ const heroMarqueePills = [
         </div>
         <div class="grid w-full grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4 lg:grid-cols-2">
           {h.metrics.map((m, i) => (
-            <div class="flex min-w-0 items-center gap-3 rounded-xl border border-primary/20 bg-card px-3 py-3 shadow-sm shadow-black/10 backdrop-blur-sm transition-none hover:border-primary/50">
+            <div
+              class:list={[
+                'hero-metric flex min-w-0 items-center gap-3 rounded-xl border border-primary/20 bg-card px-3 py-3 shadow-sm shadow-black/10 backdrop-blur-sm transition-none hover:border-primary/50',
+                m.strong === '300+' && 'hero-metric--users min-h-16',
+              ]}
+            >
               <span
                 class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#2d6ee2]/20 ring-1 ring-inset ring-[#2d6ee2]/40 text-primary"
                 aria-hidden="true"
@@ -122,7 +127,7 @@ const heroMarqueePills = [
       </div>
     </div>
 
-    <div class="hero-status-marquee relative mt-10 md:mt-12 lg:mt-14" aria-label="Features and platform support">
+    <div class="hero-status-marquee relative mt-10 min-h-[1.375rem] md:mt-12 lg:mt-14" aria-label="Features and platform support">
       <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent" aria-hidden="true" />
       <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent" aria-hidden="true" />
       <div class="hero-status-marquee-track flex w-max gap-2">

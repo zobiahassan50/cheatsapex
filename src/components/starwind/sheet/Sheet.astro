@@ -1,5 +1,4 @@
 ---
-import SheetPrimitive from "@starwind-ui/astro/drawer";
 import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"div"> & {
@@ -21,14 +20,47 @@ const {
 const rootClassName = className;
 ---
 
-<SheetPrimitive.Root
+<div
+  data-sw-drawer
+  data-default-open={defaultOpen ? 'true' : undefined}
+  data-close-on-escape={closeOnEscape ? 'true' : 'false'}
+  data-close-on-outside-interact={closeOnOutsideInteract ? 'true' : 'false'}
+  data-modal={modal ? 'true' : 'false'}
+  data-state={defaultOpen ? 'open' : 'closed'}
   class={rootClassName}
-  defaultOpen={defaultOpen}
-  closeOnEscape={closeOnEscape}
-  closeOnOutsideInteract={closeOnOutsideInteract}
-  modal={modal}
   {...rest}
   data-slot="sheet"
 >
   <slot />
-</SheetPrimitive.Root>
+</div>
+
+<script>
+  // client:idle — DrawerRoot is not on the initial module chain.
+  const READY = 'data-drawer-idle-ready';
+
+  async function mount() {
+    const { createDrawer } = await import('@starwind-ui/runtime/drawer');
+    document.querySelectorAll<HTMLElement>(`[data-sw-drawer]:not([${READY}])`).forEach((root) => {
+      root.setAttribute(READY, '');
+      requestAnimationFrame(() => {
+        createDrawer(root);
+      });
+    });
+  }
+
+  function schedule() {
+    const run = () => {
+      void mount();
+    };
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(run, { timeout: 2000 });
+    } else {
+      window.setTimeout(run, 1);
+    }
+  }
+
+  schedule();
+  document.addEventListener('astro:after-swap', schedule);
+  document.addEventListener('astro:page-load', schedule);
+  document.addEventListener('starwind:init', schedule);
+</script>

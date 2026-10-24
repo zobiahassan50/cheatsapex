@@ -1,35 +1,41 @@
 /**
- * Vite plugin: wrap Starwind collapsible panel height reads in double-rAF
- * so scrollHeight + style writes don't force synchronous reflow on the critical path.
+ * Read accordion panel height before Starwind writes styles.
+ * A scrollHeight read after those writes is the forced reflow on load.
  */
 export function accordionRafPlugin() {
   return {
     name: 'accordion-raf-scrollheight',
     transform(code, id) {
-      const isStarwind =
-        id.includes('@starwind-ui') ||
-        id.includes('starwind-ui') ||
-        id.includes('chunk-EUW5OWKV') ||
-        id.includes('collapsible-panel');
-      if (!isStarwind) return null;
-      if (!code.includes('scrollHeight')) return null;
+      if (!id.includes('@starwind-ui') && !id.includes('starwind-ui')) return null;
       if (code.includes('/* accordion-raf */')) return null;
 
-      // Exact Starwind collapsible pattern (pre-minify)
-      const next = code.replace(
-        /(\w+)\.style\.setProperty\((\w+),\s*`\$\{\1\.scrollHeight\}px`\);/g,
-        (match, el, prop) => {
-          if (match.includes('requestAnimationFrame')) return match;
-          return (
-            `/* accordion-raf */requestAnimationFrame(()=>{requestAnimationFrame(()=>{` +
-            `${el}.style.setProperty(${prop},\`\${${el}.scrollHeight}px\`);` +
-            `});});`
-          );
-        },
-      );
+      const block = [
+        'if (rendered || !initialAnimation) {',
+        '    panel.style.removeProperty("animation");',
+        '  } else {',
+        '    panel.style.setProperty("animation", initialAnimation);',
+        '  }',
+        '  if (open) {',
+        '    showElement(panel);',
+        '  }',
+        '  panel.style.setProperty(heightProperty, `${panel.scrollHeight}px`);',
+      ].join('\n');
+      if (!code.includes(block)) return null;
 
-      if (next === code) return null;
-      return { code: next, map: null };
+      const replacement = [
+        'const __swReadH = panel.__swPanelH ?? panel.scrollHeight;',
+        '  if (rendered || !initialAnimation) {',
+        '    panel.style.removeProperty("animation");',
+        '  } else {',
+        '    panel.style.setProperty("animation", initialAnimation);',
+        '  }',
+        '  if (open) {',
+        '    showElement(panel);',
+        '  }',
+        '  /* accordion-raf */panel.style.setProperty(heightProperty, `${__swReadH}px`);',
+      ].join('\n');
+
+      return { code: code.replace(block, replacement), map: null };
     },
   };
 }
