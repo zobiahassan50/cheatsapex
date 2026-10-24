@@ -98,10 +98,13 @@ const heroMarqueePills = [
             loop
             playsinline
             preload="none"
+            fetchpriority="high"
             data-hero-video
             aria-hidden="true"
             tabindex="-1"
-          ></video>
+          >
+            <source src="/videos/apex-hero.mp4" type="video/mp4" />
+          </video>
         </div>
         <div class="grid w-full grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4 lg:grid-cols-2">
           {h.metrics.map((m, i) => (
@@ -156,18 +159,11 @@ const heroMarqueePills = [
       };
 
       const start = () => {
-        if (video.querySelector('source[data-hero-src]')) {
+        video.addEventListener('playing', hidePoster, { once: true });
+        if (video.readyState >= 2) {
           void video.play().then(hidePoster).catch(() => {});
           return;
         }
-
-        // ONE format only. MP4 is smaller here (~2.1MB) than WebM (~3.5MB) at equal quality.
-        const source = document.createElement('source');
-        source.dataset.heroSrc = '1';
-        source.src = '/videos/apex-hero.mp4';
-        source.type = 'video/mp4';
-        video.appendChild(source);
-        video.addEventListener('playing', hidePoster, { once: true });
         video.load();
         void video.play().then(hidePoster).catch(() => {});
       };

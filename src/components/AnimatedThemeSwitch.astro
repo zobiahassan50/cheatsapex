@@ -27,13 +27,23 @@ const { class: className, ariaLabel = 'Toggle light and dark mode', size = 'defa
 </label>
 
 <script>
-  import { initThemeController } from '@starwind-ui/astro/theme';
-
-  const setupThemeController = () => {
+  async function setupThemeController() {
+    const { initThemeController } = await import('@starwind-ui/astro/theme');
     initThemeController();
-  };
+  }
 
-  setupThemeController();
-  document.addEventListener('astro:after-swap', setupThemeController);
-  document.addEventListener('starwind:init', setupThemeController);
+  function scheduleThemeController() {
+    const run = () => {
+      void setupThemeController();
+    };
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(run, { timeout: 2000 });
+    } else {
+      window.setTimeout(run, 1);
+    }
+  }
+
+  scheduleThemeController();
+  document.addEventListener('astro:after-swap', scheduleThemeController);
+  document.addEventListener('starwind:init', scheduleThemeController);
 </script>

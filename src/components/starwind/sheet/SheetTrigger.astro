@@ -1,5 +1,4 @@
 ---
-import SheetPrimitive from "@starwind-ui/astro/drawer";
 import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"button"> & {
@@ -25,13 +24,15 @@ const triggerClassName = className;
       <slot />
     </div>
   ) : (
-    <SheetPrimitive.Trigger
+    <button
+      type="button"
       class={triggerClassName}
-      targetId={targetId}
+      data-sw-drawer-target-id={targetId}
       {...rest}
       data-slot="sheet-trigger"
+      data-sw-drawer-trigger
     >
       <slot />
-    </SheetPrimitive.Trigger>
+    </button>
   )
 }

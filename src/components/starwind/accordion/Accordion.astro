@@ -58,9 +58,14 @@ const defaultValueAttribute = Array.isArray(defaultValue)
   }
 
   function rememberPanelHeights(root: HTMLElement) {
-    root.querySelectorAll<HTMLElement>('[data-sw-accordion-content]').forEach((panel) => {
+    const panels = root.querySelectorAll<HTMLElement>('[data-sw-accordion-content]');
+    const heights: number[] = [];
+    panels.forEach((panel) => {
+      heights.push(panel.scrollHeight);
+    });
+    panels.forEach((panel, index) => {
       const el = panel as HTMLElement & { __swPanelH?: number };
-      const height = panel.scrollHeight;
+      const height = heights[index] ?? 0;
       if (height > 0) el.__swPanelH = height;
     });
   }
@@ -68,7 +73,14 @@ const defaultValueAttribute = Array.isArray(defaultValue)
   async function initRoot(root: HTMLElement) {
     if (root.hasAttribute(READY)) return;
     root.setAttribute(READY, '');
-    rememberPanelHeights(root);
+
+    await new Promise<void>((resolve) => {
+      afterLayout(() => {
+        rememberPanelHeights(root);
+        resolve();
+      });
+    });
+
     const { createAccordion } = await import('@starwind-ui/runtime/accordion');
     afterLayout(() => {
       createAccordion(root);

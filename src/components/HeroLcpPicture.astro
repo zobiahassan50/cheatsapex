@@ -18,8 +18,8 @@ const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(10
 const poster360 = await getImage({ src: posterSrc, width: 360, format: 'webp', quality: 65 });
 const poster540 = await getImage({ src: posterSrc, width: 540, format: 'webp', quality: 65 });
 const poster720 = await getImage({ src: posterSrc, width: 720, format: 'webp', quality: 65 });
-const bg640 = await getImage({ src: heroBgSrc, width: 640, format: 'webp', quality: 29 });
-const bg960 = await getImage({ src: heroBgSrc, width: 960, format: 'webp', quality: 29 });
+const bg640 = await getImage({ src: heroBgSrc, width: 640, format: 'webp', quality: 55 });
+const bg960 = await getImage({ src: heroBgSrc, width: 960, format: 'webp', quality: 55 });
 const bg1280 = await getImage({ src: heroBgSrc, width: 1280, format: 'webp', quality: 60 });
 
 const posterSrcset = `${poster360.src} 360w, ${poster540.src} 540w, ${poster720.src} 720w`;

@@ -55,9 +55,9 @@ const s = t.features;
                         item.bullets && item.bullets.length > 0 && (
                           <ul class="space-y-2.5 text-sm text-muted-foreground">
                             {item.bullets.map((b) => (
-                              <li class="flex items-start gap-2.5">
+                              <li class="flex items-start gap-2.5 leading-snug">
                                 <Icon name="check" size={14} class="mt-0.5 shrink-0 text-primary" />
-                                <span class="leading-snug">{b}</span>
+                                {b}
                               </li>
                             ))}
                           </ul>
@@ -98,9 +98,9 @@ const s = t.features;
                         item.bullets && item.bullets.length > 0 && (
                           <ul class="space-y-2 text-sm text-muted-foreground">
                             {item.bullets.map((b) => (
-                              <li class="flex min-w-0 items-start gap-2.5">
+                              <li class="flex min-w-0 items-start gap-2.5 break-words leading-snug">
                                 <Icon name="check" size={14} class="mt-0.5 shrink-0" />
-                                <span class="min-w-0 break-words leading-snug">{b}</span>
+                                {b}
                               </li>
                             ))}
                           </ul>

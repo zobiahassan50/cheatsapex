@@ -156,7 +156,7 @@ const keywordsContent = pageKeywords
       as="font"
       type="font/woff2"
       href="https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtq.woff2"
-      crossorigin
+      crossorigin="anonymous"
       media="(min-width: 1024px)"
     />
     <link
@@ -164,9 +164,28 @@ const keywordsContent = pageKeywords
       as="font"
       type="font/woff2"
       href="https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2"
-      crossorigin
+      crossorigin="anonymous"
       media="(max-width: 1023px)"
     />
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var reveal = function () {
+          root.classList.remove('fonts-pending');
+        };
+        if (!document.fonts || !document.fonts.load) {
+          reveal();
+          return;
+        }
+        Promise.all([
+          document.fonts.load('400 1em Outfit'),
+          document.fonts.load('600 1em Outfit'),
+          document.fonts.load('700 1em Outfit'),
+        ])
+          .then(reveal)
+          .catch(reveal);
+      })();
+    </script>
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"

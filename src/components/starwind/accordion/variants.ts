@@ -6,7 +6,7 @@ export const accordion = tv({
 
 export const accordionContent = tv({
   base: [
-    "transform-gpu overflow-hidden",
+    "transform-gpu overflow-hidden pb-4 pt-0",
     "data-[state=closed]:animate-accordion-up data-[state=closed]:h-0",
     "data-[state=open]:animate-accordion-down",
   ],
