@@ -162,7 +162,7 @@ html:not(.dark) .text-muted-foreground {
 }
 
 html.fonts-pending body {
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: "Outfit Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 /* Lucide icons via Icon.astro — white in dark mode; muted + primary accents in light */
@@ -491,9 +491,6 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
 }
 
 .slide-reveal-btn:focus-visible {
@@ -511,7 +508,7 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
   color: var(--primary-foreground);
   transform: translateX(-0.25rem);
   transition:
-    color 0.3s ease,
+    opacity 0.3s ease,
     transform 0.3s ease;
 }
 
@@ -548,7 +545,7 @@ html:not(.dark) .slide-reveal-btn .slide-reveal-btn__icon .icon-app:hover {
 }
 
 .slide-reveal-btn:hover .slide-reveal-btn__text {
-  color: transparent;
+  opacity: 0;
 }
 
 .slide-reveal-btn:hover .slide-reveal-btn__icon {
@@ -864,6 +861,91 @@ html.dark .features-bento > article {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-embla-progress {
+    animation: none !important;
+  }
+}
+
+/* Sheet motion: transform + opacity only. tw-animate's exit keyframes also
+   animate filter:blur, which Lighthouse counts as a non-composited animation. */
+@keyframes sheet-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sheet-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes sheet-in-right {
+  from { opacity: 0; transform: translate3d(100%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes sheet-out-right {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to { opacity: 0; transform: translate3d(100%, 0, 0); }
+}
+@keyframes sheet-in-left {
+  from { opacity: 0; transform: translate3d(-100%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes sheet-out-left {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to { opacity: 0; transform: translate3d(-100%, 0, 0); }
+}
+@keyframes sheet-in-top {
+  from { opacity: 0; transform: translate3d(0, -100%, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes sheet-out-top {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to { opacity: 0; transform: translate3d(0, -100%, 0); }
+}
+@keyframes sheet-in-bottom {
+  from { opacity: 0; transform: translate3d(0, 100%, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes sheet-out-bottom {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to { opacity: 0; transform: translate3d(0, 100%, 0); }
+}
+
+.sheet-backdrop-motion[data-state="open"] {
+  animation: sheet-fade-in 0.5s ease-in-out;
+}
+.sheet-backdrop-motion[data-state="closed"]:not([hidden]) {
+  animation: sheet-fade-out 0.3s ease-in-out forwards;
+}
+.sheet-popup-motion[data-side="right"][data-state="open"] {
+  animation: sheet-in-right 0.5s ease-in-out;
+}
+.sheet-popup-motion[data-side="right"][data-state="closed"]:not([hidden]) {
+  animation: sheet-out-right 0.3s ease-in-out forwards;
+}
+.sheet-popup-motion[data-side="left"][data-state="open"] {
+  animation: sheet-in-left 0.5s ease-in-out;
+}
+.sheet-popup-motion[data-side="left"][data-state="closed"]:not([hidden]) {
+  animation: sheet-out-left 0.3s ease-in-out forwards;
+}
+.sheet-popup-motion[data-side="top"][data-state="open"] {
+  animation: sheet-in-top 0.5s ease-in-out;
+}
+.sheet-popup-motion[data-side="top"][data-state="closed"]:not([hidden]) {
+  animation: sheet-out-top 0.3s ease-in-out forwards;
+}
+.sheet-popup-motion[data-side="bottom"][data-state="open"] {
+  animation: sheet-in-bottom 0.5s ease-in-out;
+}
+.sheet-popup-motion[data-side="bottom"][data-state="closed"]:not([hidden]) {
+  animation: sheet-out-bottom 0.3s ease-in-out forwards;
+}
+.sheet-popup-motion[hidden],
+.sheet-backdrop-motion[hidden] {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-popup-motion,
+  .sheet-backdrop-motion {
     animation: none !important;
   }
 }

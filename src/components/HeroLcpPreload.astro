@@ -1,46 +1,49 @@
 ---
-/** Preload LCP poster (high) + hero BG (low — CSS bg, must not compete with LCP). */
+/** Preload the hero images the browser will actually request, as early as possible. */
 import { getImage } from 'astro:assets';
 import posterSrc from '../assets/hero/apex-hero-poster.jpg';
 import heroBgSrc from '../assets/hero/hero-apex.jpg';
 
-const poster360 = await getImage({
-  src: posterSrc,
-  width: 360,
-  format: 'webp',
-  quality: 65,
-});
-const poster540 = await getImage({
-  src: posterSrc,
-  width: 540,
-  format: 'webp',
-  quality: 65,
-});
-const poster720 = await getImage({
-  src: posterSrc,
-  width: 720,
-  format: 'webp',
-  quality: 65,
-});
-const bg640 = await getImage({
-  src: heroBgSrc,
-  width: 640,
-  format: 'webp',
-  quality: 55,
-});
+const poster360 = await getImage({ src: posterSrc, width: 360, format: 'webp', quality: 65 });
+const poster540 = await getImage({ src: posterSrc, width: 540, format: 'webp', quality: 65 });
+const poster720 = await getImage({ src: posterSrc, width: 720, format: 'webp', quality: 65 });
+const bg640 = await getImage({ src: heroBgSrc, width: 640, format: 'webp', quality: 55 });
+const bg960 = await getImage({ src: heroBgSrc, width: 960, format: 'webp', quality: 55 });
+const bg1280 = await getImage({ src: heroBgSrc, width: 1280, format: 'webp', quality: 60 });
 
 const posterSrcset = `${poster360.src} 360w, ${poster540.src} 540w, ${poster720.src} 720w`;
 const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
+const bgSmSrcset = `${bg640.src} 640w, ${bg960.src} 960w`;
+const bgLgSrcset = `${bg960.src} 960w, ${bg1280.src} 1280w`;
 ---
 
 <link
   rel="preload"
   as="image"
   type="image/webp"
-  href={poster540.src}
+  href={poster720.src}
   imagesrcset={posterSrcset}
   imagesizes={posterSizes}
   fetchpriority="high"
+  media="(max-width: 1023px)"
 />
-{/* Low priority — fills hero atmosphere after LCP poster paints */}
-<link rel="preload" as="image" type="image/webp" href={bg640.src} fetchpriority="low" />
+<link
+  rel="preload"
+  as="image"
+  type="image/webp"
+  href={bg960.src}
+  imagesrcset={bgSmSrcset}
+  imagesizes="100vw"
+  fetchpriority="high"
+  media="(max-width: 1023px)"
+/>
+<link
+  rel="preload"
+  as="image"
+  type="image/webp"
+  href={bg1280.src}
+  imagesrcset={bgLgSrcset}
+  imagesizes="100vw"
+  fetchpriority="high"
+  media="(min-width: 1024px)"
+/>

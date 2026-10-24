@@ -69,6 +69,8 @@ const keywordsContent = pageKeywords
 <html lang={localeMeta.hreflang} class="dark fonts-pending">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <slot name="preload" />
     <script is:inline>
       (function () {
         try {
@@ -79,7 +81,6 @@ const keywordsContent = pageKeywords
         document.documentElement.classList.add('fonts-pending');
       })();
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {keywordsContent && <meta name="keywords" content={keywordsContent} />}

@@ -57,7 +57,9 @@ export default defineConfig({
       cssCodeSplit: true,
       minify: 'esbuild',
       target: 'es2022',
-      modulePreload: { polyfill: false },
+      // Don't hoist route JS into <head>. Those modulepreload links were
+      // competing with the LCP image on the critical path.
+      modulePreload: false,
       rollupOptions: {
         output: {
           manualChunks(id) {

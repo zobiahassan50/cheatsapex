@@ -1,8 +1,9 @@
 ---
 /**
- * LCP poster via Astro Picture; hero BG via CSS background-image (avoids CLS from absolute <img>).
+ * Hero art as real <img> elements (width/height + fetchpriority).
+ * CSS backgrounds cannot take fetchpriority and were scored as the CLS/LCP node.
  */
-import { Picture, getImage } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import posterSrc from '../assets/hero/apex-hero-poster.jpg';
 import heroBgSrc from '../assets/hero/hero-apex.jpg';
 
@@ -14,43 +15,57 @@ const { variant } = Astro.props;
 
 const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(100vw - 2.5rem)';
 
-/** Mobile-first BG: 640 / 960 / 1280 — CSS background cannot use srcset, so pick one URL + image-set. */
+const poster360 = await getImage({ src: posterSrc, width: 360, format: 'webp', quality: 65 });
+const poster540 = await getImage({ src: posterSrc, width: 540, format: 'webp', quality: 65 });
+const poster720 = await getImage({ src: posterSrc, width: 720, format: 'webp', quality: 65 });
 const bg640 = await getImage({ src: heroBgSrc, width: 640, format: 'webp', quality: 55 });
 const bg960 = await getImage({ src: heroBgSrc, width: 960, format: 'webp', quality: 55 });
 const bg1280 = await getImage({ src: heroBgSrc, width: 1280, format: 'webp', quality: 60 });
 
-const cover = 'background-size:cover;background-position:center;background-repeat:no-repeat';
-const bgStyleSm = `${cover};background-image:image-set(url("${bg640.src}") 1x,url("${bg960.src}") 2x);background-image:-webkit-image-set(url("${bg640.src}") 1x,url("${bg960.src}") 2x)`;
-const bgStyleLg = `${cover};background-image:image-set(url("${bg960.src}") 1x,url("${bg1280.src}") 2x);background-image:-webkit-image-set(url("${bg960.src}") 1x,url("${bg1280.src}") 2x)`;
+const posterSrcset = `${poster360.src} 360w, ${poster540.src} 540w, ${poster720.src} 720w`;
+const bgSmSrcset = `${bg640.src} 640w, ${bg960.src} 960w`;
+const bgLgSrcset = `${bg960.src} 960w, ${bg1280.src} 1280w`;
 ---
 
 {
   variant === 'poster' ? (
-    <Picture
-      src={posterSrc}
-      formats={['webp']}
-      widths={[360, 540, 720]}
+    <img
+      src={poster720.src}
+      srcset={posterSrcset}
       sizes={posterSizes}
-      quality={65}
-      width={720}
-      height={405}
+      width="720"
+      height="405"
       alt=""
       loading="eager"
       fetchpriority="high"
-      decoding="async"
+      decoding="sync"
       class="aspect-video h-auto w-full object-cover"
     />
   ) : (
     <>
-      <div
-        class="absolute inset-0 hero-lcp-bg brightness-[0.85] dark:brightness-[0.4] lg:hidden"
-        style={bgStyleSm}
-        aria-hidden="true"
+      <img
+        src={bg960.src}
+        srcset={bgSmSrcset}
+        sizes="100vw"
+        width="960"
+        height="540"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="hero-lcp-bg hero-lcp-bg--sm brightness-[0.85] dark:brightness-[0.4] lg:hidden"
       />
-      <div
-        class="absolute inset-0 hero-lcp-bg hidden brightness-[0.85] dark:brightness-[0.4] lg:block"
-        style={bgStyleLg}
-        aria-hidden="true"
+      <img
+        src={bg1280.src}
+        srcset={bgLgSrcset}
+        sizes="100vw"
+        width="1280"
+        height="720"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="hero-lcp-bg hero-lcp-bg--lg hidden brightness-[0.85] dark:brightness-[0.4] lg:block"
       />
     </>
   )

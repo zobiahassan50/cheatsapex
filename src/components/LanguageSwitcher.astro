@@ -38,7 +38,7 @@ const options = LOCALES.map((locale) => ({
   data-language-switcher
 >
   <summary
-    class="flex h-8 w-full cursor-pointer list-none items-center justify-between gap-0.5 rounded-md border border-border/80 bg-background/50 py-1 pl-2 pr-1.5 text-[11px] font-medium leading-none text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary/40 [&::-webkit-details-marker]:hidden"
+    class="flex h-8 w-full cursor-pointer list-none items-center justify-between gap-0.5 rounded-md border border-border/80 bg-background/50 py-1 pl-2 pr-1.5 text-[11px] font-medium leading-none text-foreground outline-none transition-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary/40 [&::-webkit-details-marker]:hidden"
     aria-label="Language"
   >
     <span class="truncate">{current.nativeName}</span>
@@ -61,7 +61,7 @@ const options = LOCALES.map((locale) => ({
             data-locale={opt.code}
             data-language-option
             class:list={[
-              'block px-3 py-2 text-xs font-medium transition-colors hover:bg-muted hover:text-primary',
+              'block px-3 py-2 text-xs font-medium transition-none hover:bg-muted hover:text-primary',
               opt.selected ? 'bg-muted text-primary' : 'text-foreground',
             ]}
             aria-current={opt.selected ? 'page' : undefined}
