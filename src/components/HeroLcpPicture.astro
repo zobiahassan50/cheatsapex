@@ -18,12 +18,13 @@ const posterSizes = '(min-width: 1024px) 32rem, (min-width: 640px) 70vw, calc(10
 const poster360 = await getImage({ src: posterSrc, width: 360, format: 'webp', quality: 65 });
 const poster540 = await getImage({ src: posterSrc, width: 540, format: 'webp', quality: 65 });
 const poster720 = await getImage({ src: posterSrc, width: 720, format: 'webp', quality: 65 });
-const bg640 = await getImage({ src: heroBgSrc, width: 640, format: 'webp', quality: 55 });
+const bg640 = await getImage({ src: heroBgSrc, width: 640, format: 'webp', quality: 50 });
+const bg800 = await getImage({ src: heroBgSrc, width: 800, format: 'webp', quality: 42 });
 const bg960 = await getImage({ src: heroBgSrc, width: 960, format: 'webp', quality: 55 });
 const bg1280 = await getImage({ src: heroBgSrc, width: 1280, format: 'webp', quality: 60 });
 
 const posterSrcset = `${poster360.src} 360w, ${poster540.src} 540w, ${poster720.src} 720w`;
-const bgSmSrcset = `${bg640.src} 640w, ${bg960.src} 960w`;
+const bgSmSrcset = `${bg640.src} 640w, ${bg800.src} 800w, ${bg960.src} 960w`;
 const bgLgSrcset = `${bg960.src} 960w, ${bg1280.src} 1280w`;
 ---
 
@@ -44,15 +45,15 @@ const bgLgSrcset = `${bg960.src} 960w, ${bg1280.src} 1280w`;
   ) : (
     <>
       <img
-        src={bg960.src}
+        src={bg800.src}
         srcset={bgSmSrcset}
         sizes="100vw"
-        width="960"
-        height="540"
+        width="800"
+        height="450"
         alt=""
         loading="eager"
         fetchpriority="high"
-        decoding="async"
+        decoding="sync"
         class="hero-lcp-bg hero-lcp-bg--sm brightness-[0.85] dark:brightness-[0.4] lg:hidden"
       />
       <img
@@ -64,7 +65,7 @@ const bgLgSrcset = `${bg960.src} 960w, ${bg1280.src} 1280w`;
         alt=""
         loading="eager"
         fetchpriority="high"
-        decoding="async"
+        decoding="sync"
         class="hero-lcp-bg hero-lcp-bg--lg hidden brightness-[0.85] dark:brightness-[0.4] lg:block"
       />
     </>
